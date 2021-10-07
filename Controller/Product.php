@@ -19,6 +19,11 @@ class Product extends My_MySQLI{
         return $items; //return an array
         
     }
+    public function getTotalRow()
+    {
+        $sql = parent::$conn->prepare("SELECT COUNT(ProductID) FROM products");
+        return parent::select($sql)[0]['COUNT(ProductID)'];
+    }
     function getAllProducts($page, $perPage){
         // Tính số thứ tự trang bắt đầu
         $firstLink = ($page - 1) * $perPage;
