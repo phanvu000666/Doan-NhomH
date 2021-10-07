@@ -26,14 +26,11 @@ class Product extends My_MySQLI{
     }
     function getAllProducts($page, $perPage){
         // Tính số thứ tự trang bắt đầu
-        $firstLink = ($page - 1) * $perPage;
-        //Dùng LIMIT để giới hạn số lượng hiển thị 1 trang
-        $sql = self::$conn->prepare("SELECT * FROM products LIMIT ?, ? ");
-        $sql->bind_param('ii',$page, $perPage); //sql injection.
-        $sql->execute(); //return an object
-        $items = array();
-        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
-        return $items; //return an array
+        $start = $perPage * ($page - 1);
+        //2. Viết câu SQL
+        $sql = parent::$conn->prepare("SELECT * FROM products LIMIT ?, ?");
+        $sql->bind_param('ii', $start, $perPage);
+        return parent::select($sql);
     }
     //Viet phuong th
     function getData(){
