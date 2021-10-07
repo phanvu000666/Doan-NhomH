@@ -30,26 +30,33 @@
 
                 ?>
                 <table class="table table-bordered">
-
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col"><?= ucfirst($field['name']) ?></th>
                             <th scope="col"><?= ucfirst($field['price']) ?></th>
                             <th scope="col"><?= ucfirst($field['description']) ?></th>
+                            <th scope="col">Handle</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($proList as $key => $value) :
-                            # code...
-                        ?>
+                        <?php foreach ($proList as $key => $value) : ?>
                             <tr>
-                                <th scope="row"><?= $value['ProductID'] ?></th>
-                                <td><?= $value['ProductName'] ?></td>
-                                <td><?= $value['Price'] ?></td>
-                                <td><?= $value['Description'] ?></td>
+                                <th rowspan="2" scope="row"><?= $value['ProductID'] ?></th>
+                                <td rowspan="2"><?= $value['ProductName'] ?></td>
+                                <td rowspan="2"><?= $value['Price'] ?></td>
+                                <td rowspan="2"><?= $value['Description'] ?></td>
+                                <td>
+                                    <a href="./handle.php?id=<?= encodeID($value['ProductID'])  ?>&handle=delete">Delete</a>
+                                </td>
                             </tr>
-                        <?php endforeach ?>
+                            <tr>
+                                <td>
+                                    <a href="./handle.php?id=<?= encodeID($value['ProductID'])  ?>">Edit</a>
+                                </td>
+                            </tr>
+                        <?php
+                        endforeach ?>
                     </tbody>
 
                 </table>
@@ -57,9 +64,16 @@
             </div>
         </div>
     </div>
+    <?php
+    function encodeID($id)
+    {
+        $randomFirst = random_int(1000, 9999);
+        $randomTail =  random_int(1000, 9999);
+        return $randomFirst . $id . $randomTail;
+    }
+    ?>
     <!-- Latest jQuery form server -->
     <script src="https://code.jquery.com/jquery.min.js"></script>
-
     <!-- Bootstrap JS form CDN -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>

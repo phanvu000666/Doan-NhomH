@@ -11,4 +11,11 @@ class Product extends My_PDO
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    function deleteProduct($id)
+    {
+        $stmt = self::$conn->prepare("DELETE FROM products WHERE ProductID = ?");
+        $stmt->bindParam(1, $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
