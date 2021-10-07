@@ -23,7 +23,8 @@ class Product extends My_MySQLI{
         // Tính số thứ tự trang bắt đầu
         $firstLink = ($page - 1) * $perPage;
         //Dùng LIMIT để giới hạn số lượng hiển thị 1 trang
-        $sql = self::$connection->prepare("SELECT * FROM products LIMIT $firstLink, $perPage");
+        $sql = self::$conn->prepare("SELECT * FROM products LIMIT ?, ? ");
+        $sql->bind_param('ii',$page, $perPage); //sql injection.
         $sql->execute(); //return an object
         $items = array();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
