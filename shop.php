@@ -2,7 +2,7 @@
 require 'Controller/Product.php';
 $product = new Product();
 $products = $product->getData();
-$products = $product->getAllProducts();
+//$products = $product->getAllProducts();
 ?>
 <!DOCTYPE html>
 <!--
@@ -167,6 +167,7 @@ $products = $product->getAllProducts();
                         </div>                       
                     </div>";
                     echo '<br><h1>'.$product->paginate($url, $total, $page, $perPage).'</h1>';
+                    
                     ?>
                 </div>  
             </div>
