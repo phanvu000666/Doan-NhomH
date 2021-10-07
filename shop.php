@@ -1,8 +1,16 @@
 <?php
 require 'Controller/Product.php';
+require 'Controller/Pagination.php';
 $product = new Product();
 $products = $product->getData();
 //$products = $product->getAllProducts();
+$totalRow = $product->getTotalRow();
+$perPage = 3;
+$page = 1;
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
+}
+$pageLinks = Pagination::createPageLinks($totalRow, $perPage, $page);
 ?>
 <!DOCTYPE html>
 <!--
@@ -153,7 +161,8 @@ $products = $product->getData();
                         $getData=$product->getAllProducts($page,$perPage);   
                         $total = count($getData);       
                         foreach ($getData as $key => $value) 
-                    echo"<div class='single-shop-product'>
+                    echo"<div class='col-md-4'>
+                    <div class='single-shop-product'>
                         <div class='product-upper'>
                             <img src='pictures/".$getData[$key]['ImageUrl']."' style='width:220px;height:220px;'>
                         </div>
@@ -164,37 +173,12 @@ $products = $product->getData();
                         
                         <div class='product-option-shop'>
                             <a class='add_to_cart_button' data-quantity='1' data-product_sku='' data-product_id='70' rel='nofollow' href='/canvas/shop/?add-to-cart=70'>Add to cart</a>
-                        </div>                       
+                        </div>   
+                        </div>              
                     </div>";
-                    echo '<br><h1>'.$product->paginate($url, $total, $page, $perPage).'</h1>';
-                    
+                    echo $pageLinks;
                     ?>
                 </div>  
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="product-pagination text-center">
-                        <nav>
-                          <ul class="pagination">
-                            <li>
-                              <a href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                              </a>
-                            </li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li>
-                              <a href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                              </a>
-                            </li>
-                          </ul>
-                        </nav>                        
-                    </div>
-                </div>
             </div>
         </div>
     </div>
