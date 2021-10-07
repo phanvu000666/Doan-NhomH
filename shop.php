@@ -123,11 +123,11 @@ $pageLinks = Pagination::createPageLinks($totalRow, $perPage, $page);
                 </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li class="active"><a href="shop.html">Shop page</a></li>
-                        <li><a href="single-product.html">Single product</a></li>
-                        <li><a href="cart.html">Cart</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
+                        <li class="active"><a href="index.php">Home</a></li>
+                        <li><a href="shop.php">Shop page</a></li>
+                        <li><a href="single-product.php">Single product</a></li>
+                        <li><a href="cart.php">Cart</a></li>
+                        <li><a href="checkout.php">Checkout</a></li>
                         <li><a href="#">Category</a></li>
                         <li><a href="#">Others</a></li>
                         <li><a href="#">Contact</a></li>
@@ -155,18 +155,14 @@ $pageLinks = Pagination::createPageLinks($totalRow, $perPage, $page);
             <div class="row">
                 <div class="col-md-12">
                 <?php
-                        if(isset($_GET['page'])) {$page=$_GET['page'];} else {$page=1;}                        
-                        $perPage = 3;
-                        $url = $_SERVER['PHP_SELF']; 
-                        $getData=$product->getAllProducts($page,$perPage);   
-                        $total = count($getData);       
+                        $getData=$product->getAllProducts($page,$perPage);      
                         foreach ($getData as $key => $value) 
                     echo"<div class='col-md-4'>
                     <div class='single-shop-product'>
                         <div class='product-upper'>
                             <img src='pictures/".$getData[$key]['ImageUrl']."' style='width:220px;height:220px;'>
                         </div>
-                        <h2><a href=''>".($getData[$key]['ProductName'])."</a></h2>
+                        <h2><a href='single-product.php?id=".$getData[$key]['ProductID']."'>".($getData[$key]['ProductName'])."</a></h2>
                         <div class='product-carousel-price'>
                         <h2>".number_format($getData[$key]['Price'])." VND</h2>
                         </div>  
