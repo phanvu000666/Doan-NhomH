@@ -13,5 +13,12 @@ class My_MySQLI{
         
         return self::$conn;
     }
+    public function select($sql)
+    {
+        $items = [];
+        $sql->execute();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items;
+    }
 }
 ?>
