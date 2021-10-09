@@ -1,8 +1,6 @@
 <?php
 require 'Controller/Product.php';
-require 'Controller/Manufacturers.php';
 $product = new Product();
-$manufactures = new Manufactures();
 ?>
 <!DOCTYPE html>
 <!--

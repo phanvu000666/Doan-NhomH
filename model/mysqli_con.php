@@ -9,7 +9,6 @@ class My_MySQLI{
         if (!self::$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        echo "Connected successfully";
         
         return self::$conn;
     }

@@ -4,7 +4,7 @@ require "./model/mysqli_con.php";
 
 class Product extends My_MySQLI{
     function getDataDuaVaoID($id){
-        $sql = self::$connection->prepare("SELECT * FROM products WHERE ProductID = $id");
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductID = $id");
         $sql->execute();//return an object
         $items = array();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);

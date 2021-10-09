@@ -1,8 +1,13 @@
 <?php
+session_start();
 require 'Controller/Product.php';
 $product = new Product();
 $products = $product->getSPNoiBat();
-
+//tiến hành kiểm tra là người dùng đã đăng nhập hay chưa
+//nếu chưa, chuyển hướng người dùng ra lại trang đăng nhập
+if (!isset($_SESSION['username'])) {
+	 header('Location: login.php');
+}
 ?>
 <!DOCTYPE html>
 <!--
@@ -41,18 +46,18 @@ $products = $product->getSPNoiBat();
     <![endif]-->
   </head>
   <body>
-   
+ User: <?php echo $_SESSION['username'];  ?> đã đăng nhập thành công !
     <div class="header-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="view_user.php"><i class="fa fa-user"></i> My Account</a></li>
+                            <li><a href="cart.php"><i class="fa fa-user"></i> My Cart</a></li>
+                            <li><a href="checkout.php"><i class="fa fa-user"></i> Checkout</a></li>
+                            <li><a href="Login.php"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="Logout.php"><i class="fa fa-user"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
