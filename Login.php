@@ -16,6 +16,7 @@ session_start();
             font-size:14px;
          }
          .box {
+			 padding-right: 20px;
             border:#666666 solid 1px;
          }
       </style>
