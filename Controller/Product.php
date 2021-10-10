@@ -71,4 +71,21 @@ class Product extends My_MySQLI{
         return $items; //return an array
 
     }
+
+    public function countAll(){
+     $sql = "SELECT * FROM products";
+    $result = self::$conn->query($sql);
+    return $result->num_rows;
+    }
+    function Search_Paginate($start, $litmit){
+        $sql = self::$conn->prepare("SELECT * FROM products LIMIT $start, $litmit");
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+
+
+    }
+
+
 }
