@@ -6,7 +6,7 @@ $keyword = '';
 if (!empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
     $Search = $product->Search($keyword);
-    //var_dump($Search);
+    var_dump($Search);
 }
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 $limit = 5;
@@ -18,9 +18,9 @@ if ($current_page > $total_pages) {
     $current_page = 1;
 }
 $start = ($current_page - 1) * $limit;
-$result = $product->Search_Paginate($start, $limit);
+$result = $product->Search_Paginate($start, $limit,$keyword);
 //var_dump($result);
-var_dump($total_rows);
+//var_dump($total_rows);
 
 
 ?>

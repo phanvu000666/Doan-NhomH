@@ -77,8 +77,10 @@ class Product extends My_MySQLI{
     $result = self::$conn->query($sql);
     return $result->num_rows;
     }
-    function Search_Paginate($start, $litmit){
-        $sql = self::$conn->prepare("SELECT * FROM products LIMIT $start, $litmit");
+    function Search_Paginate($start, $litmit,$keyword){
+        $key="%$keyword%";
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? LIMIT $start,$litmit");
+        $sql-> bind_param('s',$key);
         $sql->execute();//return an object
         $items = array();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
