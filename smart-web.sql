@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 12, 2021 at 06:30 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.4
+-- Máy chủ: 127.0.0.1:3306
+-- Thời gian đã tạo: Th10 06, 2021 lúc 03:08 PM
+-- Phiên bản máy phục vụ: 10.4.10-MariaDB
+-- Phiên bản PHP: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,23 +19,25 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `smart-web`
+-- Cơ sở dữ liệu: `smart-web`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
-CREATE TABLE `categories` (
-  `CategoryID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `CategoryID` int(11) NOT NULL AUTO_INCREMENT,
   `CategoryName` varchar(255) NOT NULL,
-  `Position` int(11) DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `Position` int(11) DEFAULT 0,
+  PRIMARY KEY (`CategoryID`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
 INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Position`) VALUES
@@ -43,16 +46,18 @@ INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Position`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `manufacturers`
+-- Cấu trúc bảng cho bảng `manufacturers`
 --
 
-CREATE TABLE `manufacturers` (
-  `ManufacturerID` int(11) NOT NULL,
-  `ManufacturerName` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `manufacturers`;
+CREATE TABLE IF NOT EXISTS `manufacturers` (
+  `ManufacturerID` int(11) NOT NULL AUTO_INCREMENT,
+  `ManufacturerName` varchar(255) NOT NULL,
+  PRIMARY KEY (`ManufacturerID`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `manufacturers`
+-- Đang đổ dữ liệu cho bảng `manufacturers`
 --
 
 INSERT INTO `manufacturers` (`ManufacturerID`, `ManufacturerName`) VALUES
@@ -65,34 +70,12 @@ INSERT INTO `manufacturers` (`ManufacturerID`, `ManufacturerName`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Cấu trúc bảng cho bảng `products`
 --
 
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_product` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `created_at` date NOT NULL DEFAULT current_timestamp(),
-  `updated_at` date NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `id_user`, `id_product`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 42, 1001, 2, '2021-10-08', '2021-10-19'),
-(10, 42, 1006, 1, '2021-10-12', '2021-10-12');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `products`
---
-
-CREATE TABLE `products` (
-  `ProductID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE IF NOT EXISTS `products` (
+  `ProductID` int(11) NOT NULL AUTO_INCREMENT,
   `ManufacturerID` int(11) NOT NULL,
   `CategoryID` int(11) NOT NULL,
   `ProductName` varchar(255) NOT NULL,
@@ -101,11 +84,14 @@ CREATE TABLE `products` (
   `Quantity` int(11) NOT NULL DEFAULT 0,
   `Description` varchar(1000) NOT NULL,
   `Origin` text NOT NULL,
-  `Feature` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `Feature` int(11) NOT NULL,
+  PRIMARY KEY (`ProductID`),
+  KEY `ManufacturerID` (`ManufacturerID`),
+  KEY `CategoryID` (`CategoryID`)
+) ENGINE=MyISAM AUTO_INCREMENT=1015 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `products`
+-- Đang đổ dữ liệu cho bảng `products`
 --
 
 INSERT INTO `products` (`ProductID`, `ManufacturerID`, `CategoryID`, `ProductName`, `ImageUrl`, `Price`, `Quantity`, `Description`, `Origin`, `Feature`) VALUES
@@ -127,134 +113,43 @@ INSERT INTO `products` (`ProductID`, `ManufacturerID`, `CategoryID`, `ProductNam
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Cấu trúc bảng cho bảng `users`
 --
 
-CREATE TABLE `users` (
-  `UserID` int(11) NOT NULL,
-  `UserTypeID` int(11) DEFAULT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserTypeID` int(11) NOT NULL,
   `FullName` varchar(255) NOT NULL,
   `UserName` varchar(20) NOT NULL,
   `PassWord` varchar(32) NOT NULL,
-  `Email` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`UserID`, `UserTypeID`, `FullName`, `UserName`, `PassWord`, `Email`) VALUES
-(42, 1, 'admin', 'admin', 'admin', 'admin@gmail.com'),
-(43, NULL, 'Hoang Vu', 'vu', 'vu1234', 'vu@gmail.com'),
-(44, NULL, 'Hoàng Vũ', 'hoangvuff', '1', 'vu2k1@gmail.com'),
-(45, NULL, 'Quốc Tuấn', 'tuan', 'tuan', 'tuan@gmail.com'),
-(46, NULL, 'Hoàng Vũ', 'hoangvu', 'vu', 'vu2k11@gmail.com'),
-(47, NULL, 'Hoàng Vũ', 'Phanhoangvu622', 'vu', 'a'),
-(48, NULL, 'tuan', 'tuanbo', '1', 'tuan1@gmail.com');
+  `Email` varchar(50) NOT NULL,
+  PRIMARY KEY (`UserID`),
+  UNIQUE KEY `UserName` (`UserName`),
+  UNIQUE KEY `Email` (`Email`),
+  KEY `GroupID` (`UserTypeID`)
+) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usertype`
+-- Cấu trúc bảng cho bảng `usertype`
 --
 
-CREATE TABLE `usertype` (
-  `UserTypeID` int(11) NOT NULL,
-  `UserTypeName` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `usertype`;
+CREATE TABLE IF NOT EXISTS `usertype` (
+  `UserTypeID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserTypeName` varchar(50) NOT NULL,
+  PRIMARY KEY (`UserTypeID`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `usertype`
+-- Đang đổ dữ liệu cho bảng `usertype`
 --
 
 INSERT INTO `usertype` (`UserTypeID`, `UserTypeName`) VALUES
 (1, 'Admin'),
 (2, 'User');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`CategoryID`);
-
---
--- Indexes for table `manufacturers`
---
-ALTER TABLE `manufacturers`
-  ADD PRIMARY KEY (`ManufacturerID`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`ProductID`),
-  ADD KEY `ManufacturerID` (`ManufacturerID`),
-  ADD KEY `CategoryID` (`CategoryID`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`UserID`),
-  ADD UNIQUE KEY `UserName` (`UserName`),
-  ADD UNIQUE KEY `Email` (`Email`),
-  ADD KEY `GroupID` (`UserTypeID`);
-
---
--- Indexes for table `usertype`
---
-ALTER TABLE `usertype`
-  ADD PRIMARY KEY (`UserTypeID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `CategoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `manufacturers`
---
-ALTER TABLE `manufacturers`
-  MODIFY `ManufacturerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1015;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-
---
--- AUTO_INCREMENT for table `usertype`
---
-ALTER TABLE `usertype`
-  MODIFY `UserTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
