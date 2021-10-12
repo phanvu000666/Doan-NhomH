@@ -19,5 +19,6 @@ class My_MySQLI{
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items;
     }
+  
 }
 ?>

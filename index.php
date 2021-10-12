@@ -1,13 +1,15 @@
 <?php
 session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+}
 require 'Controller/Product.php';
 $product = new Product();
 $products = $product->getSPNoiBat();
+$total = $product->getTotal();
 //tiến hành kiểm tra là người dùng đã đăng nhập hay chưa
 //nếu chưa, chuyển hướng người dùng ra lại trang đăng nhập
-if (!isset($_SESSION['username'])) {
-	 header('Location: login.php');
-}
+
 ?>
 <!DOCTYPE html>
 <!--
@@ -76,7 +78,7 @@ if (!isset($_SESSION['username'])) {
                 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart.php">Cart - <span class="cart-amunt">$<?php echo number_format($total[0]) ?></span> <i class="fa fa-shopping-cart"></i> <span class="product-count"><?php echo $total[1] ?></span></a>
                     </div>
                 </div>
             </div>
@@ -203,7 +205,7 @@ if (!isset($_SESSION['username'])) {
                                 <div class="product-f-image ">
                                     <img src="pictures/<?php echo $value['ImageUrl']?>" alt="" style="width:220px;height:280px;">
                                     <div class="product-hover">
-                                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="updateOrder.php?id=<?php echo $value["ProductID"]?>&action=3" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
                                         <a href="single-product.php?id=<?=  $value['ProductID']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                     </div>
                                 </div>

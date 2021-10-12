@@ -42,12 +42,15 @@ session_start();
 		}else{
 			$sql = "select * from users where username = '$username' and password = '$password' ";
 			$query = mysqli_query($conn,$sql);
+			
 			$num_rows = mysqli_num_rows($query);
+			$row = $query->fetch_assoc();
 			if ($num_rows==0) {
 				$error = "Tên đăng nhập hoặc mật khẩu không đúng !";
 			}else{
 				//tiến hành lưu tên đăng nhập vào session để tiện xử lý sau này
 				$_SESSION['username'] = $username;
+				$_SESSION['id_user'] = $row['UserID'];
                 // Thực thi hành động sau khi lưu thông tin vào session
                 // ở đây mình tiến hành chuyển hướng trang web tới một trang gọi là index.php
                 echo '<script language="javascript">alert("Logged in successfully!"); window.location="index.php";</script>';
