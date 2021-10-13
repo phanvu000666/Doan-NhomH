@@ -56,4 +56,6 @@ class Pagination
             </nav>';
         return $output;
     }
+    //========================
+
 }
