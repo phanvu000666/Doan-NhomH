@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <h2>Form Add Product</h2>
 <!-- check any errors or missing -->
 <?php if ($missing || $errors) : ?>
-    <p class="warning">Please fix the item(s) indicated</p>
+    <p class="warning">Please fix the item(s) indicated </p>
 <?php endif ?>
 
 <form method="post" action="<?= $currenPage ?>">
