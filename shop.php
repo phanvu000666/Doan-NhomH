@@ -35,7 +35,6 @@ $result = $product->Search_Paginate($start, $limit, $keyword);
 
 
 ?>
-?>
 <!DOCTYPE html>
 <!--
 	ustora by freshdesignweb.com
