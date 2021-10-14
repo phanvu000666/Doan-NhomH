@@ -57,7 +57,6 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
     <link rel="stylesheet" href="css/owl.carousel.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="../css/style.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -76,9 +75,10 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                     <ul>
                         <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
                         <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                        <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                        <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
+                        <li><a href="cart.php"><i class="fa fa-user"></i> My Cart</a></li>
+                        <li><a href="checkout.php"><i class="fa fa-user"></i> Checkout</a></li>
                         <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                        <li><a href="logout.php"><i class="fa fa-user"></i> Logout </a></li>
                     </ul>
                 </div>
             </div>
@@ -146,11 +146,11 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="index.html">Home</a></li>
-                    <li><a href="shop.html">Shop page</a></li>
-                    <li><a href="single-product.html">Single product</a></li>
-                    <li><a href="cart.html">Cart</a></li>
-                    <li><a href="checkout.html">Checkout</a></li>
+                    <li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="shop.php">Shop page</a></li>
+                    <li><a href="single-product.php">Single product</a></li>
+                    <li><a href="cart.php">Cart</a></li>
+                    <li><a href="checkout.php">Checkout</a></li>
                     <li><a href="#">Category</a></li>
                     <li><a href="#">Others</a></li>
                     <li><a href="#">Contact</a></li>
@@ -267,16 +267,16 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                             ?>
                             <div class="single-product">
                                 <div class="product-f-image">
-                                    <img src="pictures/<?php echo $value['ImageUrl'] ?>" alt="">
+                                    <img src="pictures/<?php echo $value['ImageUrl'] ?>" alt="" style="width:220px;height:280px;">
                                     <div class="product-hover">
                                         <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
                                             cart</a>
-                                        <a href="single-product.html" class="view-details-link"><i
+                                        <a href="single-product.php" class="view-details-link"><i
                                                     class="fa fa-link"></i> See details</a>
                                     </div>
                                 </div>
 
-                                <h2><a href="single-product.html"><?php echo $value['ProductName'] ?></a></h2>
+                                <h2><a href="single-product.php"><?php echo $value['ProductName'] ?></a></h2>
 
                                 <div class="product-carousel-price">
                                     <ins><?php echo $value['Price'] ?></ins>
@@ -314,8 +314,6 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                                     }
                                 }
                                 ?>
-
-
                                 <li class="page-item">
                                     <a class="page-link" href="#" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>

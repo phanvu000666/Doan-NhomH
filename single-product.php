@@ -46,11 +46,12 @@ $product = new Product();
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                        <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+                        <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
+                        <li><a href="cart.php"><i class="fa fa-user"></i> My Cart</a></li>
+                        <li><a href="checkout.php"><i class="fa fa-user"></i> Checkout</a></li>
+                        <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                        <li><a href="logout.php"><i class="fa fa-user"></i> Logout </a></li>
                         </ul>
                     </div>
                 </div>
@@ -113,14 +114,14 @@ $product = new Product();
                 </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="shop.php">Shop page</a></li>
-                        <li><a href="single-product.php">Single product</a></li>
-                        <li><a href="cart.php">Cart</a></li>
-                        <li><a href="checkout.php">Checkout</a></li>
-                        <li><a href="#">Category</a></li>
-                        <li><a href="#">Others</a></li>
-                        <li><a href="#">Contact</a></li>
+                    <li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="shop.php">Shop page</a></li>
+                    <li><a href="single-product.php">Single product</a></li>
+                    <li><a href="cart.php">Cart</a></li>
+                    <li><a href="checkout.php">Checkout</a></li>
+                    <li><a href="#">Category</a></li>
+                    <li><a href="#">Others</a></li>
+                    <li><a href="#">Contact</a></li>
                     </ul>
                 </div>  
             </div>
