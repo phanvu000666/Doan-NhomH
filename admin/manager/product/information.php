@@ -1,3 +1,9 @@
+<?php
+#include utilities.php.
+include 'utilities.php';
+phpinfo();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,19 +22,15 @@
         <!-- Content here -->
         <div class="row">
             <div class="col-xs-4">
-                <?php
-                include 'form.php';
-                ?>
+
             </div>
             <div class="col-xs-8">
                 <h2 class="text-center">Display Information Of Products</h2>
-                <?php
-                include '../../controller/product.php';
-                $product = new Product();
-                $proList = $product->getInfor();
-                //var_dump($proList);
 
-                ?>
+                <button type="button" class="btn btn-primary btn-lg pull-right" style="margin: 10px 0px">Add</button>
+
+
+                <?php $proList = $product->getInfor(); ?>
                 <table class="table table-bordered">
                     <thead>
                         <tr>

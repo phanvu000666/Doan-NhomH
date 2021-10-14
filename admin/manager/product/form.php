@@ -6,26 +6,10 @@ if ($currenPage !== htmlentities($_SERVER['PHP_SELF'])) {
     //exit;
 
 }
-//add files
-include '../../controller/manufacture.php';
-include '../../controller/category.php';
-//initilize controller
-$manu = new Manufacture();
-$cate = new Category();
+// require utilities.php
+require 'utilities.php';
 
-//field names
-$field = [
-    'name' => 'name',
-    'price' => 'price',
-    'quantity' => 'quantity',
-    'description' => 'description',
-    'origin' => 'origin',
-    'manufacture' => 'manufacture',
-    'category' => 'category'
-];
-//error and missing arrays.
-$errors = [];
-$missing = [];
+//check $_POST Sended to page.
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //list expected fields
     $expected = ['product_name', 'price', 'quantity', 'description', 'origin', 'manufactures', 'categories'];
