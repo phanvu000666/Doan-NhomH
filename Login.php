@@ -16,7 +16,6 @@ session_start();
             font-size:14px;
          }
          .box {
-			 padding-right: 20px;
             border:#666666 solid 1px;
          }
       </style>
@@ -43,7 +42,9 @@ session_start();
 		}else{
 			$sql = "select * from users where username = '$username' and password = '$password' ";
 			$query = mysqli_query($conn,$sql);
+			
 			$num_rows = mysqli_num_rows($query);
+			$row = $query->fetch_assoc();
 			if ($num_rows==0) {
 				$error = "Tên đăng nhập hoặc mật khẩu không đúng !";
 			}else{

@@ -1,7 +1,6 @@
 <?php
 require "./model/config.php";
 require "./model/mysqli_con.php";
-
 class Product extends My_MySQLI{
     function getDataDuaVaoID($id){
         $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductID = $id");
@@ -46,5 +45,49 @@ class Product extends My_MySQLI{
         $link ="";
         for($j=1; $j <= $totalLinks ; $j++) $link = $link."<a href='$url?page=$j'> $j </a>";
         return $link;
+    }
+    function getTotal(){
+        $idUser = $_SESSION['id_user'];
+        $sql = self::$conn->prepare("SELECT * FROM `orders` INNER JOIN products on products.ProductID = orders.id_product  WHERE orders.id_user = $idUser");
+        $sql->execute();
+        $items = array();
+        $total = 0;
+        $count = 0;
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        foreach ($items as $key => $value){
+            $count+=1;
+            $total = $total + $items[$key]['quantity']*$items[$key]['Price'];
+        }
+        return [$total, $count];
+    }
+
+    //==================
+    function Search($keyword)
+    {
+        $key="%$keyword%";
+        //var_dump(self::$conn);
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? ");
+        $sql-> bind_param('s',$key);
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        //var_dump($items);
+        return $items; //return an array
+
+    }
+
+    public function countAll(){
+        $sql = "SELECT * FROM products";
+        $result = self::$conn->query($sql);
+        return $result->num_rows;
+    }
+    function Search_Paginate($start, $litmit,$keyword){
+        $key="%$keyword%";
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? LIMIT $start,$litmit");
+        $sql-> bind_param('s',$key);
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
     }
 }

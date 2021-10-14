@@ -56,4 +56,35 @@ class Pagination
             </nav>';
         return $output;
     }
+
+    function Search($keyword)
+    {
+        $key="%$keyword%";
+        //var_dump(self::$conn);
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? ");
+        $sql-> bind_param('s',$key);
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        //var_dump($items);
+        return $items; //return an array
+
+    }
+
+    public function countAll(){
+        $sql = "SELECT * FROM products";
+        $result = self::$conn->query($sql);
+        return $result->num_rows;
+    }
+    function Search_Paginate($start, $litmit,$keyword){
+        $key="%$keyword%";
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? LIMIT $start,$litmit");
+        $sql-> bind_param('s',$key);
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+
+
+    }
 }

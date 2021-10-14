@@ -28,8 +28,6 @@ h6 {
 }
 body { font-family:Arial, Helvetica, sans-serif; }
 
-
-
 .header-area {
     background: none repeat scroll 0 0 #f4f4f4;
 }
@@ -1119,5 +1117,13 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
 .single-shop-product {margin-bottom: 50px}
 
 .pagination > li > a, .pagination > li > span {
-  color: #5a88ca;
+    color: #5a88ca;
+}
+.pagination.pagination-center{
+    margin: 0 450px;
+}
+.pagination.justify-content-center
+{
+    padding-left: 0px;
+    background: brown;
 }
