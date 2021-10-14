@@ -1,7 +1,14 @@
 <?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+}
 require 'Controller/Product.php';
 $product = new Product();
 $products = $product->getSPNoiBat();
+$total = $product->getTotal();
+//tiến hành kiểm tra là người dùng đã đăng nhập hay chưa
+//nếu chưa, chuyển hướng người dùng ra lại trang đăng nhập
 
 ?>
 <!DOCTYPE html>
@@ -41,18 +48,18 @@ $products = $product->getSPNoiBat();
     <![endif]-->
   </head>
   <body>
-   
+ User: <?php echo $_SESSION['username'];  ?> đã đăng nhập thành công !
     <div class="header-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="view_user.php"><i class="fa fa-user"></i> My Account</a></li>
+                            <li><a href="cart.php"><i class="fa fa-user"></i> My Cart</a></li>
+                            <li><a href="checkout.php"><i class="fa fa-user"></i> Checkout</a></li>
+                            <li><a href="Login.php"><i class="fa fa-user"></i> Login</a></li>
+                            <li><a href="Logout.php"><i class="fa fa-user"></i> Logout</a></li>
                         </ul>
                     </div>
                 </div>
@@ -71,7 +78,7 @@ $products = $product->getSPNoiBat();
                 
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
+                        <a href="cart.php">Cart - <span class="cart-amunt">$<?php echo number_format($total[0]) ?></span> <i class="fa fa-shopping-cart"></i> <span class="product-count"><?php echo $total[1] ?></span></a>
                     </div>
                 </div>
             </div>
@@ -198,7 +205,7 @@ $products = $product->getSPNoiBat();
                                 <div class="product-f-image ">
                                     <img src="pictures/<?php echo $value['ImageUrl']?>" alt="" style="width:220px;height:280px;">
                                     <div class="product-hover">
-                                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
+                                        <a href="updateOrder.php?id=<?php echo $value["ProductID"]?>&action=3" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to cart</a>
                                         <a href="single-product.php?id=<?=  $value['ProductID']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                     </div>
                                 </div>
