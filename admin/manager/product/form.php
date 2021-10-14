@@ -1,4 +1,5 @@
 <?php
+phpinfo();
 //Check current page.  against xss.
 $currenPage = '/admin/manager/product/form.php';
 if ($currenPage !== htmlentities($_SERVER['PHP_SELF'])) {
