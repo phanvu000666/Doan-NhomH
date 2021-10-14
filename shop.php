@@ -20,7 +20,7 @@ if (!empty($_GET['keyword'])) {
     //var_dump($Search);
 }
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 3;
+$limit = 6;
 $total_rows = $product->countAll();
 $total_pages = ceil($total_rows / $limit);
 if ($current_page > $total_pages) {

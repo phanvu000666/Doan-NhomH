@@ -285,6 +285,44 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                             </div>
                         <?php } ?>
                     </div>
+                    <div class="pagination">
+                        <nav class="pagination-center" aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+
+                                <?php if ($current_page > 1 && $total_pages > 1) { ?>
+                                    <li class="page-item disabled">
+                                        <a class="page-link" aria-label="Previous"
+                                           href="index.php?page=<?= ($current_page - 1) ?>">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <?php
+                                // Lặp khoảng giữa
+                                for ($i = 1;
+                                     $i <= $total_pages;
+                                     $i++) {
+                                    // Nếu là trang hiện tại thì hiển thị thẻ span
+                                    // ngược lại hiển thị thẻ a
+                                    if ($i == $current_page) { ?>
+                                        <li class="page-item"><a class="page-link" href="#"><?= $i ?></a></li>
+                                    <?php } else { ?>
+                                        <li class="page-item"><a class="page-link" href="
+                                                         index.php?page=<?= $i ?>"><?= $i ?></a></li>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
