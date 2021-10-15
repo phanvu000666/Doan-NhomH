@@ -48,15 +48,15 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="admin/css/bootstrap.min.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="admin.css/font-awesome.min.css">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="admin/css/owl.carousel.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="admin/css/responsive.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -91,13 +91,13 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
         <div class="row">
             <div class="col-sm-6">
                 <div class="logo">
-                    <h1><a href="./"><img src="img/logo.png"></a></h1>
+                    <h1><a href="./"><img src="admin/images/logo.png"></a></h1>
                 </div>
             </div>
 
             <div class="col-sm-6">
                 <div class="shopping-item">
-                    <a href="cart.html">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i>
+                    <a href="cart.php">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i>
                         <span class="product-count">5</span></a>
                 </div>
             </div>
@@ -153,7 +153,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
     <div class="block-slider block-slider4">
         <ul class="" id="bxslider-home4">
             <li>
-                <img src="img/h4-slide.png" alt="Slide">
+                <img src="admin/images/h4-slide.png" alt="Slide">
                 <div class="caption-group">
                     <h2 class="caption title">
                         iPhone <span class="primary">6 <strong>Plus</strong></span>
@@ -471,7 +471,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                         </div>
                     </div>
                     <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt=""
+                        <a href="single-product.html"><img src="admin/images/product-thumb-1.jpg" alt=""
                                                            class="product-thumb"></a>
                         <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
                         <div class="product-wid-rating">
@@ -584,17 +584,17 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <!-- jQuery sticky menu -->
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.sticky.js"></script>
+<script src="admin/js/owl.carousel.min.js"></script>
+<script src="admin/js/jquery.sticky.js"></script>
 
 <!-- jQuery easing -->
-<script src="js/jquery.easing.1.3.min.js"></script>
+<script src="admin/js/jquery.easing.1.3.min.js"></script>
 
 <!-- Main Script -->
-<script src="js/main.js"></script>
+<script src="admin/js/main.js"></script>
 
 <!-- Slider -->
-<script type="text/javascript" src="js/bxslider.min.js"></script>
-<script type="text/javascript" src="js/script.slider.js"></script>
+<script type="text/javascript" src="admin/js/bxslider.min.js"></script>
+<script type="text/javascript" src="admin/js/script.slider.js"></script>
 </body>
 </html>
