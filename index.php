@@ -10,7 +10,7 @@ $keyword = '';
 if (!empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
     $Search = $product->Search($keyword);
-    //var_dump($Search);
+    var_dump($Search);
 }
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 $limit = 5;
@@ -200,7 +200,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                                 <div class="product-f-image">
                                     <img src="pictures/<?php echo $value['ImageUrl'] ?>" alt="" style="width:220px;height:280px;">
                                     <div class="product-hover">
-                                        <a href="cart.php" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
+                                        <a href="updateOrder.php?id=<?php echo $value["ProductID"]?>&action=3" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
                                             cart</a>
                                             <a href="single-product.php?id=<?=  $value['ProductID']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                     </div>
@@ -266,14 +266,11 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
             <div class="col-md-12">
                 <div class="brand-wrapper">
                     <div class="brand-list">
-                        <img src="img/brand1.png" alt="">
-                        <img src="img/brand2.png" alt="">
-                        <img src="img/brand3.png" alt="">
-                        <img src="img/brand4.png" alt="">
-                        <img src="img/brand5.png" alt="">
-                        <img src="img/brand6.png" alt="">
-                        <img src="img/brand1.png" alt="">
-                        <img src="img/brand2.png" alt="">
+                        <img src="pictures/iphone.png" alt=""style="width:220px;height:120px;">
+                        <img src="pictures/samsung.png" alt=""style="width:220px;height:120px;">
+                        <img src="pictures/oppo.png" alt=""style="width:220px;height:120px;">
+                        <img src="pictures/xiaomi.png" alt=""style="width:220px;height:120px;">
+                        <img src="pictures/nokia.jpg" alt=""style="width:220px;height:120px;">
                     </div>
                 </div>
             </div>
@@ -290,7 +287,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                     <h2 class="product-wid-title">Top Sellers</h2>
                     <a href="" class="wid-view-more">View All</a>
                     <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
+                        <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt=""
                                                            class="product-thumb"></a>
                         <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
                         <div class="product-wid-rating">
@@ -306,7 +303,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                         </div>
                     </div>
                     <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
+                        <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt=""
                                                            class="product-thumb"></a>
                         <h2><a href="single-product.html">Apple new mac book 2015</a></h2>
                         <div class="product-wid-rating">
@@ -322,7 +319,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                         </div>
                     </div>
                     <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
+                        <a href="single-product.html"><img src="img/product-thumb-3.jpg" alt=""
                                                            class="product-thumb"></a>
                         <h2><a href="single-product.html">Apple new i phone 6</a></h2>
                         <div class="product-wid-rating">
@@ -360,7 +357,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                         </div>
                     </div>
                     <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
+                        <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt=""
                                                            class="product-thumb"></a>
                         <h2><a href="single-product.html">Sony Smart Air Condtion</a></h2>
                         <div class="product-wid-rating">
@@ -376,7 +373,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                         </div>
                     </div>
                     <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
+                        <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt=""
                                                            class="product-thumb"></a>
                         <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
                         <div class="product-wid-rating">
@@ -430,7 +427,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                         </div>
                     </div>
                     <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
+                        <a href="single-product.html"><img src="admin/images/product-thumb-1.jpg" alt=""
                                                            class="product-thumb"></a>
                         <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
                         <div class="product-wid-rating">
