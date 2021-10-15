@@ -241,7 +241,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                                 <div class="product-f-image">
                                     <img src="pictures/<?php echo $value['ImageUrl'] ?>" alt="" style="width:220px;height:280px;">
                                     <div class="product-hover">
-                                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
+                                        <a href="updateOrder.php?id=<?php echo $value["ProductID"]?>&action=3" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
                                             cart</a>
                                             <a href="single-product.php?id=<?=  $value['ProductID']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                     </div>
@@ -307,14 +307,11 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
             <div class="col-md-12">
                 <div class="brand-wrapper">
                     <div class="brand-list">
-                        <img src="img/brand1.png" alt="">
-                        <img src="img/brand2.png" alt="">
-                        <img src="img/brand3.png" alt="">
-                        <img src="img/brand4.png" alt="">
-                        <img src="img/brand5.png" alt="">
-                        <img src="img/brand6.png" alt="">
-                        <img src="img/brand1.png" alt="">
-                        <img src="img/brand2.png" alt="">
+                        <img src="pictures/iphone.png" alt=""style="width:220px;height:120px;">
+                        <img src="pictures/samsung.png" alt=""style="width:220px;height:120px;">
+                        <img src="pictures/oppo.png" alt=""style="width:220px;height:120px;">
+                        <img src="pictures/xiaomi.png" alt=""style="width:220px;height:120px;">
+                        <img src="pictures/nokia.jpg" alt=""style="width:220px;height:120px;">
                     </div>
                 </div>
             </div>
