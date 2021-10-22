@@ -10,7 +10,7 @@ $keyword = '';
 if (!empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
     $Search = $product->Search($keyword);
-    var_dump($Search);
+    //var_dump($Search);
 }
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 $limit = 5;
@@ -150,47 +150,6 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
 
 <div class="slider-area">
     <!-- Slider -->
-    <div class="block-slider block-slider4">
-        <ul class="" id="bxslider-home4">
-            <li>
-                <img src="admin/images/h4-slide.png" alt="Slide">
-                <div class="caption-group">
-                    <h2 class="caption title">
-                        iPhone <span class="primary">6 <strong>Plus</strong></span>
-                    </h2>
-                    <h4 class="caption subtitle">Dual SIM</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                </div>
-            </li>
-            <li><img src="img/h4-slide2.png" alt="Slide">
-                <div class="caption-group">
-                    <h2 class="caption title">
-                        by one, get one <span class="primary">50% <strong>off</strong></span>
-                    </h2>
-                    <h4 class="caption subtitle">school supplies & backpacks.*</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                </div>
-            </li>
-            <li><img src="img/h4-slide3.png" alt="Slide">
-                <div class="caption-group">
-                    <h2 class="caption title">
-                        Apple <span class="primary">Store <strong>Ipod</strong></span>
-                    </h2>
-                    <h4 class="caption subtitle">Select Item</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                </div>
-            </li>
-            <li><img src="img/h4-slide4.png" alt="Slide">
-                <div class="caption-group">
-                    <h2 class="caption title">
-                        Apple <span class="primary">Store <strong>Ipod</strong></span>
-                    </h2>
-                    <h4 class="caption subtitle">& Phone</h4>
-                    <a class="caption button-radius" href="#"><span class="icon"></span>Shop now</a>
-                </div>
-            </li>
-        </ul>
-    </div>
     <!-- ./Slider -->
 </div> <!-- End slider area -->
 
@@ -436,7 +395,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                     <h2 class="product-wid-title">Top New</h2>
                     <a href="#" class="wid-view-more">View All</a>
                     <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-3.jpg" alt=""
+                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
                                                            class="product-thumb"></a>
                         <h2><a href="single-product.html">Apple new i phone 6</a></h2>
                         <div class="product-wid-rating">
