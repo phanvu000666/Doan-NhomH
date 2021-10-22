@@ -1,3 +1,12 @@
+<?php
+require 'Controller/order.php';
+require 'Controller/Pagination.php';
+$orders = new Order();
+
+
+?>
+
+
 <!DOCTYPE html>
 <!--
 	ustora by freshdesignweb.com
@@ -42,11 +51,12 @@
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
-                            <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
-                            <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
-                            <li><a href="cart.html"><i class="fa fa-user"></i> My Cart</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                        <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
+                        <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
+                        <li><a href="cart.php"><i class="fa fa-user"></i> My Cart</a></li>
+                        <li><a href="checkout.php"><i class="fa fa-user"></i> Checkout</a></li>
+                        <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                        <li><a href="logout.php"><i class="fa fa-user"></i> Logout </a></li>
                         </ul>
                     </div>
                 </div>
@@ -78,30 +88,12 @@
         </div>
     </div> <!-- End header area -->
     
-    <div class="site-branding-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="logo">
-                        <h1><a href="./"><img src="img/logo.png"></a></h1>
-                    </div>
-                </div>
-                
-                <div class="col-sm-6">
-                    <div class="shopping-item">
-                        <a href="cart.html">Cart - <span class="cart-amunt">$800</span> <i class="fa fa-shopping-cart"></i> <span class="product-count">5</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> <!-- End site branding area -->
-    
     <div class="mainmenu-area">
         <div class="container">
             <div class="row">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
+                        <span class="sr-only">Toggle navigation</span>Ì 
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -109,14 +101,14 @@
                 </div> 
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="shop.html">Shop page</a></li>
-                        <li><a href="single-product.html">Single product</a></li>
-                        <li class="active"><a href="cart.html">Cart</a></li>
-                        <li><a href="checkout.html">Checkout</a></li>
-                        <li><a href="#">Category</a></li>
-                        <li><a href="#">Others</a></li>
-                        <li><a href="#">Contact</a></li>
+                    <li class="active"><a href="index.php">Home</a></li>
+                    <li><a href="shop.php">Shop page</a></li>
+                    <li><a href="single-product.php">Single product</a></li>
+                    <li><a href="cart.php">Cart</a></li>
+                    <li><a href="checkout.php">Checkout</a></li>
+                    <li><a href="#">Category</a></li>
+                    <li><a href="#">Others</a></li>
+                    <li><a href="#">Contact</a></li>
                     </ul>
                 </div>  
             </div>
@@ -192,7 +184,7 @@
                         </ul>
                     </div>
                 </div>
-                
+                <!-- DANH SÁCH SẢN PHẨM ORDER -->
                 <div class="col-md-8">
                     <div class="product-content-right">
                         <div class="woocommerce">
@@ -209,35 +201,44 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="cart_item">
-                                            <td class="product-remove">
-                                                <a title="Remove this item" class="remove" href="#">×</a> 
-                                            </td>
+                                        <!-- ITEM ORDER -->
+                                        <?php
+                                        $getData=$orders->getDataOrder();      
+                                        foreach ($getData as $key => $value)
+                                            echo "
+                                            <tr class='cart_item'>
+                                                <td class='product-remove'>
+                                                    <a href='updateOrder.php?id=".$getData[$key]['id']."&action=2' title='Remove this item' class='remove' href='#'>×</a> 
+                                                </td>
 
-                                            <td class="product-thumbnail">
-                                                <a href="single-product.html"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="img/product-thumb-2.jpg"></a>
-                                            </td>
+                                                <td class='product-thumbnail'>
+                                                    <a href='single-product.html'><img width='145' height='145' alt='poster_1_up' class='shop_thumbnail' src='pictures/".$getData[$key]['ImageUrl']."'></a>
+                                                </td>
 
-                                            <td class="product-name">
-                                                <a href="single-product.html">Ship Your Idea</a> 
-                                            </td>
+                                                <td class='product-name'>
+                                                    <a href='single-product.html'>".$getData[$key]['ProductName']."</a> 
+                                                </td>
 
-                                            <td class="product-price">
-                                                <span class="amount">£15.00</span> 
-                                            </td>
-
-                                            <td class="product-quantity">
-                                                <div class="quantity buttons_added">
-                                                    <input type="button" class="minus" value="-">
-                                                    <input type="number" size="4" class="input-text qty text" title="Qty" value="1" min="0" step="1">
-                                                    <input type="button" class="plus" value="+">
-                                                </div>
-                                            </td>
-
-                                            <td class="product-subtotal">
-                                                <span class="amount">£15.00</span> 
-                                            </td>
-                                        </tr>
+                                                <td class='product-price'>
+                                                    <span class='amount'>£".number_format($getData[$key]['Price'])."</span> 
+                                                </td>
+                                                <td class='product-quantity'>
+                                                    <div class='quantity buttons_added'>
+                                                        <a href='updateOrder.php?id=".$getData[$key]['id']."&number=".$getData[$key]['quantity']."&action=0' class='font-weight-bold'>
+                                                            <b> ▼ </b>
+                                                        </a>
+                                                        <b id='idOrder' value='".$getData[$key]['id']."'> ".$getData[$key]['quantity']." </b>
+                                                        <b id='numberQuantity' value='".$getData[$key]['quantity']."'></b>
+                                                        <a href='updateOrder.php?id=".$getData[$key]['id']."&number=".$getData[$key]['quantity']."&action=1' class='font-weight-bold'>
+                                                        <b> ▲ </b>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class='product-subtotal'>
+                                                    <span class='amount'>£".number_format($getData[$key]['Price'] * $getData[$key]['quantity'])."</span> 
+                                                </td>
+                                            </tr>"; ?>
+                                      <!-- END ITEM ORDER -->
                                         <tr>
                                             <td class="actions" colspan="6">
                                                 <div class="coupon">
@@ -677,4 +678,14 @@
     <!-- Main Script -->
     <script src="js/main.js"></script>
   </body>
+<script>
+    function msg() {
+        var id = document.getElementById('idOrder').getAttribute('value');
+        var number = document.getElementById('numberQuantity').getAttribute('value');
+       
+        alert("Hello world!"+ number+" "+id);
+    }
+</script>   
+
+
 </html>
