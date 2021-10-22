@@ -1127,3 +1127,14 @@ div.cart-collaterals ul.products li.product:hover .add_to_cart_button{background
     padding-left: 0px;
     background: brown;
 }
+
+/* Dang Nhap*/
+html {
+    height: 100%;
+}
+body {
+    margin:0;
+    padding:0;
+    font-family: sans-serif;
+    background: linear-gradient(#141e30, #243b55);
+}
