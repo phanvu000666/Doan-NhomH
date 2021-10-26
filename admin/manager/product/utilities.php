@@ -2,15 +2,12 @@
 //add files
 include '../../factory/factory.php';
 
-//global $id;
-//global $id;
-session_start();
 //initilize model
-$factory = new Factory();
-//
-$manufactures = $factory->make('manufacture');
-$categories = $factory->make('category');
-$products = $factory->make('product');
+// $factory = new Factory();
+// //
+// $manufactures = $factory->make('manufacture');
+// $categories = $factory->make('category');
+// $products = $factory->make('product');
 //field names
 $field = [
     'name' => 'name',

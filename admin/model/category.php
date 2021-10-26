@@ -1,26 +1,30 @@
 <?php
+
+use SmartWeb\DataBase\Product\Model;
+
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-require_once("{$base_dir}model{$ds}pdo_con.php");
+require_once("{$base_dir}model{$ds}db.php");
 
-class Category extends My_PDO
+use SmartWeb\DataBase\DB;
+
+class Category extends Model
 {
-    private static $category;
-
-    public static function getInstance()
+    private static Category $cate;
+    public static function getInstance(DB $db)
     {
-        if (self::$category) {
-            return self::$category;
+        if (empty($cate)) {
+            self::$cate = new self($db);
         }
-        self::$category = new self();
-        return self::$category;
+        return self::$cate;
     }
-    function getNames()
+    public function select($sql, array $param = null)
     {
-        $stmt = parent::getInstance()->prepare("SELECT CategoryID, CategoryName FROM categories");
-        $stmt->execute();
-        $result = array();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $this->db->select($sql, $param);
+    }
+
+    public function delete($sql, array $param = null)
+    {
+        return $this->db->select($sql, $param);
     }
 }
