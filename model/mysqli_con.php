@@ -12,7 +12,7 @@ class My_MySQLI{
         
         return self::$conn;
     }
-    public function select($sql)
+    public static function select($sql)
     {
         $items = [];
         $sql->execute();
@@ -21,4 +21,3 @@ class My_MySQLI{
     }
   
 }
-?>

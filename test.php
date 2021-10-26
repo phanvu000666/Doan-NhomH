@@ -1,35 +1,67 @@
 <?php
-
-abstract class Base
+//01
+abstract class Employee
 {
-    protected static $temp = null;
-    function __construct()
+    protected $name;
+    private static $types = ['Minion', 'CluedUp', 'WellConnected'];
+    public function __construct(string $name)
     {
-        self::$temp = null;
+        $this->name = $name;
+    }
+    public static function recruit(string $name)
+    {
+        $num = rand(1, count(self::$types)) - 1;
+        $class = __NAMESPACE__ . "\\" . self::$types[$num];
+        return new $class($name);
+    }
+    abstract public function fire();
+}
+//02
+class Minion extends Employee
+{
+    public function fire()
+    {
+        print "{$this->name} : I'll clear my desk<br>";
     }
 }
-
-class User extends Base
+//06
+// new Employee class...
+class CluedUp extends Employee
 {
-    static function  print()
+    public function fire()
     {
-        if (static::$temp == null) {
-            static::$temp = "user";
+        print "{$this->name}: I'll call my lawyer<br>";
+    }
+}
+//03
+class NastyBoss
+{
+    private $employees = [];
+    public function addEmployee(Employee $employee)
+    {
+        $this->employees[] = $employee;
+    }
+    public function projectFails()
+    {
+        if (count($this->employees) > 0) {
+            $emp = array_pop($this->employees);
+            $emp->fire();
         }
-        echo static::$temp;
     }
 }
-
-class Bank extends Base
+//08
+class WellConnected extends Employee
 {
-    static function print()
+    public function fire()
     {
-        if (static::$temp == null) {
-            static::$temp = "bank";
-        }
-        echo static::$temp;
+        print "{$this->name}: I'll call my dad\n";
     }
 }
+//07
+// listing 09.10
+$boss = new NastyBoss();
+$boss->addEmployee(Employee::recruit("harry"));
+$boss->addEmployee(Employee::recruit("bob"));
+$boss->addEmployee(Employee::recruit("mary"));
 
-User::print();
-Bank::print();
+//
