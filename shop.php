@@ -35,15 +35,7 @@ $result = $product->Search_Paginate($start, $limit, $keyword);
 
 
 ?>
-<?php include_once("view/header.php"); ?>
-<div class="search">
-    <form action="shop.php" method="get">
-        <input type="text" name="keyword" class="searchTerm" placeholder="search..." <?php echo $keyword ?>>
-        <button type="submit" class="searchButton">
-            <i class="fa fa-search"></i>
-        </button>
-    </form>
-</div>
+<?php include_once("view/header.php"); ?> <br>
 <div class="product-big-title-area">
     <div class="container">
         <div class="row">

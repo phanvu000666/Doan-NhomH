@@ -20,7 +20,7 @@ $result = $product->Search($keyword);
 <!-- header -->
 <?php include_once("view/header.php"); ?>
 <!-- form_search -->
-<?php include_once("view/product/form_search.php"); ?>
+
 <!-- slide -->
 <?php include_once("view/slider.php"); ?>
 <!-- Hiển thị search -->
