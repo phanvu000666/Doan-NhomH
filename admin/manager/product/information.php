@@ -1,8 +1,17 @@
 <?php
-#include utilities.php.
-include 'utilities.php';
 
+use SmartWeb\Controller\ManufactureController;
+use SmartWeb\Controller\ProductController;
+use SmartWeb\Controller\CategoryController;
 
+include_once "../../controller/product-controller.php";
+include_once "../../controller/manu-controller.php";
+include_once "../../controller/cate-controller.php";
+include "utilities.php";
+$display = new ProductController;
+$manu = new ManufactureController;
+$cate = new CategoryController;
+$display->delete();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +22,6 @@ include 'utilities.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
 </head>
 
@@ -22,16 +30,15 @@ include 'utilities.php';
     <div class="container">
         <!-- Content here -->
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-4">
                 <!-- dang de trong -->
             </div>
-            <div class="col-xs-8">
+            <div class="col-8">
                 <h2 class="text-center">Display Information Of Products</h2>
                 <!-- nut bam mo form -->
                 <button type="button" id="btn-product" class="btn btn-primary float-right my-2" data-toggle="modal" data-target="#myModel">
                     Add
                 </button>
-                <?php $proList = $products->getInfor(); ?>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -44,24 +51,7 @@ include 'utilities.php';
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($proList as $key => $value) : ?>
-                            <tr>
-                                <th rowspan="2" scope="row"><?= $value['ProductID'] ?></th>
-                                <th rowspan="2" scope="row"><img class="img-thumbnail mx-auto img-fluid" src="../../images/<?= $value['ImageUrl'] ?>" alt="Hinh san pham"></th>
-                                <td rowspan="2"><?= $value['ProductName'] ?></td>
-                                <td rowspan="2"><?= $value['Price'] ?></td>
-                                <td rowspan="2"><?= $value['Description'] ?></td>
-                                <td>
-                                    <a href="./handle.php?id=<?= encodeID($value['ProductID'])  ?>&handle=delete">Delete</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="button" id="<?= encodeID($value['ProductID'])  ?>" value="Edit" class="edit-data" data-toggle="modal" data-target="#myModel">
-                                </td>
-                            </tr>
-                        <?php
-                        endforeach ?>
+                        <?= $display->display_products() ?>
                     </tbody>
                 </table>
             </div>
@@ -84,9 +74,6 @@ include 'utilities.php';
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?php
-                    echo $_SERVER['PHP_SELF'];
-                    ?>
                     <form action="" id="fproduct" enctype="multipart/form-data">
                         <p>
                             <label for="name">
@@ -122,29 +109,13 @@ include 'utilities.php';
                             <label for="manufacture">
                                 Manufacture prodcut
                             </label>
-                            <select name="manufactures" id="manufactures">
-                                <option value="">Selected one</option>
-                                <?php
-                                $row = $manufactures->getNames();
-                                foreach ($row as $key => $value) :
-                                ?>
-                                    <option value="<?= $value['ManufacturerID'] ?>"><?= $value['ManufacturerName'] ?></option>
-                                <?php endforeach ?>
-                            </select>
+                            <?= $manu->display_manu(); ?>
                         </p>
                         <p>
                             <label for="category">
                                 Category product
                             </label>
-                            <select name="categories" id="categories">
-                                <option value="">Selected one</option>
-                                <?php
-                                $row = $categories->getNames();
-                                foreach ($row as $key => $value) :
-                                ?>
-                                    <option value="<?= $value['CategoryID'] ?>"><?= $value['CategoryName'] ?></option>
-                                <?php endforeach ?>
-                            </select>
+                            <?= $cate->display_cate(); ?>
                         </p>
                         <p>
                             <input type="file" name="image" id="image">
@@ -181,14 +152,6 @@ include 'utilities.php';
         </div>
     </div>
 
-    <?php
-    function encodeID($id)
-    {
-        $randomFirst = random_int(1000, 9999);
-        $randomTail =  random_int(1000, 9999);
-        return $randomFirst . $id . $randomTail;
-    }
-    ?>
     <!-- Latest jQuery form server -->
     <script src="https://code.jquery.com/jquery.min.js"></script>
     <!-- Bootstrap JS form CDN -->
@@ -279,12 +242,6 @@ include 'utilities.php';
             function IsJsonString(str) {
                 try {
                     var obj = JSON.parse(str);
-
-                    // More strict checking     
-                    // if (obj && typeof obj === "object") {
-                    //    return true;
-                    // }
-
                 } catch (e) {
                     return false;
                 }
