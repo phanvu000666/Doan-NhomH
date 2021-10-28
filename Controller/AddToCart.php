@@ -1,6 +1,5 @@
 <?php
-
-class AddToCart
+class AddToCart extends My_MySQLI
 {
 
 }

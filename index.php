@@ -26,6 +26,10 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
 //var_dump($result);
 //var_dump($total_rows);
 
+if (isset($_POST['add']))
+{
+
+}
 
 ?>
 <!DOCTYPE html>
@@ -97,7 +101,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
 
             <div class="col-sm-6">
                 <div class="shopping-item">
-                    <a href="cart.php">Cart - <span class="cart-amunt">$100</span> <i class="fa fa-shopping-cart"></i>
+                    <a href="cart.php">Cart  <span class="cart-amunt"></span> <i class="fa fa-shopping-cart"></i>
                         <span class="product-count">5</span></a>
                 </div>
             </div>
@@ -200,7 +204,7 @@ $result = $product->Search_Paginate($start, $limit,$keyword);
                                 <div class="product-f-image">
                                     <img src="pictures/<?php echo $value['ImageUrl'] ?>" alt="" style="width:220px;height:280px;">
                                     <div class="product-hover">
-                                        <a href="updateOrder.php?id=<?php echo $value["ProductID"]?>&action=3" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
+                                        <a href="AddToCart.php?id=<?php echo $value["ProductID"]?>" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
                                             cart</a>
                                             <a href="single-product.php?id=<?=  $value['ProductID']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                     </div>

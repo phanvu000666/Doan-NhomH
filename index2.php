@@ -1,33 +1,57 @@
 <?php
 session_start();
-if (!isset($_SESSION['username'])) {
+require_once('./PHP/component.php');
+if ( ! isset($_SESSION['username'])) {
     header('Location: login.php');
 }
-require 'Controller/Product.php';
+include 'Controller/Product.php';
 $product = new Product();
 $sanphan = $product->getData();
 $keyword = '';
-if (!empty($_GET['keyword'])) {
+if ( ! empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
-    $Search = $product->Search($keyword);
+    $Search  = $product->Search($keyword);
     //var_dump($Search);
 }
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 5;
-$total_rows = $product->countAll();
-$total_pages = ceil($total_rows / $limit);
+$limit        = 5;
+$total_rows   = $product->countAll();
+$total_pages  = ceil($total_rows / $limit);
 if ($current_page > $total_pages) {
     $current_page = $total_pages;
 } elseif ($current_page < 1) {
     $current_page = 1;
 }
 $start = ($current_page - 1) * $limit;
-$result = $product->Search_Paginate($start, $limit,$keyword);
+
+$result    = $product->Search_Paginate($start, $limit, $keyword);
+$productID = $product->getID();
+
+//var_dump($productID);
+
 //var_dump($result);
 //var_dump($total_rows);
 
-if (isset($_POST['add']))
-{
+if (isset($_POST['add'])) {
+    if (isset($_SESSION['cart'])) {
+        $item_array_id = array_column($_SESSION['cart'], "prductID");
+        if (in_array($_POST['productID'], $item_array_id)) {
+            echo "<script>alert('Sản phẩm đã tồn tại trong giỏ hàng !!!')</script>";
+            echo "<script>window.location='index2.php'</script>";
+        } else {
+            $count      = count($_SESSION['cart']);
+            $id = $_POST['productID'];
+            $item_array = ['prductID' => $id];
+            //var_dump($_POST);
+            $_SESSION['cart'][$count] = $item_array;
+            $_SESSION['quanlity'][$id] =1;
+        }
+    } else {
+        $id = $_POST['productID'];
+        $item_array          = ['prductID' => $id];
+        $_SESSION['cart'][0] = $item_array;
+        $_SESSION['quanlity'][$id] =1;
+    }
 
 }
 
@@ -46,16 +70,22 @@ if (isset($_POST['add']))
     <title>Shop SmartPhone</title>
 
     <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet'
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600'
+          rel='stylesheet'
           type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300'
+          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Raleway:400,100'
+          rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="admin/css/bootstrap.min.css">
 
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="admin.css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="admin/css/owl.carousel.css">
@@ -92,18 +122,18 @@ if (isset($_POST['add']))
 
 <div class="site-branding-area">
     <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="logo">
-                    <h1><a href="./"><img src="admin/images/logo.png"></a></h1>
-                </div>
-            </div>
+        <div class="col-sm-12">
+            <div class="shopping-item">
+                <a href="cart2.php">Cart <i class="fa fa-shopping-cart"></i></a>
+                <?php
+                if (isset($_SESSION['cart'])) {
+                    $count = count($_SESSION['cart']);
+                    echo "<span class='text-warning bg-light' id='cart_count'> $count</span>";
+                } else {
+                    echo "<span class='text-warning bg-light' id='cart_count'>0</span>";
+                }
+                ?>
 
-            <div class="col-sm-6">
-                <div class="shopping-item">
-                    <a href="cart.php">Cart  <span class="cart-amunt"></span> <i class="fa fa-shopping-cart"></i>
-                        <span class="product-count">5</span></a>
-                </div>
             </div>
         </div>
     </div>
@@ -113,7 +143,8 @@ if (isset($_POST['add']))
     <div class="container">
         <div class="row">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <button type="button" class="navbar-toggle"
+                        data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -142,7 +173,8 @@ if (isset($_POST['add']))
     width: 70%;
     margin-top: 20px;
     /* border-top: 81px; */
-    margin-left: 200px;" type="text" name="keyword" class="searchTerm" placeholder="search..." <?php echo $keyword ?> >
+    margin-left: 200px;" type="text" name="keyword" class="searchTerm"
+                   placeholder="search..." <?php echo $keyword ?> >
             <button type="submit" class="searchButton">
                 <i class="fa fa-search"></i>
             </button>
@@ -198,15 +230,18 @@ if (isset($_POST['add']))
                     <h2 class="section-title">Latest Products</h2>
                     <div class="product-carousel">
                         <?php foreach ($result as $key => $value) {
-                            //var_dump($value);
+
                             ?>
                             <div class="single-product">
                                 <div class="product-f-image">
-                                    <img src="pictures/<?php echo $value['ImageUrl'] ?>" alt="" style="width:220px;height:280px;">
+                                    <img src="pictures/<?php echo $value['ImageUrl'] ?>" alt=""
+                                         style="width:220px;height:280px;">
                                     <div class="product-hover">
-                                        <a href="AddToCart.php?id=<?php echo $value["ProductID"]?>" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
+                                        <a href="AddToCart.php?id=<?php echo $value["ProductID"] ?>"
+                                           class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
                                             cart</a>
-                                            <a href="single-product.php?id=<?=  $value['ProductID']?>" class="view-details-link"><i class="fa fa-link"></i> See details</a>
+                                        <a href="single-product.php?id=<?= $value['ProductID'] ?>"
+                                           class="view-details-link"><i class="fa fa-link"></i> See details</a>
                                     </div>
                                 </div>
 
@@ -216,6 +251,15 @@ if (isset($_POST['add']))
                                     <ins><?php echo $value['Price'] ?></ins>
                                     <del><?php echo $value['Price'] ?></del>
                                 </div>
+                                <form action="index2.php" method="post">
+                                    <button type="submit" name="add"
+                                            class="btn btn-warning my3">Add to
+                                        Cart <i
+                                                class="fa fa-shopping-cart"></i>
+                                    </button>
+                                    <input type="hidden" name="productID"
+                                           value=<?= $value['ProductID'] ?>>
+                                </form>
                             </div>
                         <?php } ?>
                     </div>
@@ -270,11 +314,16 @@ if (isset($_POST['add']))
             <div class="col-md-12">
                 <div class="brand-wrapper">
                     <div class="brand-list">
-                        <img src="pictures/iphone.png" alt=""style="width:220px;height:120px;">
-                        <img src="pictures/samsung.png" alt=""style="width:220px;height:120px;">
-                        <img src="pictures/oppo.png" alt=""style="width:220px;height:120px;">
-                        <img src="pictures/xiaomi.png" alt=""style="width:220px;height:120px;">
-                        <img src="pictures/nokia.jpg" alt=""style="width:220px;height:120px;">
+                        <img src="pictures/iphone.png" alt=""
+                             style="width:220px;height:120px;">
+                        <img src="pictures/samsung.png" alt=""
+                             style="width:220px;height:120px;">
+                        <img src="pictures/oppo.png" alt=""
+                             style="width:220px;height:120px;">
+                        <img src="pictures/xiaomi.png" alt=""
+                             style="width:220px;height:120px;">
+                        <img src="pictures/nokia.jpg" alt=""
+                             style="width:220px;height:120px;">
                     </div>
                 </div>
             </div>
@@ -290,167 +339,39 @@ if (isset($_POST['add']))
                 <div class="single-product-widget">
                     <h2 class="product-wid-title">Top Sellers</h2>
                     <a href="" class="wid-view-more">View All</a>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt=""
-                                                           class="product-thumb"></a>
-                        <h2><a href="single-product.html">Sony Smart TV - 2015</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins>
-                            <del>$425.00</del>
-                        </div>
-                    </div>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt=""
-                                                           class="product-thumb"></a>
-                        <h2><a href="single-product.html">Apple new mac book 2015</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins>
-                            <del>$425.00</del>
-                        </div>
-                    </div>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-3.jpg" alt=""
-                                                           class="product-thumb"></a>
-                        <h2><a href="single-product.html">Apple new i phone 6</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins>
-                            <del>$425.00</del>
-                        </div>
-                    </div>
+                    <?php
+                    component();
+                    component();
+                    component();
+                    ?>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="single-product-widget">
                     <h2 class="product-wid-title">Recently Viewed</h2>
                     <a href="#" class="wid-view-more">View All</a>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
-                                                           class="product-thumb"></a>
-                        <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins>
-                            <del>$425.00</del>
-                        </div>
-                    </div>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-1.jpg" alt=""
-                                                           class="product-thumb"></a>
-                        <h2><a href="single-product.html">Sony Smart Air Condtion</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins>
-                            <del>$425.00</del>
-                        </div>
-                    </div>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-2.jpg" alt=""
-                                                           class="product-thumb"></a>
-                        <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins>
-                            <del>$425.00</del>
-                        </div>
-                    </div>
+                    <?php
+                    component();
+                    component();
+                    component();
+                    ?>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="single-product-widget">
                     <h2 class="product-wid-title">Top New</h2>
                     <a href="#" class="wid-view-more">View All</a>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
-                                                           class="product-thumb"></a>
-                        <h2><a href="single-product.html">Apple new i phone 6</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins>
-                            <del>$425.00</del>
-                        </div>
-                    </div>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="img/product-thumb-4.jpg" alt=""
-                                                           class="product-thumb"></a>
-                        <h2><a href="single-product.html">Samsung gallaxy note 4</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins>
-                            <del>$425.00</del>
-                        </div>
-                    </div>
-                    <div class="single-wid-product">
-                        <a href="single-product.html"><img src="admin/images/product-thumb-1.jpg" alt=""
-                                                           class="product-thumb"></a>
-                        <h2><a href="single-product.html">Sony playstation microsoft</a></h2>
-                        <div class="product-wid-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </div>
-                        <div class="product-wid-price">
-                            <ins>$400.00</ins>
-                            <del>$425.00</del>
-                        </div>
-                    </div>
+                    <?php
+                    component();
+                    component();
+                    component();
+                    ?>
                 </div>
             </div>
         </div>
     </div>
-</div> <!-- End product widget area -->
+</div>
+<!-- End product widget area -->
 
 <div class="footer-top-area">
     <div class="zigzag-bottom"></div>
