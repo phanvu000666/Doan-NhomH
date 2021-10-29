@@ -1,3 +1,18 @@
+<?php
+require 'Controller/Product.php';
+$product = new Product();
+$sanphan = $product->getData();
+$keyword = '';
+if (!empty($_GET['keyword'])) {
+    $keyword = $_GET['keyword'];
+    $Search = $product->Search($keyword);
+    //var_dump($Search);
+}
+$result = $product->Search($keyword);
+//var_dump($result);
+//var_dump($total_rows);
+
+?>
 <!DOCTYPE html>
 <!--
 	ustora by freshdesignweb.com

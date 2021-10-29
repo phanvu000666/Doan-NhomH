@@ -1,7 +1,6 @@
 <?php
 require "./model/config.php";
 require "./model/mysqli_con.php";
-session_start();
 class Order extends My_MySQLI{
     function getDataOrder(){
         $idUser = $_SESSION['id_user'];
