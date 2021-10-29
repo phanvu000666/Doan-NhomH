@@ -1,6 +1,6 @@
 <?php
 define("SEVERNAME", "localhost");
-define("DATABASE", "smart-web");
+define("DATABASE", "nhom11");
 define("USERNAME", "root");
 define("PASSWORD", "");
 

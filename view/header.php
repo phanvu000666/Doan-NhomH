@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
+}
+?>
 <!DOCTYPE html>
 <!--
 	ustora by freshdesignweb.com
@@ -71,7 +77,7 @@
                         <input type="text" name="keyword" class="searchTerm" placeholder="search..."
                             <?php echo $keyword ?>>
                         <button type="submit" class="searchButton">
-                            <i class="fa fa-search"></i>
+                            <i class="fa fa-search">Tìm Kiếm</i>
                         </button>
                     </form>
                 </div>
@@ -100,11 +106,30 @@
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="shop.php">Shop page</a></li>
+                        <li><a href="index.php?mod=product&act=allProduct">Shop page</a></li>
                         <li><a href="single-product.php">Single product</a></li>
                         <li><a href="cart.php">Cart</a></li>
                         <li><a href="checkout.php">Checkout</a></li>
-                        <li><a href="#">Category</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropbtn">Category</a>
+                            <div class="dropdown-content">
+
+                                <?php
+                                    include_once("view/category/category.php");
+                                ?>
+                                
+                            </div>
+                        </li><li class="dropdown">
+                            <a href="#" class="dropbtn">Manufactures</a>
+                            <div class="dropdown-content">
+
+                                <?php
+                                    include_once("view\manufactures\manufacturers.php");
+                                ?>
+                                
+                            </div>
+                        </li>
+
                         <li><a href="#">Others</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
