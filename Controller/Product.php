@@ -26,6 +26,14 @@ class Product extends My_MySQLI{
         return $items; //return an array
         
     }
+    function get3SPNew(){
+        $sql = self::$conn->prepare( "SELECT * FROM products ORDER BY ProductID DESC LIMIT 3");
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+        
+    }
     function getProductsByCateID($cateID){
         $sql = self::$conn->prepare("SELECT * FROM products WHERE CategoryID = $cateID");
         $sql->execute();//return an object

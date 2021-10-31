@@ -43,7 +43,7 @@ $result_search = $product->Search_Paginate($start, $limit, $keyword);
 <!-- Hiển thị sp mới nhất -->
 <?php include_once("view/product/spMoinhat.php"); ?>
 <!-- logo -->
-<?php include_once("view\manufactures\logo.php"); ?>
+<?php include_once("view/manufactures/logo.php"); ?>
 <!-- product_widget -->
 <?php include_once("view/product/product_widget.php"); ?>
 <!-- footer -->
