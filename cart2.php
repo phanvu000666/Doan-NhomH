@@ -1,8 +1,10 @@
 <?php
+
+
 require_once 'Controller/Product.php';
 require_once 'Controller/order.php';
-require_once('PHP/component.php');
 require_once 'Controller/Pagination.php';
+require_once('./PHP/component.php');
 $products = new Product();
 $total    = 0;
 $data     = $products->getData();
@@ -89,32 +91,35 @@ if (isset($_POST['plus'])) {
                         <hr>
                         <h4>Amount Payable</h4>
                     </div>
-
                     <div class="col-md-6">
                         <h4> $ <?php if (isset($_SESSION['total'])) echo number_format($_SESSION['total'], 0); ?></h4>
                         <h4 class="text-success">FREE</h4>
                         <hr>
                         <h4> $ <?php if (isset($_SESSION['total'])) echo number_format($_SESSION['total'], 0); ?></h4>
-                        <br><br><br>
+
                     </div>
-                    <br><br><br>
-                    <div class="single-sidebar">
-                        <h2 class="sidebar-title">Recent Posts</h2>
-                        <ul>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                            <li><a href="#">Sony Smart TV - 2015</a></li>
-                        </ul>
-                    </div>
+
+
+                </div>
+
+                <div class="single-sidebar">
+                    <h2 class="sidebar-title">Recent Posts</h2>
+                    <ul>
+                        <li><a href="#">Sony Smart TV - 2015</a></li>
+                        <li><a href="#">Sony Smart TV - 2015</a></li>
+                        <li><a href="#">Sony Smart TV - 2015</a></li>
+                        <li><a href="#">Sony Smart TV - 2015</a></li>
+                        <li><a href="#">Sony Smart TV - 2015</a></li>
+                    </ul>
                 </div>
             </div>
             <!-- DANH SÁCH SẢN PHẨM ORDER -->
             <div class="col-md-8">
                 <div class="product-content-right">
                     <div class="woocommerce">
+
                         <?php
+
                         if (isset($_SESSION['cart'])) {
                             $product_id = array_column($_SESSION['cart'], 'prductID');
                             $listIDs    = $products->getData();
@@ -146,6 +151,12 @@ if (isset($_POST['plus'])) {
         </div>
     </div>
 </div>
+<script>
+function msg() {
+    var id = document.getElementById('idOrder').getAttribute('value');
+    var number = document.getElementById('numberQuantity').getAttribute('value');
 
-
+    alert("Hello world!" + number + " " + id);
+}
+</script>
 <?php include_once("view/footer.php"); ?>

@@ -1,7 +1,7 @@
 <?php
 require 'Controller/Product.php';
 $product = new Product();
-$sanphan = $product->getData();
+$sanpham = $product->get3SPNew();
 $keyword = '';
 if (!empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
@@ -31,37 +31,18 @@ $result = $product->Search($keyword);
                         </button>
                     </form>
                 </div>
-
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Products</h2>
-                    <div class="thubmnail-recent">
-                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins> <del>$100.00</del>
+                <div class='single-sidebar'>
+                    <h2 class='sidebar-title'>Sản phẩm mới nhất</h2>
+                    <?php foreach ($sanpham as $key => $value)
+                echo "
+                    <div class='thubmnail-recent'>
+                    <img src='pictures/upload/" . $value['ImageUrl'] . "' class='recent-thumb' style='width:70px;height:70px;'>
+                    <h2><a href='single-product.php?id=" . $value['ProductID'] . " '>" . ($sanpham[$key]['ProductName']) . "</a></h2>                
+                    <div class='product-sidebar-price'>
+                    <h2>" . number_format($sanpham[$key]['Price']) . " VND</h2>
                         </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins> <del>$100.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins> <del>$100.00</del>
-                        </div>
-                    </div>
-                    <div class="thubmnail-recent">
-                        <img src="img/product-thumb-1.jpg" class="recent-thumb" alt="">
-                        <h2><a href="">Sony Smart TV - 2015</a></h2>
-                        <div class="product-sidebar-price">
-                            <ins>$700.00</ins> <del>$100.00</del>
-                        </div>
-                    </div>
+                    </div>"
+                ?>x
                 </div>
 
                 <div class="single-sidebar">
@@ -88,9 +69,8 @@ $result = $product->Search($keyword);
                         <div class="col-sm-6">
                             <?php
                       if(!isset($_GET['id'])){
-                          echo "Vui lòng chọn sản phẩm";
-                      }else{
-                        foreach ($product->getData() as $key => $value)
+                          echo "Vui lòng chọn sản phẩm !";
+                      }else foreach ($product->getData() as $key => $value)
                         if($_GET['id']==$product->getData()[$key]['ProductID'])
                       echo"<div class='product-images'>
                           <div class='product-main-img'>
@@ -136,14 +116,11 @@ $result = $product->Search($keyword);
                                   </div>
                               </div>
                           </div>
+                          ;"?>
                           
                       </div>
                   </div>
-              </div>;"?>
-                            <?php }?>
-
-
-
+              </div>
                             <div class="related-products-wrapper">
                                 <h2 class="related-products-title">Related Products</h2>
                                 <div class="related-products-carousel">

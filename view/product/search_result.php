@@ -1,6 +1,7 @@
 <div class="single-product-area">
     <div class="zigzag-bottom"></div>
     <div class="container">
+    <h2 class="section-title">Kết Quả Tìm Kiếm</h2>
         <div class="row">
             <div class="col-md-12">
                 <?php
@@ -21,7 +22,6 @@
                         </div>              
                     </div>"
                 ?>
-                </div>
             </div>
         </div>
     </div>
