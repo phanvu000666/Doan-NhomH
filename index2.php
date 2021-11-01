@@ -237,8 +237,7 @@ if (isset($_POST['add'])) {
                                     <img src="pictures/<?php echo $value['ImageUrl'] ?>" alt=""
                                          style="width:220px;height:280px;">
                                     <div class="product-hover">
-                                        <a href="AddToCart.php?id=<?php echo $value["ProductID"] ?>"
-                                           class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
+                                        <a href="#" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i> Add to
                                             cart</a>
                                         <a href="single-product.php?id=<?= $value['ProductID'] ?>"
                                            class="view-details-link"><i class="fa fa-link"></i> See details</a>
@@ -257,8 +256,6 @@ if (isset($_POST['add'])) {
                                         Cart <i
                                                 class="fa fa-shopping-cart"></i>
                                     </button>
-                                    <input type="hidden" name="productID"
-                                           value=<?= $value['ProductID'] ?>>
                                 </form>
                             </div>
                         <?php } ?>
