@@ -25,6 +25,10 @@ $result_search = $product->Search_Paginate($start, $limit, $keyword);
 //var_dump($result);
 //var_dump($total_rows);
 
+if (isset($_POST['add']))
+{
+
+}
 
 ?>
 <!-- header -->
