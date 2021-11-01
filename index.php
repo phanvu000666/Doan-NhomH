@@ -11,26 +11,42 @@ if (!empty($_GET['keyword'])) {
     $Search = $product->Search($keyword);
     //var_dump($Search);
 }
-$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 6;
-$total_rows = $product->countAll();
-$total_pages = ceil($total_rows / $limit);
-if ($current_page > $total_pages) {
-    $current_page = $total_pages;
-} elseif ($current_page < 1) {
-    $current_page = 1;
+$totalRow = $product->getTotalRow();
+$perPage = 3;
+$page = 1;
+if (isset($_GET['page'])) {
+    $page = $_GET['page'];
 }
-$start = ($current_page - 1) * $limit;
-$result_search = $product->Search_Paginate($start, $limit, $keyword);
+$pageLinks = Pagination::createPageLinks($totalRow, $perPage, $page);
+$productID = $product->getID();
 //var_dump($result);
 //var_dump($total_rows);
 
-if (isset($_POST['add']))
-{
+if (isset($_POST['add'])) {
+    if (isset($_SESSION['cart'])) {
+        $item_array_id = array_column($_SESSION['cart'], "prductID");
+        if (in_array($_POST['productID'], $item_array_id)) {
+            echo "<script>alert('Sản phẩm đã tồn tại trong giỏ hàng !!!')</script>";
+            echo "<script>window.location='index.php'</script>";
+        } else {
+            $count      = count($_SESSION['cart']);
+            $id = $_POST['productID'];
+            $item_array = ['prductID' => $id];
+            //var_dump($_POST);
+            $_SESSION['cart'][$count] = $item_array;
+            $_SESSION['quanlity'][$id] =1;
+        }
+    } else {
+        $id = $_POST['productID'];
+        $item_array          = ['prductID' => $id];
+        $_SESSION['cart'][0] = $item_array;
+        $_SESSION['quanlity'][$id] =1;
+    }
 
 }
 
 ?>
+
 <!-- header -->
 <?php include_once("view/header.php"); ?>
 <?php

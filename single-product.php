@@ -69,9 +69,8 @@ $result = $product->Search($keyword);
                         <div class="col-sm-6">
                             <?php
                       if(!isset($_GET['id'])){
-                          echo "Vui lòng chọn sản phẩm";
-                      }else{
-                        foreach ($product->getData() as $key => $value)
+                          echo "Vui lòng chọn sản phẩm !";
+                      }else foreach ($product->getData() as $key => $value)
                         if($_GET['id']==$product->getData()[$key]['ProductID'])
                       echo"<div class='product-images'>
                           <div class='product-main-img'>
@@ -117,14 +116,11 @@ $result = $product->Search($keyword);
                                   </div>
                               </div>
                           </div>
+                          ;"?>
                           
                       </div>
                   </div>
-              </div>;"?>
-                            <?php }?>
-
-
-
+              </div>
                             <div class="related-products-wrapper">
                                 <h2 class="related-products-title">Related Products</h2>
                                 <div class="related-products-carousel">

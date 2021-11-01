@@ -1,10 +1,10 @@
 <?php
+include 'Controller/Product.php';
 session_start();
 require_once('./PHP/component.php');
 if ( ! isset($_SESSION['username'])) {
     header('Location: login.php');
 }
-include 'Controller/Product.php';
 $product = new Product();
 $sanphan = $product->getData();
 $keyword = '';
@@ -89,7 +89,7 @@ if (isset($_POST['add'])) {
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="admin/css/owl.carousel.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin/css/style.css">
     <link rel="stylesheet" href="admin/css/responsive.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->

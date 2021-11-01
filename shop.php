@@ -3,9 +3,10 @@ require 'Controller/Product.php';
 require 'Controller/Pagination.php';
 $product = new Product();
 $products = $product->getData();
+$result = $product->getSPNew();
 //$products = $product->getAllProducts();
 $totalRow = $product->getTotalRow();
-$perPage = 3;
+$perPage = 6;
 $page = 1;
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
@@ -19,7 +20,7 @@ if (!empty($_GET['keyword'])) {
     //var_dump($Search);
 }
 $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 6;
+$limit = 3;
 $total_rows = $product->countAll();
 $total_pages = ceil($total_rows / $limit);
 if ($current_page > $total_pages) {
@@ -47,10 +48,26 @@ $search_result = $product->Search_Paginate($start, $limit, $keyword);
     </div>
 </div>
 <?php
-        if (isset($_GET['keyword'])) {
-            include_once("view/product/search_result.php");
+        if (!isset($_GET['mod'])) {
+            if (!isset($_GET['keyword'])) {
+                include_once("view/product/allProduct.php");
+            }
+            if (isset($_GET['keyword'])) {
+                include_once("view/product/search_result.php");
+            }
+        }
+        if(isset($_GET['mod'])) {
+            $a = ucfirst($_GET['mod']);
+            $b = ucfirst($_GET['act']);
+
+            include_once("view/".$a."/".$b.".php");
         }
     ?>
+<?php include_once("view/product/spMoinhat.php"); ?>
+<!-- logo -->
+<?php include_once("view/manufactures/logo.php"); ?>
+<!-- product_widget -->
+<?php include_once("view/product/product_widget.php"); ?>
 
 
 <?php include_once("view/footer.php");

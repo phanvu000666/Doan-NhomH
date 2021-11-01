@@ -1,6 +1,6 @@
 <?php
-require "./model/config.php";
-require "./model/mysqli_con.php";
+// require "./model/config.php";
+// require "./model/mysqli_con.php";
 
 class Order extends My_MySQLI {
     function getDataOrder() {

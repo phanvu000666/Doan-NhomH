@@ -32,7 +32,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="admin/css/owl.carousel.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin/css/style.css">
     <link rel="stylesheet" href="admin/css/responsive.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -83,57 +83,66 @@ if (!isset($_SESSION['username'])) {
                 </div>
                 <div class="col-sm-6">
                     <div class="shopping-item">
-                        <a href="cart.php">Cart - <span class="cart-amunt">$100</span> <i
-                                class="fa fa-shopping-cart"></i>
-                            <span class="product-count">5</span></a>
+                        <a href="cart.php">Cart <i class="fa fa-shopping-cart"></i></a>
+                        <?php
+                                            if (isset($_SESSION['cart'])) {
+                                                $count = count($_SESSION['cart']);
+                                                echo "<span class='text-warning bg-light' id='cart_count'> $count</span>";
+                                            } else {
+                                                echo "<span class='text-warning bg-light' id='cart_count'>0</span>";
+                                            }
+                                            ?>
+
                     </div>
                 </div>
             </div>
-        </div>
-    </div> <!-- End site branding area -->
+        </div> <!-- End site branding area -->
 
-    <div class="mainmenu-area">
-        <div class="container">
-            <div class="row">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="index.php">Home</a></li>
-                        <li><a href="index.php?mod=product&act=allProduct">Shop page</a></li>
-                        <li><a href="single-product.php">Single product</a></li>
-                        <li><a href="cart.php">Cart</a></li>
-                        <li><a href="checkout.php">Checkout</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropbtn">Category</a>
-                            <div class="dropdown-content">
+        <div class="mainmenu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="navbar-collapse collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="index.php">Home</a></li>
+                            <li><a href="shop.php">Shop page</a></li>
+                            <li><a href="single-product.php">Single product</a></li>
+                            <li><a href="cart.php">Cart</a></li>
+                            <li><a href="checkout.php">Checkout</a></li>
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Category</a>
+                                <div class="dropdown-content">
 
-                                <?php
+                                    <?php
                                     include_once("view/category/category.php");
                                 ?>
-                                
-                            </div>
-                        </li><li class="dropdown">
-                            <a href="#" class="dropbtn">Manufactures</a>
-                            <div class="dropdown-content">
 
-                                <?php
+                                </div>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropbtn">Manufactures</a>
+                                <div class="dropdown-content">
+
+                                    <?php
                                     include_once("view\manufactures\manufacturers.php");
                                 ?>
-                                
-                            </div>
-                        </li>
 
-                        <li><a href="#">Others</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
+                                </div>
+                            </li>
+
+                            <li><a href="#">Others</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div> <!-- End mainmenu area -->
+        </div> <!-- End mainmenu area -->
