@@ -28,7 +28,7 @@ if (!isset($_SESSION['username'])) {
     <link rel="stylesheet" href="admin/css/bootstrap.min.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="admin/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="admin/css/owl.carousel.css">
