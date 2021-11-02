@@ -1,7 +1,41 @@
 <?php
+require "./model/config.php";
+require "./model/mysqli_con.php";
 class Product extends My_MySQLI{
     function getDataDuaVaoID($id){
         $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductID = $id");
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+
+    }
+    public function getProductsByPrice($type)
+        {
+            if ($type=="asc") {
+                $sql=parent::$conn->prepare("SELECT * from products order by Price"); 
+            } else {
+                $sql=parent::$conn->prepare("SELECT * from products order by Price DESC");            }
+                return parent::select($sql);
+        }
+    function getDienThoai(){
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE CategoryID = 3 LIMIT 1");
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+
+    }
+    function getLaptop(){
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE CategoryID = 6 LIMIT 1");
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+
+    }
+    function getUsb(){
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE CategoryID = 2 LIMIT 1");
         $sql->execute();//return an object
         $items = array();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -16,6 +50,39 @@ class Product extends My_MySQLI{
         return $items; //return an array
 
     }
+    function getSPNew(){
+        $sql = self::$conn->prepare( "SELECT * FROM products ORDER BY ProductID DESC limit 6");
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+        
+    }
+    function get3SPNew(){
+        $sql = self::$conn->prepare( "SELECT * FROM products ORDER BY ProductID DESC LIMIT 3");
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+        
+    }
+    function getProductsByCateID($cateID){
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE CategoryID = $cateID");
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+        
+    }
+    function getProductsByManuID($manuID){
+        $sql = self::$conn->prepare("SELECT * FROM products WHERE ManufacturerID = $manuID");
+        $sql->execute();//return an object
+        $items = array();
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+        
+    }
+    
     public function getTotalRow()
     {
         $sql = parent::$conn->prepare("SELECT COUNT(ProductID) FROM products");

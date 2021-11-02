@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Oct 12, 2021 at 06:30 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.4
+-- Máy chủ: 127.0.0.1:3306
+-- Thời gian đã tạo: Th10 01, 2021 lúc 01:24 PM
+-- Phiên bản máy phục vụ: 10.4.10-MariaDB
+-- Phiên bản PHP: 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,81 +19,144 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `smart-web`
+-- Cơ sở dữ liệu: `nhom11`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Cấu trúc bảng cho bảng `categories`
 --
 
-CREATE TABLE `categories` (
-  `CategoryID` int(11) NOT NULL,
+DROP TABLE IF EXISTS `categories`;
+CREATE TABLE IF NOT EXISTS `categories` (
+  `CategoryID` int(11) NOT NULL AUTO_INCREMENT,
   `CategoryName` varchar(255) NOT NULL,
-  `Position` int(11) DEFAULT 0
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `Position` int(11) DEFAULT 0,
+  PRIMARY KEY (`CategoryID`)
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `categories`
+-- Đang đổ dữ liệu cho bảng `categories`
 --
 
 INSERT INTO `categories` (`CategoryID`, `CategoryName`, `Position`) VALUES
-(3, 'Điện Thoại', 1);
+(6, 'Laptop', 2),
+(2, 'USB', 5),
+(3, 'Điện Thoại', 1),
+(9, 'Loa', 1),
+(8, 'IPad', 5);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `manufacturers`
+-- Cấu trúc bảng cho bảng `groups`
 --
 
-CREATE TABLE `manufacturers` (
-  `ManufacturerID` int(11) NOT NULL,
-  `ManufacturerName` varchar(255) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE IF NOT EXISTS `groups` (
+  `GroupID` int(11) NOT NULL AUTO_INCREMENT,
+  `GroupName` varchar(50) NOT NULL,
+  PRIMARY KEY (`GroupID`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `manufacturers`
+-- Đang đổ dữ liệu cho bảng `groups`
+--
+
+INSERT INTO `groups` (`GroupID`, `GroupName`) VALUES
+(1, 'Admin'),
+(2, 'Moder'),
+(3, 'Khách hàng');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `manufacturers`
+--
+
+DROP TABLE IF EXISTS `manufacturers`;
+CREATE TABLE IF NOT EXISTS `manufacturers` (
+  `ManufacturerID` int(11) NOT NULL AUTO_INCREMENT,
+  `ManufacturerName` varchar(255) NOT NULL,
+  PRIMARY KEY (`ManufacturerID`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `manufacturers`
 --
 
 INSERT INTO `manufacturers` (`ManufacturerID`, `ManufacturerName`) VALUES
-(5, 'Nokia'),
-(4, 'Samsung'),
-(8, 'Apple'),
-(9, 'OPPO'),
-(6, 'Xiaomi');
+(13, 'Dell'),
+(12, 'HP'),
+(10, 'Samsung'),
+(11, 'Iphone'),
+(14, 'Asus'),
+(15, 'Huawei'),
+(16, 'Lenovo'),
+(17, 'Kington'),
+(18, 'XIAOMI'),
+(23, 'Nokia');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Cấu trúc bảng cho bảng `orderitems`
 --
 
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
-  `id_user` int(11) NOT NULL,
-  `id_product` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `created_at` date NOT NULL DEFAULT current_timestamp(),
-  `updated_at` date NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `id_user`, `id_product`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 42, 1001, 2, '2021-10-08', '2021-10-19'),
-(10, 42, 1006, 1, '2021-10-12', '2021-10-12');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `products`
---
-
-CREATE TABLE `products` (
+DROP TABLE IF EXISTS `orderitems`;
+CREATE TABLE IF NOT EXISTS `orderitems` (
+  `OrderID` int(11) NOT NULL,
   `ProductID` int(11) NOT NULL,
+  `Quantity` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`OrderID`,`ProductID`),
+  KEY `ProductID` (`ProductID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `orderitems`
+--
+
+INSERT INTO `orderitems` (`OrderID`, `ProductID`, `Quantity`) VALUES
+(60, 49, 1),
+(60, 45, 5),
+(60, 48, 11);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
+  `OrderID` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL,
+  `AddedDate` datetime NOT NULL,
+  `Address` varchar(250) DEFAULT NULL,
+  `Phone` varchar(20) DEFAULT NULL,
+  `Sum` int(11) DEFAULT NULL,
+  `Status` bit(1) NOT NULL DEFAULT b'0',
+  PRIMARY KEY (`OrderID`),
+  KEY `UserID` (`UserID`)
+) ENGINE=MyISAM AUTO_INCREMENT=61 DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `orders`
+--
+
+INSERT INTO `orders` (`OrderID`, `UserID`, `AddedDate`, `Address`, `Phone`, `Sum`, `Status`) VALUES
+(60, 39, '2021-01-15 10:23:48', '53 Võ Văn Ngân', '0939461842', 178380000, b'1');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+CREATE TABLE IF NOT EXISTS `products` (
+  `ProductID` int(11) NOT NULL AUTO_INCREMENT,
   `ManufacturerID` int(11) NOT NULL,
   `CategoryID` int(11) NOT NULL,
   `ProductName` varchar(255) NOT NULL,
@@ -100,161 +164,62 @@ CREATE TABLE `products` (
   `Price` int(11) NOT NULL DEFAULT 0,
   `Quantity` int(11) NOT NULL DEFAULT 0,
   `Description` varchar(1000) NOT NULL,
-  `Origin` text NOT NULL,
-  `Feature` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `Body` text NOT NULL,
+  PRIMARY KEY (`ProductID`),
+  KEY `ManufacturerID` (`ManufacturerID`),
+  KEY `CategoryID` (`CategoryID`)
+) ENGINE=MyISAM AUTO_INCREMENT=85 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `products`
+-- Đang đổ dữ liệu cho bảng `products`
 --
 
-INSERT INTO `products` (`ProductID`, `ManufacturerID`, `CategoryID`, `ProductName`, `ImageUrl`, `Price`, `Quantity`, `Description`, `Origin`, `Feature`) VALUES
-(1001, 5, 3, 'Nokia C20', 'nokiac20.jpg', 10000000, 11, 'Giá rẻ lý tưởng với thời lượng pin cả ngày, hệ điều hành Android 11 Go phiên bản mới nhất, kết nối 4G và chất lượng hoàn thiện bền bỉ', 'Việt Nam', 0),
-(1002, 4, 3, 'Samsung galaxy note20 ultra', 'samsungnote20.jpg', 80000000, 11, 'Màn hình tràn viền góc cạnh tối đa, kế thừa những đặc tính từ thế hệ trước, công nghệ màn hình Dynamic AMOLED 2X giảm thiểu tối đa ánh sáng xanh gây hại, giúp hạn chế tình trạng mỏi mắt giúp tối ưu trải nghiệm của người dùng.', 'Nhật Bản', 0),
-(1003, 4, 3, 'Samsung Galaxy A12', 'samsunga12.jpg', 6400000, 11, 'Sỡ hữu camera macro 2MP chụp cận cản, bao gồm một cảm biến chính 48MP giúp nâng tầm trải nghiệm nhiếp ảnh đa chiều và sắc nét hơn bao giờ hết.', 'Việt Nam', 1),
-(1004, 8, 3, 'Iphone 7plus', 'ip7s.jpg', 7400000, 11, '2 dải anten ở mặt sau, jack 3.5mm bị loại bỏ hoàn toàn và phải dùng chung cổng sạc, ở cạnh dưới có 2 hàng loa đối xứng nhau.', 'China', 1),
-(1005, 8, 3, 'Iphone 8plus', 'ip8s.jpg', 8550000, 11, 'Những đường nét thiết kế đã hoàn thiện từ thế hệ trước nhưng sửdụng phong cách 2 mặt kính cường lực kết hợp bộ khung kim loại.', 'Ameriva', 0),
-(1006, 8, 3, 'Iphone 11 pro max', 'ip11promax.jpg', 14550000, 11, 'iPhone 11 Pro Max được trang bị thêm một ống kính góc siêu rộng, chụp đêm hoàn hảo và cấu hình máy siêu phầm', 'America', 1),
-(1007, 8, 3, 'Iphone 12 pro max', 'ip12promax.jpg', 19990000, 11, 'Công nghệ màn hình trên 12 Pro Max cũng được đổi mới và trang bị tốt hơn cùng kích thước lên đến 6.7 inch, lớn hơn so với điện thoại iPhone 12. Với công nghệ màn hình OLED cho khả năng hiển thị hình ảnh lên đến 2778 x 1284 pixels. Bên cạnh đó, màn hình này còn cho độ sáng tối đa cao nhất lên đến 800 nits, luôn đảm bảo cho bạn một độ sáng cao và dễ nhìn nhất ngoài nắng.', 'America', 0),
-(1008, 9, 3, 'Oppo a15', 'oppoa15.jpg', 3999000, 11, 'Màn hình giọt nước 6.52\'\' HD+ mở rộng không gian trải nghiệm,Chip Helio P35 8 nhân cho khả năng đa nhiệm tốt, tác vụ mượt mà,Cụm 3 camera AI 13MP+2MP+2MP chụp ảnh rõ nét, sống động,Camera trước 8MP tích hợp làm đẹp AI cho ảnh selfie đẹp tự nhiên', 'Việt Nam', 0),
-(1009, 9, 3, 'Oppo a92', 'oppoa92.jpg', 4999000, 11, 'Chiếc điện thoại gây ấn tượng với thiết kế màn hình khoét lỗ tràn viền, cụm 4 camera ấn tượng và được bán với mức giá vô cùng phải chăng.', 'Việt Nam', 1),
-(1010, 9, 3, 'Oppo f9', 'oppof9.jpg', 7999999, 11, 'Là chiếc điện thoại OPPO mới nhất sở hữu công nghệ sạc VOOC đột phá, OPPO F9 còn được ưu ái nhiều tính năng nổi trội như thiết kế mặt lưng chuyển màu độc đáo, màn hình tràn viền giọt nước và camera chụp chân dung tích hợp trí tuệ nhân tạo A.I hoàn hảo.', 'Việt Nam', 0),
-(1011, 9, 3, 'Oppo f11', 'oppof11.jpg', 7999999, 11, 'OPPO F11 gây ấn tượng với người dùng bởi thiết kế màn hình tràn viền hình giọt nước và camera sau khủng đến 48 MP.', 'Việt Nam', 0),
-(1012, 9, 3, 'Oppo f1s', 'oppof1s', 3999999, 11, 'OPPO F1s sẽ là chiếc điện thoại thông minh được OPPO giới thiệu tại Việt Nam nhằm đánh vào sở thích selfie của giới trẻ với điểm nhấn là camera trước có độ phân giải lên tới 16 MP.', 'Việt Nam', 1),
-(1013, 6, 3, 'Xiaomi note 5', 'xiaominote5.jpg', 2000903, 11, 'Thiết kế nguyên khối bằng kim loại sang trọng với cụm camera kép đặt dọc.', 'Việt Nam', 0),
-(1014, 6, 3, 'Xiaomi note 7', 'xiaominote7.jpg', 6999999, 11, 'Redmi Note 7 xứng đáng là một trong những chiếc smartphone có hiệu năng tốt, với điểm Antutu đo được khoảng 137586.', 'Việt Nam', 1);
+INSERT INTO `products` (`ProductID`, `ManufacturerID`, `CategoryID`, `ProductName`, `ImageUrl`, `Price`, `Quantity`, `Description`, `Body`) VALUES
+(50, 17, 2, 'Dây cáp Micro USB 1m', '1128036469cap-micro-1m-esaver-ds118br-tb-avatar-1-600x600.jpg', 40000, 40, 'Dây cáp Micro USB 1 m eSaver DS118-TB có màu xanh đẹp mắt, thiết kế quen thuộc giúp người dùng dễ sử dụng ngay trong lần đầu tiên.', 'Jack cắm:	Micro USB. \r\nTính năng:	Sạc. Truyền dữ liệu. Dòng sạc tối đa:	Max 3A. \r\nĐộ dài dây:	1 m. Xuất xứ: Trung Quốc'),
+(51, 11, 3, 'iPhone Xs Max 256GB', '2048737244iphone-xs-max-256gb-white-400x460.png', 35000000, 24, 'Sau 1 năm mong chờ, chiếc smartphone cao cấp nhất của Apple đã chính thức ra mắt mang tên iPhone Xs Max. Máy các trang bị các tính năng cao cấp nhất từ chip A12 Bionic, dàn loa đa chiều cho tới camera kép tích hợp trí tuệ nhân tạo.', 'Màn hình:	OLED, 6.5\", Super Retina. \r\nHệ điều hành:	iOS 12. \r\nCamera sau:	Chính 12 MP & Phụ 12 MP.'),
+(49, 13, 6, 'Laptop Dell Vostro 3578 i7 ', '1140683981dell-vostro-3578-ngmpf11-450x300-600x600-600x600.jpg', 20990000, 20, 'Laptop Dell Vostro 3578 là dòng máy tính xách tay mới của Dell trong năm 2018 với cấu hình cực cao bao gồm vi xử lý i7 8550U thế hệ thứ 8 có hiệu năng vượt trội, card màn hình rời Radeon 520 và 8 GB RAM. Với cấu hình mạnh mẽ máy có thể chạy tốt các ứng dụng phục vụ cho công việc, học tập, xử lý đồ hoạ cũng như chơi game ở mức cấu hình tầm trung khá mượt mà.', 'CPU:	Intel Core i7 Kabylake Refresh, 8550U, 1.80 GHz. \r\nRAM:	8 GB, DDR4 (2 khe), 2400 MHz. \r\nỔ cứng:	HDD: 1 TB. \r\nMàn hình:	15.6 inch, Full HD (1920 x 1080)'),
+(48, 13, 6, 'Laptop HP 15 da0054TU', '734178429hp-15-da0054tu-4me68pa-thumbnail-600x600.jpg', 10990000, 30, 'Laptop HP 15 da0054TU là phiên bản máy tính xách tay với cấu hình được trang bị vi xử lý chip Intel Core i3 Kabylake thế hệ 7 đem đến hiệu năng ổn định khi thao tác các tác vụ cơ bản, phù hợp cho công việc văn phòng, học tập.', ''),
+(42, 14, 6, 'Laptop Asus X407UA', '258406264asus-x407ua-i5-8250u-4gb-16gb-1tb-win10-bv485t-thumb33397-600x600.jpg', 13390000, 20, 'Laptop 407UA (BV485T) mang trong mình thiết kế trang nhã, với trọng lượng khá nhẹ phù hợp cho việc di chuyển.', 'CPU: Intel Core i5 Coffee Lake, 8250U, 1.60 GHz. RAM:	4 GB, DDR4 (2 khe), 2400 MHz'),
+(44, 17, 2, 'USB 3.0 Transcend JF700 64GB', '174519347716768070975518.jpg', 240000, 30, 'Trang bị cổng kết nối USB 3.0. Dung lượng lên đến 64GB. Tương thích với hầu hết các thiết bị công nghệ ', ''),
+(45, 12, 6, 'Laptop HP 15 da0048TU ', '384886800hp-15-da0048tu-4me63pa-33397-ava1-600x600.jpg', 7300000, 10, 'Laptop HP 15 da0048TU N5000 là chiếc máy tính xách tay có màn hình 15.6 inch độ phân giải HD phù hợp cho người dùng cần một chiếc máy để học tập, làm việc, giải trí. Kết hợp cùng vi xử lý Intel Pentium và 4 GB DDR4 máy có thể đáp ứng các nhu cầu cơ bản một cách trơn tru.', 'CPU: Intel Pentium, N5000, 1.10 GHz.RAM:	4 GB, DDR4 (1 khe), 2400 MHz'),
+(46, 13, 6, 'Laptop Dell Inspiron 3576', '767040166dell-inspiron-3576-p63f002n76f-450-600x600.png', 14390000, 20, 'Thiết kế thanh lịch, trọng lượng khá nhẹ phù hợp cho việc di chuyển hằng ngày đến lớp học, công sở - Laptop Dell Inspiron 3576 i5 8250U được trang bị cấu hình đủ mạnh để chạy tốt các ứng dụng văn phòng, cho phản hồi các thao tác kéo thả trong photoshop, AI khá nhanh rất phù hợp cho sinh viên, nhân viên văn phòng.', 'CPU: Intel Core i5 Kabylake Refresh, 8250U, 1.60 GHz. RAM: 4 GB, DDR4 (2 khe), 2400 MHz'),
+(47, 14, 6, 'Laptop Asus VivoBook', '1545754616asus-a411ua-i3-8130u-eb688t-ava-600x600.jpg', 11290000, 40, 'Asus A411UA (EB688T) là chiếc laptop sở hữu cấu hình cho hiệu năng hoạt động ổn định với chip Intel Core i3 thế hệ thứ 8, 4 GB RAM, ổ cứng lưu trữ HDD 1 TB, cùng hệ điều hành Windows bản quyền được cài sẵn trên máy. Asus A411UA phù hợp với những ai đang tìm một mẫu máy tính văn phòng, hay giải trí, học tập, sinh viên.', 'CPU: Intel Core i3 Kabylake Refresh, 8130U, 2.20 GHz. \r\nRAM: 4 GB, DDR4 (1 khe), 2133 MHz. \r\nỔ cứng: HDD: 1 TB SATA3, Hỗ trợ khe cắm SSD M.2 SATA3. \r\nMàn hình: 14 inch, Full HD (1920 x 1080). '),
+(41, 15, 3, 'Huawei Y7 Pro', '1148255722huawei-y7-pro-2019-400x460.png', 3490000, 10, 'Hoàn toàn lột xác so với phiên bản tiền nhiệm, Y7 Pro (2019) đã giúp Huawei có thêm điểm cộng trong mắt người dùng nhờ việc đem thiết kế mặt lưng gradient, màn hình giọt nước và pin khủng lên chiếc smartphone giá rẻ của mình.', 'Màn hình: IPS LCD, 6.26\", HD+. Hệ điều hành:	Android 8.1 (Oreo)'),
+(39, 16, 6, 'Laptop Lenovo IdeaPad 330', '628688025lenovo-ideapad-330-15ikb-i5-8250u-4gb-1tb-win10-8-1-1-600x600.jpg', 11990000, 20, 'Với kiểu dáng đơn giản trang nhã và cấu hình mạnh mẽ, laptop Lenovo IdeaPad 330 15IKB i5 8250U hướng đến khách hàng là dân văn phòng và học sinh sinh viên.', 'CPU: Intel Core i5 Coffee Lake, 8250U, 1.60 GHz. RAM: 4 GB, DDR3L(On board+1Khe), 2133 MHz'),
+(40, 11, 3, 'iPhone 7 Plus 32GB', '270258762iphone-7-plus-gold-400x460.png', 12990000, 30, 'Mặc dù giữ nguyên vẻ bề ngoài so với dòng điện thoại iPhone đời trước, bù lại iPhone 7 Plus 32GB lại được trang bị nhiều nâng cấp đáng giá như camera kép đầu tiên cũng như cấu hình mạnh mẽ.', 'Màn hình: LED-backlit IPS LCD, 5.5\", Retina HD\r\nHệ điều hành:	iOS 12'),
+(35, 10, 3, 'Samsung Galaxy S10+ 128GB', '15348725291810508630samsung-galaxy-s10-plus-128gb-bac-da-sac-400x460.png', 23990000, 10, 'Samsung Galaxy S10+ đã ra mắt và thực sự người dùng khó có thể cường lại sức hút kỳ lạ tới từ siêu phẩm này của Samsung và giờ đây hãng sản xuất smartphone tới từ Hàn Quốc tiếp tục tung ra phiên bản Samsung Galaxy S10+ 128GB Bạc Đa Sắc thậm chí còn thu hút hơn các phiên bản cũ.', ''),
+(43, 17, 2, 'USB 2.0 ADATA C008 16GB', '25969262610814335483934.png', 108000, 30, '- Thiết kế thời trang, cá tính. \r\n- Tốc độ truyền tải dữ liệu nhanh. \r\n- Tự động nhận driver. ', ''),
+(36, 13, 3, 'Samsung Galaxy A50 64GB', '1867882765samsung-galaxy-a50-black-1-400x460.png', 6990000, 20, 'Samsung Galaxy A50 là chiếc smartphone tầm trung mới của Samsung trong năm 2019 với nhiều tính năng hấp dẫn, đặc biệt là có cả cảm biến vân tay dưới màn hình.', ''),
+(81, 12, 6, 'PC gameming', '1706494160lcd-samsung-gaming-27-inch-wqhd-144hz-1ms-lc27g55t-094020-014030-600x600.jpg', 250000000, 20, 'ádasdasa', ''),
+(37, 10, 3, 'Samsung Galaxy A70', '607206203samsung-galaxy-a70-black-400x460.png', 9290000, 12, 'Samsung Galaxy A70 là một phiên bản phóng to của chiếc Samsung Galaxy A50 đã ra mắt trước đó với nhiều cải tiến tới từ bên trong.', 'Màn hình: Super AMOLED, 6.7\", Full HD+. Hệ điều hành:	Android 9.0 (Pie)'),
+(38, 11, 3, 'iPhone Xr 64GB', '1612599405iphone-xr-black-400x460.png', 17990000, 10, 'Là  chiếc điện thoại iPhone có mức giá dễ chịu, phù hợp với nhiều khách hàng hơn, iPhone Xr vẫn được ưu ái trang bị chip Apple A12 mạnh mẽ, màn hình tai thỏ cùng khả năng chống nước chống bụi.', 'Màn hình: IPS LCD, 6.1\", Liquid Retina. Hệ điều hành:	iOS 12');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Cấu trúc bảng cho bảng `users`
 --
 
-CREATE TABLE `users` (
-  `UserID` int(11) NOT NULL,
-  `UserTypeID` int(11) DEFAULT NULL,
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
+  `GroupID` int(11) NOT NULL,
   `FullName` varchar(255) NOT NULL,
   `UserName` varchar(20) NOT NULL,
   `PassWord` varchar(32) NOT NULL,
-  `Email` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+  `Email` varchar(50) NOT NULL,
+  PRIMARY KEY (`UserID`),
+  UNIQUE KEY `UserName` (`UserName`),
+  UNIQUE KEY `Email` (`Email`),
+  KEY `GroupID` (`GroupID`)
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Đang đổ dữ liệu cho bảng `users`
 --
 
-INSERT INTO `users` (`UserID`, `UserTypeID`, `FullName`, `UserName`, `PassWord`, `Email`) VALUES
-(42, 1, 'admin', 'admin', 'admin', 'admin@gmail.com'),
-(43, NULL, 'Hoang Vu', 'vu', 'vu1234', 'vu@gmail.com'),
-(44, NULL, 'Hoàng Vũ', 'hoangvuff', '1', 'vu2k1@gmail.com'),
-(45, NULL, 'Quốc Tuấn', 'tuan', 'tuan', 'tuan@gmail.com'),
-(46, NULL, 'Hoàng Vũ', 'hoangvu', 'vu', 'vu2k11@gmail.com'),
-(47, NULL, 'Hoàng Vũ', 'Phanhoangvu622', 'vu', 'a'),
-(48, NULL, 'tuan', 'tuanbo', '1', 'tuan1@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `usertype`
---
-
-CREATE TABLE `usertype` (
-  `UserTypeID` int(11) NOT NULL,
-  `UserTypeName` varchar(50) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `usertype`
---
-
-INSERT INTO `usertype` (`UserTypeID`, `UserTypeName`) VALUES
-(1, 'Admin'),
-(2, 'User');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `categories`
---
-ALTER TABLE `categories`
-  ADD PRIMARY KEY (`CategoryID`);
-
---
--- Indexes for table `manufacturers`
---
-ALTER TABLE `manufacturers`
-  ADD PRIMARY KEY (`ManufacturerID`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`ProductID`),
-  ADD KEY `ManufacturerID` (`ManufacturerID`),
-  ADD KEY `CategoryID` (`CategoryID`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`UserID`),
-  ADD UNIQUE KEY `UserName` (`UserName`),
-  ADD UNIQUE KEY `Email` (`Email`),
-  ADD KEY `GroupID` (`UserTypeID`);
-
---
--- Indexes for table `usertype`
---
-ALTER TABLE `usertype`
-  ADD PRIMARY KEY (`UserTypeID`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `CategoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `manufacturers`
---
-ALTER TABLE `manufacturers`
-  MODIFY `ManufacturerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `ProductID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1015;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
-
---
--- AUTO_INCREMENT for table `usertype`
---
-ALTER TABLE `usertype`
-  MODIFY `UserTypeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+INSERT INTO `users` (`UserID`, `GroupID`, `FullName`, `UserName`, `PassWord`, `Email`) VALUES
+(40, 1, 'admin', '1', '1', '1');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

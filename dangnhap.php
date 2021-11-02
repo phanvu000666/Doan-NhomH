@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login V9</title>
+    <title>Login Smart Phone</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -29,13 +29,18 @@
 </head>
 <body>
 
+<style>
+    .wrap-login100{
+        background: #DDA0DD;
+    }
+</style>
 
 <div class="container-login100" style="background-image: url('pictures/bg-01.jpg');">
     <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
         <form class="login100-form validate-form">
-				<span class="login100-form-title p-b-37">
-					Sign In
-				</span>
+			<span class="login100-form-title p-b-37">
+				Sign In
+			</span>
 
             <div class="wrap-input100 validate-input m-b-20" data-validate="Enter username or email">
                 <input class="input100" type="text" name="username" placeholder="username or email">
@@ -70,8 +75,8 @@
             </div>
 
             <div class="text-center">
-                <a href="#" class="txt2 hov1">
-                    Sign Up
+                <a href="dangki.php" class="txt2 hov1">
+                    Sign Up !
                 </a>
             </div>
         </form>

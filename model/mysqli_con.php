@@ -12,13 +12,22 @@ class My_MySQLI{
         
         return self::$conn;
     }
-    public function select($sql)
+    public static function select($sql)
     {
         $items = [];
         $sql->execute();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items;
     }
+    public static function FetchAll($sql)
+    {
+        $arr=array();
+        $r = $this->ExecuteQuery($sql);
+        while ($row = mysqli_fetch_assoc($r)) {
+            $arr[]=$row;
+        }
+        mysqli_free_result($r);
+        return $arr;
+    }
   
 }
-?>
