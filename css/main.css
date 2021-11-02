@@ -127,7 +127,7 @@ iframe {
   font-family: SourceSansPro-Regular;
   font-size: 16px;
   line-height: 1.4;
-  color: #999999;
+  color: white;
 }
 
 .txt2 {
@@ -184,7 +184,7 @@ iframe {
 
 .wrap-login100 {
   width: 390px;
-  background: #fff;
+  background: #bd86f7;
   border-radius: 10px;
   overflow: hidden;
 
