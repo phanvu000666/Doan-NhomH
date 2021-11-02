@@ -75,8 +75,8 @@
             </div>
 
             <div class="text-center">
-                <a href="dangki.php" class="txt2 hov1">
-                    Sign Up !
+                <a href="dangnhap.php" class="txt2 hov1">
+                    Sign In !
                 </a>
             </div>
         </form>

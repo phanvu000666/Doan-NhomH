@@ -1,6 +1,7 @@
 <?php
 require 'Controller/Product.php';
 require 'Controller/Pagination.php';
+require_once('PHP/component.php');
 $product = new Product();
 $products = $product->getData();
 $result = $product->getSPNew();
@@ -11,6 +12,7 @@ if (!empty($_GET['keyword'])) {
     $Search = $product->Search($keyword);
     //var_dump($Search);
 }
+include_once("view/header.php");
 $totalRow = $product->getTotalRow();
 $perPage = 3;
 $page = 1;
@@ -48,7 +50,6 @@ if (isset($_POST['add'])) {
 ?>
 
 <!-- header -->
-<?php include_once("view/header.php"); ?>
 <?php
         if (!isset($_GET['mod'])) {
             include_once("view/slider.php");
