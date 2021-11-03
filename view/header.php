@@ -1,5 +1,4 @@
 <?php
-session_start();
 if (!isset($_SESSION['username'])) {
     header('Location: login.php');
 }
@@ -29,6 +28,7 @@ if (!isset($_SESSION['username'])) {
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
+
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="admin/css/owl.carousel.css">

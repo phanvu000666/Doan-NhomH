@@ -38,7 +38,7 @@ class ProductController
                     <input type="button" id="{$encode}" value="Edit" class="edit-data" data-toggle="modal" data-target="#myModel">
                 </td>
             </tr>
-            Gryphon;
+Gryphon;
         }
         return $body_table;
     }
