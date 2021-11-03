@@ -3,6 +3,14 @@
 // require "./model/mysqli_con.php";
 
 class Order extends My_MySQLI {
+    public static function getInstance()
+    {
+        if(self::$_instance !== null){
+            return self::$_instance;
+        }
+        self::$_instance = new self();
+        return self::$_instance;
+    }
     function getDataOrder() {
         $idUser = $_SESSION['id_user'];
         var_dump($idUser);

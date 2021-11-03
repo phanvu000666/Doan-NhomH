@@ -1,10 +1,10 @@
 <?php
-require 'Controller/Product.php';
 require 'Controller/Pagination.php';
-$product = new Product();
+require_once 'Controller/FactoryPattern.php';
+$factory = new FactoryPattern();
+$product = $factory->make('product');
 $products = $product->getData();
 $result = $product->getSPNew();
-//$products = $product->getAllProducts();
 $totalRow = $product->getTotalRow();
 $perPage = 6;
 $page = 1;
@@ -19,23 +19,13 @@ if (!empty($_GET['keyword'])) {
     $Search = $product->Search($keyword);
     //var_dump($Search);
 }
-$current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-$limit = 3;
-$total_rows = $product->countAll();
-$total_pages = ceil($total_rows / $limit);
-if ($current_page > $total_pages) {
-    $current_page = $total_pages;
-} elseif ($current_page < 1) {
-    $current_page = 1;
-}
-$start = ($current_page - 1) * $limit;
-$search_result = $product->Search_Paginate($start, $limit, $keyword);
-//var_dump($result);
-//var_dump($total_rows);
+$search_result = $product->Search($keyword);
+//var_dump($search_result);
+//var_dump($totalRow);
 
 
 ?>
-<?php include_once("view/header.php"); ?> <br>
+<?php include_once("view/header.php"); ?>
 <div class="product-big-title-area">
     <div class="container">
         <div class="row">
