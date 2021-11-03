@@ -1,24 +1,31 @@
 <?php
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-require_once("{$base_dir}model{$ds}pdo_con.php");
+require_once("{$base_dir}model{$ds}db.php");
+require_once("{$base_dir}model{$ds}product.php");
 
-class Manufacture extends My_PDO
+use SmartWeb\DataBase\Product\Model;
+use SmartWeb\DataBase\DB;
+use SmartWeb\DataBase\DBPDO;
+
+class Manufacture extends Model
 {
-    private static $manufacture;
-    public static function getInstance()
+    private static Manufacture $manu;
+    public static function getInstance(DB $db)
     {
-        if (self::$manufacture) {
-            return self::$manufacture;
+        if (empty($manu)) {
+            self::$manu = new self($db);
         }
-        self::$manufacture = new self();
-        return self::$manufacture;
+        return self::$manu;
     }
-    function getNames()
+
+    public function select($sql, array $param = null)
     {
-        $stmt = parent::getInstance()->prepare("SELECT ManufacturerID, ManufacturerName FROM manufacturers");
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $this->db->select($sql, $param);
+    }
+
+    public function delete($sql, array $param = null)
+    {
+        return $this->db->delete($sql, $param);
     }
 }
