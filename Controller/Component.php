@@ -1,5 +1,4 @@
 <?php
-require_once 'Controller/order.php';
 
 function cartElement($product_img, $productName, $product_Price, $product_id) {
     $id = $product_id;

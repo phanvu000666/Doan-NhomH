@@ -1,11 +1,10 @@
 <?php
-require_once 'Controller/Product.php';
-require_once 'Controller/order.php';
-require_once('PHP/component.php');
 require_once 'Controller/Pagination.php';
-$products = new Product();
+require_once 'Controller/FactoryPattern.php';
+$factory = new FactoryPattern();
+$product = $factory->make('product');
 $total    = 0;
-$data     = $products->getData();
+$data     = $product->getData();
 
 //unset($_SESSION['cart']);
 $keyword = '';
@@ -21,9 +20,9 @@ if (isset($_POST['remove'])) {
             unset($_SESSION['cart'][$key]);
             if ($value["prductID"] == $_GET['id']) {
                 unset($_SESSION['cart'][$key]);
-                echo "<script>alert('Product has been Removed...')</script>";
-                //echo "<script> window.location='cart2.php'</script>";
+                echo "<script>alert('Sản phẩm đã được xoá khỏi giỏ hàng ...');</script>";
             }
+            unset($_SESSION['quanlity']);
         }
     }
 }
@@ -65,9 +64,12 @@ if (isset($_POST['plus'])) {
             <div class="col-md-4">
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">Search Products</h2>
-                    <form action="#">
-                        <input type="text" placeholder="Search products...">
-                        <input type="submit" value="Search">
+                    <form action="shop.php" method="get">
+                        <input type="text" name="keyword" class="searchTerm" placeholder="Search products..."
+                            <?php echo $keyword ?>></input>
+                        <button type="submit" class="searchButton">
+                            <i class="fa fa-search"></i>
+                        </button>
                     </form>
                 </div>
 
@@ -117,7 +119,7 @@ if (isset($_POST['plus'])) {
                         <?php
                         if (isset($_SESSION['cart'])) {
                             $product_id = array_column($_SESSION['cart'], 'prductID');
-                            $listIDs    = $products->getData();
+                            $listIDs    = $product->getData();
 
                             foreach ($product_id as $id) {
                                 for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
