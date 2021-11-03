@@ -7,7 +7,7 @@
                     <h2 class="section-title">Sản Phẩm Mới Nhất</h2>
                     <div class="product-carousel">
                         <?php foreach ($result as $key => $value) {
-                            //var_dump($value);
+
                             ?>
                             <div class="single-product">
                                 <div class="product-f-image">
@@ -22,8 +22,8 @@
                                 <h2><a href="single-product.php"><?php echo $value['ProductName'] ?></a></h2>
 
                                 <div class="product-carousel-price">
-                                    <ins><?php echo $value['Price'] ?></ins>
-                                    <del><?php echo $value['Price'] ?></del>
+                                    <ins><?php echo "$".number_format($value['Price'],1) ?></ins>
+                                    <del><?php echo "$".number_format($value['Price'],1) ?></del>
                                 </div>
                                 <form action="index.php" method="post">
                                     <button type="submit" name="add"

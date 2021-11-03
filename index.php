@@ -29,7 +29,6 @@ if (isset($_POST['add'])) {
         $item_array_id = array_column($_SESSION['cart'], "prductID");
         if (in_array($_POST['productID'], $item_array_id)) {
             echo "<script>alert('Sản phẩm đã tồn tại trong giỏ hàng !!!')</script>";
-            echo "<script>window.location='index.php'</script>";
         } else {
             $count      = count($_SESSION['cart']);
             $id = $_POST['productID'];
@@ -38,6 +37,7 @@ if (isset($_POST['add'])) {
             $_SESSION['cart'][$count] = $item_array;
             $_SESSION['quanlity'][$id] =1;
         }
+        echo "<script>window.location='index.php'</script>";
     } else {
         $id = $_POST['productID'];
         $item_array          = ['prductID' => $id];

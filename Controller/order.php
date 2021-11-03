@@ -1,4 +1,5 @@
 <?php
+session_start();
 // require "./model/config.php";
 // require "./model/mysqli_con.php";
 
@@ -73,9 +74,33 @@ class Order extends My_MySQLI {
         $sql->execute();//return an object
         $items = [];
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+
         return $items; //return an array
     }
 
-}
+    function insertOder() {
+        if (isset($_POST['checkout'])) {
+            $id_user = $_SESSION['user'][0]['UserID'];
+            $name    = $_POST['name'];
+            $email   = $_POST['email'];
+            $sdt     = $_POST['sdt'];
+            $diachi  = $_POST['diachi'];
+            $status= 0;
+            $total= $_SESSION['total'];
 
-?>
+            $sql = self::$conn->query("INSERT INTO `orders`( `UserID`, `Ten`, `Address`, `Phone`, `mail`, `Status`, `total`)
+    VALUES ('$id_user', '$name', '$diachi', '$sdt','$email', '$status', '$total')");
+            return $sql;
+        }
+    }
+
+    function getDataOder() {
+        $sql = self::$conn->prepare("SELECT * FROM orders");
+        $sql->execute();//return an object
+        $items = [];
+        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $items; //return an array
+    }
+
+
+}
