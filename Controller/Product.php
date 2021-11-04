@@ -170,4 +170,11 @@ class Product extends My_MySQLI{
         return $result; //return an array
 
     }
+    public function getUsers(){
+        $sql = $sql = self::$conn->prepare("SELECT * FROM `users`");
+        $sql->execute();//return an object
+        $result = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $result; //return an array
+
+    }
 }
