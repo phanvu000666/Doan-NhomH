@@ -1,4 +1,7 @@
 <?php
+
+namespace SmartWeb\Models;
+
 class EProduct
 {
     private $id;
