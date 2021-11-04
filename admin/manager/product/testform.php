@@ -17,14 +17,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $required = ['name', 'price', 'quantity', 'description', 'origin', 'manufactures', 'categories', 'image'];
     //require processform.php
     require '../../include/processform.php';
-    //update edit data to form.
+    //update data to form.
     if ($_POST &&  !empty($_POST['id'])) {
         $_SESSION['id'] = decryptionID($_POST['id']);
         $product = $products->getProduct($_SESSION['id'])[0];
-        //print_r($product);
-        //var_dump($product);
         echo json_encode($product);
-        exit;
     }
     echo $image;
 }/*  */
