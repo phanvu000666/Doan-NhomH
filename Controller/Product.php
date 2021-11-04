@@ -1,7 +1,15 @@
 <?php
-require "./model/config.php";
-require "./model/mysqli_con.php";
+// require "./model/config.php";
+// require "./model/mysqli_con.php";
 class Product extends My_MySQLI{
+    public static function getInstance()
+    {
+        if(self::$_instance !== null){
+            return self::$_instance;
+        }
+        self::$_instance = new self();
+        return self::$_instance;
+    }
     function getDataDuaVaoID($id){
         $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductID = $id");
         $sql->execute();//return an object
