@@ -2,33 +2,31 @@
 
 namespace SmartWeb\Repository;
 
-use ProductRepository as pr;
+use Manufacture;
 use SmartWeb\DataBase\DBPDO;
 use SmartWeb\Repository\Repository;
-use SmartWeb\DataBase\Product\Phone;
-
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-require_once("{$base_dir}model{$ds}product.php");
+require_once("{$base_dir}model{$ds}manufacture.php");
 include_once "repository.php";
 
-class ProductRepository implements Repository
+class ManufactureRepository implements Repository
 {
-    private static $phone;
+    private static $manu;
     public static function getInstance()
     {
-        if (empty($phone)) {
-            static::$phone = Phone::getInstance(new DBPDO);
+        if (empty($manu)) {
+            static::$manu = Manufacture::getInstance(new DBPDO);
         }
-        return self::$phone;
+        return self::$manu;
     }
 
     public static function select($sql, array $values = null)
     {
-        return static::$phone->select($sql, $values);
+        return static::$manu->select($sql, $values);
     }
     public static function delete($sql, array $values = null)
     {
-        return static::$phone->delete($sql, $values);
+        return static::$manu->delete($sql, $values);
     }
 }

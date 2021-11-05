@@ -1,9 +1,8 @@
 <?php
-require_once 'Controller/Product.php';
-require_once 'Controller/order.php';
-require_once('PHP/component.php');
 require_once 'Controller/Pagination.php';
-$products = new Product();
+require_once 'Controller/FactoryPattern.php';
+$factory = new FactoryPattern();
+$products = $factory->make('product');
 $total    = 0;
 $data     = $products->getData();
 
@@ -20,8 +19,9 @@ if (isset($_POST['remove'])) {
         foreach ($_SESSION['cart'] as $key => $value) {
             if ($value["prductID"] == $_GET['id']) {
                 unset($_SESSION['cart'][$key]);
-                echo "<script>alert('Product has been Removed...')</script>";
+                echo "<script>alert('Sản phẩm đã được xoá khỏi giỏ hàng ...');</script>";
             }
+            unset($_SESSION['quanlity']);
         }
     }
 }
