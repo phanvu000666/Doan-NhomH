@@ -118,6 +118,7 @@ if (!empty($_POST['submit'])) {
                         Sign Up !
                     </a>
                 </div>
+                <div style="font-size: 0.8cm; text-align: center ;"><a href="quenmatkhau.php">Forgot your PassWord??</a></div>
             </form>
 
 
