@@ -5,6 +5,7 @@ class My_MySQLI{
     public function __construct()
     {
         self::$conn = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE);
+        mysqli_query(self::$conn, "set names utf8");
         if (!self::$conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
