@@ -1,16 +1,29 @@
 <h2 class="text-center">Display Information Of Products</h2>
-<!-- nut bam mo form -->
-<button type="button" id="btn-product" class="btn btn-primary float-right my-2" data-toggle="modal" data-target="#myModel">
-    Add
-</button>
-<table id="products-table" class="table table-bordered">
-    <?= $phonecontrol->display_products() ?>
-</table>
-<!-- Loading -->
-<div id="overlay" style="display: none;">
-    <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-    </div>
+<!-- ...:::: Start Cart Section:::... -->
+<div class="cart-section">
+    <!-- Start Cart Table -->
+    <div class="cart-table-wrapper" data-aos="fade-up" data-aos-delay="0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table_desc">
+                        <div class="table_page table-responsive">
+                            <table id="products-table">
+                                <?= $phonecontrol->display_products() ?>
+                                <!-- Start Cart Table Head -->
+                            </table>
+                        </div>
+                        <div class="cart_submit">
+                            <button type="button" id="btn-product" class="btn btn-md btn-golden" data-toggle="modal" data-target="#myModel">
+                                ADD
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End Cart Table -->
+</div>
 </div>
 <!-- Modal form-->
 <div class="modal fade" id="myModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

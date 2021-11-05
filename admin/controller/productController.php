@@ -30,36 +30,38 @@ class ProductController
 
         $body_table = <<< Gryphon
         <thead>
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">ImageUrl</th>
-            <th scope="col">ProductName</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Handle</th>
-        </tr>
-        </thead>
+            <tr>
+                <th class="product_remove">ID</th>
+                <th class="product_thumb">Image</th>
+                <th class="product_name">Product</th>
+                <th class="product-price">Price</th>
+                <th class="product_quantity">Quantity</th>
+                <th class="product_total">Handle</th>
+            </tr>
+        </thead> <!-- End Cart Table Head -->
         <tbody>
         Gryphon;
         foreach ($result as $key => $value) {
 
             $encode = encodeID($value['ProductID']);
             $body_table .= <<< Gryphon
+
+            <!-- Start Cart Single Item-->
             <tr>
-                <th rowspan="2" scope="row">{$encode}</th>
-                <th rowspan="2" scope="row"><img class="img-thumbnail mx-auto img-fluid" src="./images/{$value['ImageUrl']}" alt="Hinh san pham"></th>
-                <td rowspan="2">{$value['ProductName']}</td>
-                <td rowspan="2">{$value['Price']}</td>
-                <td rowspan="2">{$value['Quantity']}</td>
-                <td>
-                    <a href="{$_SERVER['PHP_SELF']}?ProductID={$encode}&handle=delete">Delete</a>
+                <td class="product-price">{$encode}</td>
+                <td class="product_thumb"><a href="product-details-default.html"><img src="./images/{$value['ImageUrl']}" alt=""></a></td>
+                <td class="product_name">{$value['ProductName']}</td>
+                <td class="product-price">{$value['Price']}</td>
+                <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="{$value['Quantity']}" type="number"></td>
+                <td class="product_remove">
+                <a href="{$_SERVER['PHP_SELF']}?ProductID={$encode}&handle=delete"><i class="fa fa-trash-o 1"></i></a>
+                <button id="{$encode}" onclick="editProduct({$encode})" type="button" class="edit-data" data-toggle="modal" data-target="#myModel">
+                <i class="fa fa-edit"></i>
+                </button>
                 </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="button" id="{$encode}" onclick="editProduct({$encode})" value="Edit" class="edit-data" data-toggle="modal" data-target="#myModel">
-                </td>
-            </tr>
+            </tr> <!-- End Cart Single Item-->
+            <!-- Start Cart Single Item-->
+      
             Gryphon;
         }
         $body_table .= <<< Gryphon

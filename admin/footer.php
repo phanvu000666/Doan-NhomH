@@ -3,6 +3,12 @@
 
 
 
+
+<script src="assets/js/vendor/vendor.min.js"></script>
+<script src="assets/js/plugins/plugins.min.js"></script>
+
+<!-- Main JS -->
+<script src="assets/js/main.js"></script>
 <!-- Latest jQuery form server -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Bootstrap JS form CDN -->
@@ -17,7 +23,6 @@
         $('#overlay').fadeIn().delay(2000).fadeOut();
         // event
         save.addEventListener("click", function() {
-            // console.log($("#name").val());
             var formData = new FormData(form);
             var url = 'index.php';
             $.ajax({
@@ -30,6 +35,7 @@
                     setTimeout(function() {
                         clearForm();
                         callGetContentTable();
+
                     }, 500);
 
                 },
@@ -73,7 +79,7 @@
                 key: 'content'
             },
             success: function(reponse) {
-
+                console.log(reponse);
                 $("#products-table > thead").remove();
                 $("#products-table > tbody").remove();
                 //add
