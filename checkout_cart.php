@@ -1,4 +1,7 @@
 <?php
+session_start();
+require "./model/config.php";
+require "./model/mysqli_con.php";
 include "./view/check_out/header.php";
 require_once 'Controller/Product.php';
 require_once 'Controller/order.php';
@@ -23,7 +26,7 @@ $dataoder = $data->getDataOder();
     <?php foreach ($dataoder as $value) : ?>
         <tr>
             <td><?= $value['OrderID'] ?></td>
-            <td><?= $value['Ten'] ?></td>
+            <td><?= $_SESSION['username'] ?></td>
             <td><?= $value['Address'] ?></td>
             <td><?= $value['mail'] ?></td>
             <td><?= $value['Phone'] ?></td>
