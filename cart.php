@@ -1,10 +1,11 @@
 <?php
+require_once 'Controller/Product.php';
+require_once 'Controller/order.php';
+require_once('PHP/component.php');
 require_once 'Controller/Pagination.php';
-require_once 'Controller/FactoryPattern.php';
-$factory = new FactoryPattern();
-$product = $factory->make('product');
+$products = new Product();
 $total    = 0;
-$data     = $product->getData();
+$data     = $products->getData();
 
 $keyword = '';
 if ( ! empty($_GET['keyword'])) {
@@ -21,7 +22,7 @@ if (isset($_POST['remove'])) {
                 unset($_SESSION['cart'][$key]);
                 echo "<script>alert('Sản phẩm đã được xoá khỏi giỏ hàng ...');</script>";
             }
-            unset($_SESSION['quanlity']);
+            }
         }
     }
 }
