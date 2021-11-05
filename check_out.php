@@ -25,25 +25,16 @@ if (isset($_SESSION['username'])) {?>
                 <div class='order-info-content'>
                     <?php
                     if (isset($_SESSION['cart'])) {
-                        //var_dump($_SESSION['cart']);
                         $product_id = array_column($_SESSION['cart'], 'prductID');
                         $listIDs    = $products->getData();
-                        $_SESSION['buyer'] = array(['user'=> $_SESSION['username']]);
                         foreach ($product_id as $id) {
                             for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
-                                if ($listIDs[$i] == $id) {
-
-                                    //array_push($_SESSION['buyer'],['product'=>'1'] );
-                                    //var_dump($listIDs[$i]);
+                                if ( $listIDs[$i]['ProductID'] == $id) {
                                     checkOutElment($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
                                     $total = $total + (int) $listIDs[$i]['Price'];
-
-
                                 }
                             }
-
                         }
-                        //var_dump($_SESSION['buyer']);
                         if ($total != $_SESSION['total']) {
                             $_SESSION['total'] = $total;
                             echo "<script>window.location.reload()</script>";
@@ -68,12 +59,10 @@ if (isset($_SESSION['username'])) {?>
             <div class='credit-info'>
                 <div class='credit-info-content'>
                     <table class='half-input-table'>
-                        <td> Vui lòng điền thông tin bên dưới để đặt hàng</td>
+                        <h4> Vui lòng điền thông tin bên dưới để đặt hàng</h4>
                     </table>
-                    <img src='./img/banner-mega-sale-23-15-bcb043f9-0cd6-47b6-b255-b760249b03c1.jpg' height='80'
-                         class='credit-card-image' id='credit-card-image'>
                     <form method="post" action="check_out.php" name="checkout">
-                        <h5>Vui lòng nhập tên</h5>
+                        <h5>Nhập tên</h5>
                         <input type="text" class='input-field' name="name" value="">
                         <h5>Email</h5>
                         <input type="text" class='input-field' name="email" value="">
@@ -84,7 +73,7 @@ if (isset($_SESSION['username'])) {?>
                         <button class='pay-btn' name="checkout">Checkout</button>
                     </form>
                     <?php
-                    if (isset($_POST['checkout'])) { ?>
+                    if (isset($_POST['checkout'])) { echo "ádas";?>
                         <script>
                             swal("", "Đặt hàng thành công!", "success");
                         </script>

@@ -3,15 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5f846128-93be-44c6-9fb1-070c59531ff3" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/Auth.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/FactoryPattern.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/FactoryPattern.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/order.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cart.php" beforeDir="false" afterPath="$PROJECT_DIR$/cart.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/check_out.php" beforeDir="false" afterPath="$PROJECT_DIR$/check_out.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dangnhap.php" beforeDir="false" afterPath="$PROJECT_DIR$/dangnhap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/header.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
