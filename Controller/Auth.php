@@ -1,6 +1,4 @@
 <?php
-// require "./model/config.php";
-// require "./model/mysqli_con.php";
 class Auths extends My_MySQLI{
     //design pattern factory
     public static function getInstance()

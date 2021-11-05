@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 // var_dump($_SESSION);
 // if (!isset($_SESSION['username'])||!isset($_SESSION['email'])) {
 //     header('Location: dangnhap.php');

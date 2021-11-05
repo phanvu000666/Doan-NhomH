@@ -1,6 +1,4 @@
 <?php
-require "./model/config.php";
-require "./model/mysqli_con.php";
 require "Auth.php";
 require "Product.php";
 require "Manufacturers.php";

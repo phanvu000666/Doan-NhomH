@@ -1,6 +1,4 @@
 <?php
-// require "./model/config.php";
-// require "./model/mysqli_con.php";
 class Product extends My_MySQLI{
     public static function getInstance()
     {

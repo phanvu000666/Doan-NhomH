@@ -1,5 +1,7 @@
 <?php
 require 'Controller/Pagination.php';
+include "model/mysqli_con.php";
+include "model/config.php";
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
 $product = $factory->make('product');

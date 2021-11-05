@@ -1,13 +1,12 @@
 <?php
-require_once 'Controller/Product.php';
-require_once 'Controller/order.php';
-require_once('PHP/component.php');
-require_once 'Controller/Pagination.php';
-require_once 'Controller/FactoryPattern.php';
+include "model/config.php";
+include "model/mysqli_con.php";
+include "Controller/FactoryPattern.php";
+
 $factory = new FactoryPattern();
-$product = $factory->make('product');
+$products = $factory->make('product');
 $total    = 0;
-$data     = $product->getData();
+$data     = $products->getData();
 
 $keyword = '';
 if ( ! empty($_GET['keyword'])) {
@@ -56,6 +55,7 @@ if (isset($_POST['minus'])) {
                 $giam = $_SESSION['quanlity'][$id];
                 if (isset($_SESSION['quanlity'][$id]) && $giam > 1) {
                     --$_SESSION['quanlity'][$id];
+                    var_dump($_SESSION['quanlity'][$id]);
                     $_SESSION['tong'] = $_SESSION['quanlity'][$id] * $_SESSION['total'];
 
                 }
@@ -152,7 +152,7 @@ if (isset($_POST['check_out'])) {
                                         if ($listIDs[$i]['ProductID'] == $id) {
                                             cartElement($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
                                             $total = $total + (int) $listIDs[$i]['Price'];
-
+                                        var_dump($_SESSION['cart']);
                                         }
                                     }
                                 }

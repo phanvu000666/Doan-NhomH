@@ -1,31 +1,39 @@
 <?php
+include "model/mysqli_con.php";
+include "model/config.php";
+include "Controller/order.php";
 require_once 'Controller/Product.php';
-require_once('PHP/component.php');
+require_once('Controller/component.php');
 $products = new Product();
 $oder     = new Order();
 $insertOd = $oder->insertOder();
 $total    = 0;
 $data     = $products->getData();
 $user     = $products->getUsers();
-
+$getORDER = $oder->getOrderItems();
+var_dump($getORDER);
 include "./view/check_out/header.php";
 $_SESSION['user'] = $user;
 
 ?>
 <?php
-if (isset($_SESSION['username'])) { ?>
+if (isset($_SESSION['username'])) {?>
+
     <div class='container'>
         <div class='window'>
             <div class='order-info'>
                 <div class='order-info-content'>
                     <?php
                     if (isset($_SESSION['cart'])) {
+                        //var_dump($_SESSION['cart']);
                         $product_id = array_column($_SESSION['cart'], 'prductID');
                         $listIDs    = $products->getData();
-
+                        $_SESSION['buyer'] = array(['user'=> $_SESSION['username']]);
                         foreach ($product_id as $id) {
                             for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
-                                if ($listIDs[$i]['ProductID'] == $id) {
+                                if ($listIDs[$i] == $id) {
+
+                                    //array_push($_SESSION['buyer'],['product'=>'1'] );
                                     //var_dump($listIDs[$i]);
                                     checkOutElment($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
                                     $total = $total + (int) $listIDs[$i]['Price'];
@@ -35,6 +43,7 @@ if (isset($_SESSION['username'])) { ?>
                             }
 
                         }
+                        //var_dump($_SESSION['buyer']);
                         if ($total != $_SESSION['total']) {
                             $_SESSION['total'] = $total;
                             echo "<script>window.location.reload()</script>";
@@ -87,6 +96,7 @@ if (isset($_SESSION['username'])) { ?>
         </div>
         <?php
         if (isset($_POST['checkout'])) {
+
             $insertOd;
         }
         ?>
@@ -94,7 +104,7 @@ if (isset($_SESSION['username'])) { ?>
 <?php } else { ?>
     <div class="btn-checkout">
         <button class='pay-btn' name="btnkiemtra"> Checkout</button>
-        <strong>vui lòng đăng nhập</strong> <a href="Login.php"> Login</a>
+        <strong>vui lòng đăng nhập</strong> <a href="dangnhap.php"> Login</a>
     </div>
 
 
