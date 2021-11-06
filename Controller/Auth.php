@@ -13,6 +13,8 @@ class Auths extends Model
     public static function getInstance()
     {
         if (empty(self::$_instance)) {
+            //ok
+            echo"concac";
             self::$_instance = new self(new DBMYSQL);
         }
 
