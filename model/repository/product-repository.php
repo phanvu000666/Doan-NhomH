@@ -6,8 +6,7 @@ use SmartWeb\Property;
 use SmartWeb\ObjectAssembler;
 use SmartWeb\Product;
 use SmartWeb\Phone;
- //ok
- echo"fig bug";
+
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 

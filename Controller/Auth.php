@@ -22,8 +22,8 @@ class Auths extends Model
         $md5Password = md5($password);
         $sql = 'SELECT * FROM users WHERE username  = "' . $userName . '" AND password = "' . $md5Password . '"';
 
-        $user = $this->con->selects($sql);
-        return $user;
+        $user = $this->db->select($sql);
+        return $sql;
     }
 
     public function findUserById($id)

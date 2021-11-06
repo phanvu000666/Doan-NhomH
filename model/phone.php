@@ -1,8 +1,7 @@
 <?php
 //UPDATE MODEL 
 namespace SmartWeb;
- //ok
- echo"fig bug";
+
 class Phone extends Model
 {
     private static Phone $_instance;
@@ -101,6 +100,7 @@ class Phone extends Model
         LIMIT ?, ?", $params);
         return $result;
     }
+    
     //Viet phuong th`
     function getData()
     {

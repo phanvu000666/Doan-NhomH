@@ -16,7 +16,7 @@ if (!empty($_POST['submit'])) {
     $user = NULL;
     if ($user = $Auth->auth($users['username'], $users['password'])) {
         //Login successful
-        $_SESSION['id'] = $user[0]['UserID'];
+        // $_SESSION['id'] = $user['UserID'];
         $_SESSION['username'] =$username;
         $_SESSION['groupID'] = $user[0]['GroupID'];
         $_SESSION['message'] = 'Login successful';

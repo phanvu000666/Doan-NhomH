@@ -2,8 +2,7 @@
 //UPDATE MODEL
 namespace SmartWeb;
 //factory
- //ok
- echo"fig bug";
+
 class TerrainFactory
 {
     #[InjectConstructor(DB::class, Product::class)]

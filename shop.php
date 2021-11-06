@@ -14,12 +14,8 @@ if (isset($_GET['page'])) {
 $pageLinks = Pagination::createPageLinks($totalRow, $perPage, $page);
 //=================================================================
 $keyword = '';
-if (!empty($_GET['keyword'])) {
-    $keyword = $_GET['keyword'];
-    $Search = $product->Search($keyword);
-    //var_dump($Search);
-}
 $search_result = $product->Search($keyword);
+var_dump($search_result);
 //var_dump($search_result);
 //var_dump($totalRow);
 
