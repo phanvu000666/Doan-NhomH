@@ -1,9 +1,6 @@
 <?php
-require "./model/config.php";
-require "./model/mysqli_con.php";
 require_once 'Controller/Product.php';
-require_once 'Controller/Order.php';
-require_once('controller/component.php');
+require_once('PHP/component.php');
 $products = new Product();
 $oder     = new Order();
 $insertOd = $oder->insertOder();
