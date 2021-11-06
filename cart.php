@@ -7,9 +7,12 @@ $total    = 0;
 $data     = $product->getData();
 
 $keyword = '';
+var_dump("carrd");
 if ( ! empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
+    
     $Search  = $product->Search($keyword);
+    var_dump($Search);
     //var_dump($Search);
 }
 include_once("view/header.php");

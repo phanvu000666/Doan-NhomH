@@ -16,10 +16,8 @@ $pageLinks = Pagination::createPageLinks($totalRow, $perPage, $page);
 $keyword = '';
 if (!empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
-    $Search = $product->Search($keyword);
-    //var_dump($Search);
+    $search_result = $product->Search($keyword);
 }
-$search_result = $product->Search($keyword);
 //var_dump($search_result);
 //var_dump($totalRow);
 
@@ -38,21 +36,21 @@ $search_result = $product->Search($keyword);
     </div>
 </div>
 <?php
-        if (!isset($_GET['mod'])) {
-            if (!isset($_GET['keyword'])) {
-                include_once("view/product/allProduct.php");
-            }
-            if (isset($_GET['keyword'])) {
-                include_once("view/product/search_result.php");
-            }
-        }
-        if(isset($_GET['mod'])) {
-            $a = ucfirst($_GET['mod']);
-            $b = ucfirst($_GET['act']);
+if (!isset($_GET['mod'])) {
+    if (!isset($_GET['keyword'])) {
+        include_once("view/product/allProduct.php");
+    }
+    if (isset($_GET['keyword'])) {
+        include_once("view/product/search_result.php");
+    }
+}
+if (isset($_GET['mod'])) {
+    $a = ucfirst($_GET['mod']);
+    $b = ucfirst($_GET['act']);
 
-            include_once("view/".$a."/".$b.".php");
-        }
-    ?>
+    include_once("view/" . $a . "/" . $b . ".php");
+}
+?>
 <?php include_once("view/product/spMoinhat.php"); ?>
 <!-- logo -->
 <?php include_once("view/manufactures/logo.php"); ?>

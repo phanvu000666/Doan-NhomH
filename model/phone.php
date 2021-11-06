@@ -138,12 +138,12 @@ class Phone extends Model
     {
         $key = "%$keyword%";
         //var_dump(self::$conn);
-        $params = ['s',&$key];
-        $result = $this->db->select("SELECT * FROM products 
+        $params = ['s', &$key];
+        $results = $this->db->select("SELECT * FROM products 
         INNER JOIN property ON products.ProductID = property.ProductID
-         LIKE  ? ", $params);
-        //var_dump($items);
-        return $result; //return an array
+        WHERE ProductName
+        LIKE  ? ", $params);
+        return $results; //return an array
 
     }
 
