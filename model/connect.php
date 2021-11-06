@@ -36,5 +36,4 @@ class ConnectMySqli extends Connect
         }
     }
 }
- //ok
- echo"fig bug";
+

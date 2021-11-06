@@ -1,13 +1,9 @@
 <?php
-<<<<<<< HEAD
-require_once 'Controller/Pagination.php';
-require_once 'Controller/FactoryPattern.php';
-=======
+
 include "model/config.php";
 include "model/mysqli_con.php";
 include "Controller/FactoryPattern.php";
 
->>>>>>> TrongTinh
 $factory = new FactoryPattern();
 $products = $factory->make('product');
 $total    = 0;

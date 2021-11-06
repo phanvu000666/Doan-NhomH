@@ -93,7 +93,6 @@ class Phone extends Model
         // Tính số thứ tự trang bắt đầu
         $start = $perPage * ($page - 1);
         $params =  ['ii' => [$start, $perPage]];
-        var_dump($params);die();
         //2. Viết câu SQL
         $result = $this->db->select("SELECT * FROM products 
         INNER JOIN property ON products.ProductID = property.ProductID

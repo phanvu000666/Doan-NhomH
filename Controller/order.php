@@ -19,7 +19,7 @@ class Order extends Model
     function getDataOrder()
     {
         $idUser = $_SESSION['id_user'];
-        var_dump($idUser);
+        //var_dump($idUser);
         $item = $this->con->select("SELECT * FROM `orders`
         INNER JOIN products on products.ProductID = orders.id_product  
         WHERE orders.id_user = $idUser");

@@ -8,8 +8,6 @@ require_once "connect.php";
 
 //----------------------------------------------------------------------------------------------------------
 //creator
- //ok
- echo"fig bug";
 interface IDB
 {
     public function select($sql);

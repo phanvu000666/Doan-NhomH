@@ -1,8 +1,6 @@
 <?php
 //UPDATE MODEL
 namespace SmartWeb;
- //ok
- echo"fig bug";
 class Manufacture extends Model
 {
     private static Manufacture $_instance;

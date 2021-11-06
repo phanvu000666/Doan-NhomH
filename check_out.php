@@ -1,19 +1,14 @@
 <?php
-<<<<<<< HEAD
-require "./model/config.php";
-require "./model/mysqli_con.php";
-require_once 'Controller/Product.php';
-require_once 'Controller/Order.php';
-require_once('controller/component.php');
-=======
+
+use SmartWeb\DBMYSQL;
+
 include "model/mysqli_con.php";
 include "model/config.php";
 include "Controller/order.php";
 require_once 'Controller/Product.php';
 require_once('Controller/component.php');
->>>>>>> TrongTinh
 $products = new Product();
-$oder     = new Order();
+$oder     = Order::getInstance(new DBMYSQL);
 $insertOd = $oder->insertOder();
 $total    = 0;
 $data     = $products->getData();
