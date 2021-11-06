@@ -1,47 +1,46 @@
 <?php
-echo "123";
 session_start();
 require_once("model/config.php");
-	if (isset($_POST["btn_submit"])) {
-		//lấy thông tin từ các form bằng phương thức POST
-		$username = $_POST["username"];
-        $fullname = $_POST["fullname"];
-		$password = $_POST["password"];
-		$md5Password = md5($password);
-		$email = $_POST["email"];
-        
+if (isset($_POST["btn_submit"])) {
+    //lấy thông tin từ các form bằng phương thức POST
+    $username = $_POST["username"];
+    $fullname = $_POST["fullname"];
+    $password = $_POST["password"];
+    $md5Password = md5($password);
+    $email = $_POST["email"];
+    //Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
+    if ($username == "" || $md5Password == "" || $fullname == "" || $email == "") {
+        echo '<script language="javascript">alert("Nhập đủ các trường để đăng kí!"); window.location="dangki.php";</script>';
+    } else {
+        // Kiểm tra username hoặc email có bị trùng hay không
+        $sql = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
+        $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, POST);
+        $result = mysqli_query($con, $sql);
 
-		//Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
-		if ($username == "" || $md5Password == "" || $fullname == "" || $email == "") {
-			echo '<script language="javascript">alert("Nhập đủ các trường để đăng kí!"); window.location="dangki.php";</script>';
-		}else{
-			// Kiểm tra username hoặc email có bị trùng hay không
-				$sql = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
-				$result = mysqli_query($conn, $sql);
+        // Nếu kết quả trả về lớn hơn 1 thì nghĩa là username hoặc email đã tồn tại trong CSDL
+        if (mysqli_num_rows($result) > 0) {
+            echo '<script language="javascript">alert("Bị trùng tên hoặc chưa nhập tên!"); window.location="dangki.php";</script>';
+            // Dừng chương trình
+            die();
+        } else {
+            var_dump($username);
+            var_dump($fullname);
+            $sql = "INSERT INTO users (username,fullname, password, email) VALUES ('$username','$fullname','$md5Password','$email')";
+            $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, POST);
+            mysqli_query($con, $sql);
+            echo '<script language="javascript">alert("Đăng kí thành công!"); window.location="dangnhap.php";</script>';
 
-				// Nếu kết quả trả về lớn hơn 1 thì nghĩa là username hoặc email đã tồn tại trong CSDL
-				if (mysqli_num_rows($result) > 0)
-				{
-				echo '<script language="javascript">alert("Bị trùng tên hoặc chưa nhập tên!"); window.location="dangki.php";</script>';
-				// Dừng chương trình
-				die ();
-				}
-				else {
-				$sql = "INSERT INTO users (username,fullname, password, email) VALUES ('$username','$fullname','$md5Password','$email')";
-				echo '<script language="javascript">alert("Đăng kí thành công!"); window.location="dangnhap.php";</script>';
-
-				if (mysqli_query($conn, $sql)){
-				echo "Tên đăng nhập: ".$_POST['username']."<br/>";
-				echo "Họ và tên: ".$_POST['fullname']."<br/>";
-				echo "Mật khẩu: " .$_POST['password']."<br/>";
-				echo "Email đăng nhập: ".$_POST['email']."<br/>";
-				}
-				else {
-				echo '<script language="javascript">alert("Có lỗi trong quá trình xử lý"); window.location="dangki.php";</script>';
-				}
-			}	
-		}
-	}
+            if (mysqli_query($conn, $sql)) {
+                echo "Tên đăng nhập: " . $_POST['username'] . "<br/>";
+                echo "Họ và tên: " . $_POST['fullname'] . "<br/>";
+                echo "Mật khẩu: " . $_POST['password'] . "<br/>";
+                echo "Email đăng nhập: " . $_POST['email'] . "<br/>";
+            } else {
+                echo '<script language="javascript">alert("Có lỗi trong quá trình xử lý"); window.location="dangki.php";</script>';
+            }
+        }
+    }
+}
 ?>
 <html>
 
@@ -74,12 +73,12 @@ require_once("model/config.php");
 </head>
 
 <body bgcolor="#FFFFFF">
-<style>
-    .wrap-login100 {
-        background-image: url('pictures/upload/ROGTHEME.jpg');
-        background-size: contain;
+    <style>
+        .wrap-login100 {
+            background-image: url('pictures/upload/ROGTHEME.jpg');
+            background-size: contain;
 
-    }
+        }
     </style>
     <div class="container-login100" style="background-image: url('pictures/upload/ROGTHEME.jpg');">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
