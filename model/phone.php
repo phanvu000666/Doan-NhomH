@@ -93,8 +93,7 @@ class Phone extends Model
     {
         // Tính số thứ tự trang bắt đầu
         $start = $perPage * ($page - 1);
-        $params =  ['ii' => [$start, $perPage]];
-        var_dump($params);die();
+        $params =  ['ii', &$start, &$perPage];
         //2. Viết câu SQL
         $result = $this->db->select("SELECT * FROM products 
         INNER JOIN property ON products.ProductID = property.ProductID
@@ -139,7 +138,7 @@ class Phone extends Model
     {
         $key = "%$keyword%";
         //var_dump(self::$conn);
-        $params = ['s' => $key];
+        $params = ['s',&$key];
         $result = $this->db->select("SELECT * FROM products 
         INNER JOIN property ON products.ProductID = property.ProductID
          LIKE  ? ", $params);
