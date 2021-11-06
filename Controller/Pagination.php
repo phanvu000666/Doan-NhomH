@@ -63,12 +63,11 @@ class Pagination
     function Search($keyword)
     {
         $key = "%$keyword%";
-        //var_dump(self::$conn);
-        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? ");
-        $sql->bind_param('s', $key);
-        $sql->execute(); //return an object
-        $items = array();
-        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        $phone = Phone::getInstance(new DBMYSQL);
+        $con = $phone->getCon();
+        $sql = "SELECT * FROM products INNER JOIN property ON products.ProductID = property.ProductID 
+        WHERE ProductName  LIKE  ? ";
+        $items = $con->select($sql);
         //var_dump($items);
         return $items; //return an array
 
@@ -76,20 +75,19 @@ class Pagination
 
     public function countAll()
     {
+        $phone = Phone::getInstance(new DBMYSQL);
+        $con = $phone->getCon();
         $sql = "SELECT * FROM products";
-        $result = self::$conn->query($sql);
+        $result = $con->select($sql);
         return $result->num_rows;
     }
     function Search_Paginate($start, $litmit, $keyword)
     {
         $key = "%$keyword%";
-        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? LIMIT $start,$litmit");
-        $sql->bind_param('s', $key);
-        $sql->execute(); //return an object
-        $items = array();
-        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        $phone = Phone::getInstance(new DBMYSQL);
+        $con = $phone->getCon();
+        $sql = "SELECT * FROM products WHERE ProductName  LIKE  ? LIMIT $start,$litmit";
+        $items = $con->select($sql);
         return $items; //return an array
-
-
     }
 }
