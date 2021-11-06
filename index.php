@@ -16,7 +16,6 @@ if (!empty($_GET['keyword'])) {
 }
 include_once("view/header.php");
 $totalRow = $product->getTotalRow();
-var_dump($totalRow);
 $perPage = 3;
 $page = 1;
 if (isset($_GET['page'])) {

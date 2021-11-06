@@ -26,10 +26,8 @@ class ProductController
     {
         //initialize
         $result = $this->phone->getProduct();
-        $ds = DIRECTORY_SEPARATOR;
-        $base_dir = realpath(dirname(__FILE__) . $ds . '..') . $ds;
 
-        //C:\Users\Administrator\Desktop\web1\pictures
+
         $body_table = <<< Gryphon
         <thead>
             <tr>
@@ -51,7 +49,7 @@ class ProductController
             <!-- Start Cart Single Item-->
             <tr>
                 <td class="product-price">{$encode}</td>
-                <td class="product_thumb"><a href="product-details-default.html"><img src="../pictures/Upload/{$value['ImageUrl']}" alt=""></a></td>
+                <td class="product_thumb"><a href="product-details-default.html"><img src="./images/{$value['ImageUrl']}" alt=""></a></td>
                 <td class="product_name">{$value['ProductName']}</td>
                 <td class="product-price">{$value['Price']}</td>
                 <td class="product_quantity"><label>Quantity</label> <input min="1" max="100" value="{$value['Quantity']}" type="number"></td>
@@ -105,15 +103,13 @@ class ProductController
             $required = ['ProductName', 'ManufacturerID', 'CategoryID', 'Description', 'Quantity', 'Price'];
             //require processform.php
             $ds = DIRECTORY_SEPARATOR;
-            $base_dir = realpath(dirname(__FILE__) . $ds . '..') . $ds;
-
+            $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
             require  "{$base_dir}include{$ds}processform.php";
 
-            if ($_FILES &&  !empty($_FILES['ImageUrl'])) {
-                $root = $_SERVER['DOCUMENT_ROOT'];
-                $path = "{$root}{$ds}pictures{$ds}Upload{$ds}";
+            if ($_FILES &&  !empty($_FILES['image'])) {
+                $path = "..{$ds}..{$ds}images{$ds}";
                 $file = new Upload($path);
-                $file->upload("ImageUrl");
+                $file->upload("image");
             }
             ProductRepository::insert($_POST);
         }
@@ -143,7 +139,7 @@ class ProductController
             require  "{$base_dir}include{$ds}processform.php";
 
             if ($_FILES &&  !empty($_FILES['ImageUrl'])) {
-                $path = "../../pictures{$ds}Upload{$ds}";
+                $path = "{$base_dir}{$ds}images{$ds}";
                 $file = new Upload($path);
                 $file->upload("ImageUrl");
             }

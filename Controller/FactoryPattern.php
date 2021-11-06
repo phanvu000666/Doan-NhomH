@@ -1,32 +1,25 @@
 <?php
-<<<<<<< HEAD
-require "./model/model.php";
-=======
->>>>>>> TrongTinh
+require "./model/config.php";
+require "./model/mysqli_con.php";
 require "Auth.php";
-require "./model/phone.php";
-require "./model/manufacture.php";
-require "./model/category.php";
+require "Product.php";
+require "Manufacturers.php";
+require "Order.php";
+require "Category.php";
 require "Component.php";
 
-use SmartWeb\Phone;
-use SmartWeb\Manufacture;
-use SmartWeb\Category;
-
-class FactoryPattern
-{
-    public function make($model)
-    {
-        if ($model == 'auth') {
-            return Auths::getInstance();
-        } else if ($model == 'product') {
-            return Phone::getInstance();
-        } else if ($model == 'manufactures') {
-            return Manufacture::getInstance();
-        } else if ($model == 'category') {
-            return Category::getInstance();
-        } else if ($model == 'order') {
-            return Order::getInstance();
+class FactoryPattern{
+    public function make($model){
+        if($model == 'auth'){
+        return Auths::getInstance();
+        } else if($model == 'product'){
+            return Product::getInstance();  
+        } else if($model == 'manufactures'){
+            return Manufactures::getInstance();  
+        } else if($model == 'category'){
+            return Category::getInstance();  
+        } else if($model == 'order'){
+            return Order::getInstance();        
         } else {
             return null;
         }
