@@ -5,7 +5,8 @@
 // require "./model/config.php";
 // require "./model/mysqli_con.php";
 use SmartWeb\Model;
-
+ //ok
+ echo"fig bug";
 class Order extends Model
 {
     private static Order $_instance;

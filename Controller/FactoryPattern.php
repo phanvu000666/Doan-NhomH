@@ -11,7 +11,8 @@ require "Component.php";
 use SmartWeb\Phone;
 use SmartWeb\Manufacture;
 use SmartWeb\Category;
-
+//ok
+echo"fig bug";
 class FactoryPattern
 {
     public function make($model)

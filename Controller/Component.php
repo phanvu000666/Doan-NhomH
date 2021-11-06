@@ -1,6 +1,7 @@
 <?php
 //UPDATE MODEL
-
+            //ok
+            echo"fig bug";
 function cartElement($product_img, $productName, $product_Price, $product_id, $quantity) {
     $id      = $product_id;
     $element = "

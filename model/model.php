@@ -1,7 +1,8 @@
 <?php
 //UPDATE MODEL
 namespace SmartWeb;
-
+ //ok
+ echo"fig bug";
 include "db.php";
 class Model
 {

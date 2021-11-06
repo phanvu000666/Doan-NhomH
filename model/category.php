@@ -1,7 +1,8 @@
 <?php
 //UPDATE MODEL
 namespace SmartWeb;
-
+ //ok
+ echo"fig bug";
 class Category extends Model
 {
     private static Category $_instance;
