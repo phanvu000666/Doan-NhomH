@@ -1,4 +1,5 @@
 <?php
+echo "ádf";
 require 'Controller/Pagination.php';
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
