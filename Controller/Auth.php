@@ -135,3 +135,4 @@ class Auths extends Model
         }
         return $users;
     }
+}

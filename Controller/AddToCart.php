@@ -13,3 +13,4 @@ class AddToCart extends Model
         self::$_instance = new self(static::$db);
         return self::$_instance;
     }
+}
