@@ -15,16 +15,15 @@ abstract class DB
         $this->getConnect();
     }
     public abstract  function getConnect();
+    public abstract  function insert($name);
     public abstract  function select($sql, array $param = null);
     public abstract  function delete($sql, array $param = null);
-    public abstract  function insert($sql, array $param = null);
-    public abstract  function update($sql, array $param = null);
     protected  static function bindParam($stmt, $values)
     {
         if (empty($values) || !is_array($values)) {
             return;
         }
-        foreach ($values as $key => &$value) {
+        foreach ($values as $key => $value) {
             $stmt->bindParam(":{$key}", $value);
         }
     }
@@ -40,17 +39,8 @@ class DBPDO extends DB
         }
         return self::$connect[static::$name];
     }
-    public  function insert($sql, array $param = null)
-    {
-        $stmt = self::$connect[static::$name]->connect()->prepare($sql);
-        self::bindParam($stmt, $param);
-        return $stmt->execute();
-    }
-    public  function update($sql, array $param = null)
-    {
-        $stmt = self::$connect[static::$name]->connect()->prepare($sql);
-        self::bindParam($stmt, $param);
-        return $stmt->execute();
+    public  function insert($name)
+    { 
     }
 
     public function select($sql, array $param = null)
@@ -64,7 +54,7 @@ class DBPDO extends DB
 
     public  function delete($sql, array $param = null)
     {
-        $stmt = self::$connect[static::$name]->connect()->prepare($sql);
+        $stmt = self::$connect[static::$name]->prepare($sql);
         self::bindParam($stmt, $param);
         return $stmt->execute();
     }
@@ -80,18 +70,8 @@ class DBMYSQL extends DB
         }
         return self::$connect[static::$name];
     }
-
-    public  function insert($sql, array $param = null)
+    public  function insert($name)
     {
-        $stmt = self::$connect[static::$name]->connect()->prepare($sql);
-        self::bindParam($stmt, $param);
-        return $stmt->execute();
-    }
-    public  function update($sql, array $param = null)
-    {
-        $stmt = self::$connect[static::$name]->connect()->prepare($sql);
-        self::bindParam($stmt, $param);
-        return $stmt->execute();
     }
     public function select($sql, array $param = null)
     {
@@ -103,7 +83,7 @@ class DBMYSQL extends DB
     }
     public  function delete($sql, array $param = null)
     {
-        $stmt = self::$connect[static::$name]->connect()->prepare($sql);
+        $stmt = self::$connect[static::$name]->prepare($sql);
         self::bindParam($stmt, $param);
         return $stmt->execute();
     }

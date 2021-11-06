@@ -1,16 +1,12 @@
 <?php
-
-use SmartWeb\Model;
-
-class AddToCart extends Model
+class AddToCart extends My_MySQLI
 {
-    private static AddToCart $_instance;
     public static function getInstance()
     {
-        if (self::$_instance !== null) {
+        if(self::$_instance !== null){
             return self::$_instance;
         }
-        self::$_instance = new self(static::$db);
+        self::$_instance = new self();
         return self::$_instance;
     }
 }

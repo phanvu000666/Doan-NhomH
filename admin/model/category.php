@@ -27,10 +27,4 @@ class Category extends Model
     {
         return $this->db->select($sql, $param);
     }
-
-    public function getCategory()
-    {
-        $sql = "SELECT * FROM Category";
-        return $this->db->select($sql);
-    }
 }

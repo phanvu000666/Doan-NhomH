@@ -1,9 +1,7 @@
 <?php
 function decryptionID($id)
 {
-    $id = substr($id, 0, -4);
-    $id = substr($id, 4);    
-    return  $id;
+    return  substr($id, 4, 1);
 }
 function encodeID($id)
 {

@@ -2,101 +2,33 @@
 
 namespace SmartWeb\Repository;
 
-use SmartWeb\DataBase\Product\Property;
-use SmartWeb\Models\ObjectAssembler;
-use SmartWeb\Models\Product;
-use SmartWeb\Models\Phone;
+use ProductRepository as pr;
+use SmartWeb\DataBase\DBPDO;
+use SmartWeb\Repository\Repository;
+use SmartWeb\DataBase\Product\Phone;
 
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
+require_once("{$base_dir}model{$ds}product.php");
+include_once "repository.php";
 
-class ProductRepository
+class ProductRepository implements Repository
 {
-    private static Phone $product;
-    private static \SmartWeb\Models\Property $property;
-
-    public static function insert(array $params)
+    private static $phone;
+    public static function getInstance()
     {
-        //initialize product and property.
-        if (empty($product) && empty($property)) {
-            $ds = DIRECTORY_SEPARATOR;
-            $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-            $conf = "{$base_dir}dj{$ds}object.xml";
-            $assembler = new ObjectAssembler($conf);
-
-            static::$product = $assembler->getComponent(Product::class);
-            static::$property = $assembler->getComponent(\SmartWeb\Models\Property::class);
+        if (empty($phone)) {
+            static::$phone = Phone::getInstance(new DBPDO);
         }
-        $is_finished = false;
-        if (is_array($params)) {
-
-            //add product.
-            $paramsproduct['ProductName'] = $params['ProductName'];
-            $paramsproduct['CategoryID'] = $params['CategoryID'];
-            $paramsproduct['ManufacturerID']  = $params['ManufacturerID'];
-            $is_finished =  static::$product->insert($paramsproduct);
-            //add property.
-            $id_max = (int)static::$product->getMaxID();
-            $paramsproperty['ProductID'] = $id_max;
-            $paramsproperty['ImageUrl'] = $params['ImageUrl'];
-            $paramsproperty['Price'] = $params['Price'];
-            $paramsproperty['Quantity'] = $params['Quantity'];
-            $paramsproperty['Description'] = $params['Description'];
-            $is_finished = static::$property->insert($paramsproperty);
-        }
-        return $is_finished;
+        return self::$phone;
     }
 
-    public static function delete($ProductID)
+    public static function select($sql, array $values = null)
     {
-        //initialize product and property.
-        if (empty($product) && empty($property)) {
-            $ds = DIRECTORY_SEPARATOR;
-            $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-            $conf = "{$base_dir}dj{$ds}object.xml";
-            $assembler = new ObjectAssembler($conf);
-
-            static::$product = $assembler->getComponent(Product::class);
-            static::$property = $assembler->getComponent(\SmartWeb\Models\Property::class);
-        }
-
-        //delte product.
-        $params['ProductID'] = $ProductID;
-        self::$product->delete($params);
-        //delete property.
-        self::$property->delete($params);
+        return static::$phone->select($sql, $values);
     }
-
-    public static function update($params)
+    public static function delete($sql, array $values = null)
     {
-        //initialize product and property.
-        if (empty($product) && empty($property)) {
-            $ds = DIRECTORY_SEPARATOR;
-            $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-            $conf = "{$base_dir}dj{$ds}object.xml";
-            $assembler = new ObjectAssembler($conf);
-
-            static::$product = $assembler->getComponent(Product::class);
-            static::$property = $assembler->getComponent(\SmartWeb\Models\Property::class);
-        }
-        if (is_array($params)) {
-
-
-            //add product.
-            $paramsproduct['ProductName'] = $params['ProductName'];
-            $paramsproduct['ManufacturerID']  = $params['ManufacturerID'];
-            $paramsproduct['CategoryID'] = $params['CategoryID'];
-            $paramsproduct['ProductID'] = $params['ProductID'];
-
-            $is_finished =  static::$product->update($paramsproduct);
-
-            //add property.
-            $paramsproperty['ImageUrl'] = $params['ImageUrl'];
-            $paramsproperty['Price'] = $params['Price'];
-            $paramsproperty['Quantity'] = $params['Quantity'];
-            $paramsproperty['Description'] = $params['Description'];
-            $paramsproperty['ProductID'] = $paramsproduct['ProductID'];
-            $is_finished = static::$property->update($paramsproperty);
-        }
+        return static::$phone->delete($sql, $values);
     }
 }
