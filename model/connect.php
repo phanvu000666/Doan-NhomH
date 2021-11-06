@@ -36,4 +36,3 @@ class ConnectMySqli extends Connect
         }
     }
 }
-

@@ -29,4 +29,3 @@ class InjectConstructor
         
     }
 }
-//$factory = new TerrainFactory(new DBMYSQLI);

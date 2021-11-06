@@ -187,4 +187,3 @@ class Phone extends Model
     {
         return $this->con;
     }
-}

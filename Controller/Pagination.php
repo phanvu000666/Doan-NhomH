@@ -89,5 +89,7 @@ class Pagination
         $sql = "SELECT * FROM products WHERE ProductName  LIKE  ? LIMIT $start,$litmit";
         $items = $con->select($sql);
         return $items; //return an array
+
+
     }
 }

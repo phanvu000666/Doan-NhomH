@@ -99,4 +99,3 @@ class DBPDO extends DB
         $result = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
-}

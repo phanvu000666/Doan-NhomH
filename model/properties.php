@@ -51,4 +51,3 @@ class Property  extends Model
         $is_finished =  $this->db->notSelect($sql, $params);
         return $is_finished;
     }
-}

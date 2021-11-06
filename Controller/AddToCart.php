@@ -12,5 +12,6 @@ class AddToCart extends Model
             self::$_instance = new self(new DBMYSQL);
         }
         return self::$_instance;
+        return self::$_instance;
     }
 }
