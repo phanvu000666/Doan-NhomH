@@ -1,7 +1,8 @@
 <?php
 //UPDATE MODEL
 use SmartWeb\Model;
-
+ //ok
+ echo"fig bug";
 class AddToCart extends Model
 {
     private static AddToCart $_instance;

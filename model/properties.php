@@ -1,7 +1,8 @@
 <?php
 //UPDATE MODEL
 namespace SmartWeb;
-
+ //ok
+ echo"fig bug";
 class Property  extends Model
 {
     private static Property $property;

@@ -4,7 +4,8 @@
 use SmartWeb\DataBase\DBMYSQL;
 use SmartWeb\DBPDO;
 use SmartWeb\Phone;
-
+ //ok
+ echo"fig bug";
 class Pagination
 {
     public static function createPageLinks($totalRow, $perPage, $page)

@@ -14,7 +14,7 @@ class Auths extends Model
     {
         if (empty(self::$_instance)) {
             //ok
-            echo"concac";
+            echo"fig bug";
             self::$_instance = new self(new DBMYSQL);
         }
 
