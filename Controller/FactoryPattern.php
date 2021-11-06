@@ -1,5 +1,8 @@
 <?php
+<<<<<<< HEAD
 require "./model/model.php";
+=======
+>>>>>>> TrongTinh
 require "Auth.php";
 require "./model/phone.php";
 require "./model/manufacture.php";

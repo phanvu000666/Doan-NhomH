@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 // require "./model/config.php";
 // require "./model/mysqli_con.php";
 
@@ -8,6 +9,9 @@ use SmartWeb\Model;
 class Auths extends Model
 {
     private static Auths $_instance;
+=======
+class Auths extends My_MySQLI{
+>>>>>>> TrongTinh
     //design pattern factory
     public static function getInstance()
     {
