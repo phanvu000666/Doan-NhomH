@@ -1,22 +1,32 @@
 <?php
+<<<<<<< HEAD
 require "./model/config.php";
 require "./model/mysqli_con.php";
 require_once 'Controller/Product.php';
 require_once 'Controller/Order.php';
 require_once('controller/component.php');
+=======
+include "model/mysqli_con.php";
+include "model/config.php";
+include "Controller/order.php";
+require_once 'Controller/Product.php';
+require_once('Controller/component.php');
+>>>>>>> TrongTinh
 $products = new Product();
 $oder     = new Order();
 $insertOd = $oder->insertOder();
 $total    = 0;
 $data     = $products->getData();
 $user     = $products->getUsers();
-
+$getORDER = $oder->getOrderItems();
+var_dump($getORDER);
 include "./view/check_out/header.php";
 $_SESSION['user'] = $user;
 
 ?>
 <?php
-if (isset($_SESSION['username'])) { ?>
+if (isset($_SESSION['username'])) {?>
+
     <div class='container'>
         <div class='window'>
             <div class='order-info'>
@@ -25,18 +35,13 @@ if (isset($_SESSION['username'])) { ?>
                     if (isset($_SESSION['cart'])) {
                         $product_id = array_column($_SESSION['cart'], 'prductID');
                         $listIDs    = $products->getData();
-
                         foreach ($product_id as $id) {
                             for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
-                                if ($listIDs[$i]['ProductID'] == $id) {
-                                    //var_dump($listIDs[$i]);
+                                if ( $listIDs[$i]['ProductID'] == $id) {
                                     checkOutElment($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
                                     $total = $total + (int) $listIDs[$i]['Price'];
-
-
                                 }
                             }
-
                         }
                         if ($total != $_SESSION['total']) {
                             $_SESSION['total'] = $total;
@@ -62,12 +67,10 @@ if (isset($_SESSION['username'])) { ?>
             <div class='credit-info'>
                 <div class='credit-info-content'>
                     <table class='half-input-table'>
-                        <td> Vui lòng điền thông tin bên dưới để đặt hàng</td>
+                        <h4> Vui lòng điền thông tin bên dưới để đặt hàng</h4>
                     </table>
-                    <img src='./img/banner-mega-sale-23-15-bcb043f9-0cd6-47b6-b255-b760249b03c1.jpg' height='80'
-                         class='credit-card-image' id='credit-card-image'>
                     <form method="post" action="check_out.php" name="checkout">
-                        <h5>Vui lòng nhập tên</h5>
+                        <h5>Nhập tên</h5>
                         <input type="text" class='input-field' name="name" value="">
                         <h5>Email</h5>
                         <input type="text" class='input-field' name="email" value="">
@@ -78,7 +81,7 @@ if (isset($_SESSION['username'])) { ?>
                         <button class='pay-btn' name="checkout">Checkout</button>
                     </form>
                     <?php
-                    if (isset($_POST['checkout'])) { ?>
+                    if (isset($_POST['checkout'])) { echo "ádas";?>
                         <script>
                             swal("", "Đặt hàng thành công!", "success");
                         </script>
@@ -90,6 +93,7 @@ if (isset($_SESSION['username'])) { ?>
         </div>
         <?php
         if (isset($_POST['checkout'])) {
+
             $insertOd;
         }
         ?>
@@ -97,7 +101,7 @@ if (isset($_SESSION['username'])) { ?>
 <?php } else { ?>
     <div class="btn-checkout">
         <button class='pay-btn' name="btnkiemtra"> Checkout</button>
-        <strong>vui lòng đăng nhập</strong> <a href="Login.php"> Login</a>
+        <strong>vui lòng đăng nhập</strong> <a href="dangnhap.php"> Login</a>
     </div>
 
 

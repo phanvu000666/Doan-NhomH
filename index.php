@@ -1,5 +1,7 @@
 <?php
 require 'Controller/Pagination.php';
+include "model/mysqli_con.php";
+include "model/config.php";
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
 $product = $factory->make('product');
@@ -14,7 +16,6 @@ if (!empty($_GET['keyword'])) {
 }
 include_once("view/header.php");
 $totalRow = $product->getTotalRow();
-var_dump($totalRow);
 $perPage = 3;
 $page = 1;
 if (isset($_GET['page'])) {

@@ -1,6 +1,7 @@
 <?php
 session_start();
-
+include  "model/config.php";
+include "model/mysqli_con.php";
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
 $Auth = $factory->make('auth');
