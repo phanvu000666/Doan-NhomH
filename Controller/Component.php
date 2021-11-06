@@ -33,11 +33,7 @@ function cartElement($product_img, $productName, $product_Price, $product_id, $q
                                 </div>
                             </div>
                         </form>
-<<<<<<< HEAD
-                        <?php  }?>
-=======
-                        <?php }?>
->>>>>>> origin/TrongTinh
+
     ";
 
     echo $element;
