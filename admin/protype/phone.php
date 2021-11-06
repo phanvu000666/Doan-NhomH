@@ -25,7 +25,6 @@ class Phone extends Product
 
     public function getProductID($id)
     {
-       
         $sql = "SELECT property.*, products.* 
         FROM products INNER JOIN property ON products.ProductID = property.ProductID 
         WHERE products.ProductID=:ProductID";
