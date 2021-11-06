@@ -89,7 +89,7 @@ session_start();
                 <div class="col-sm-4">
                     <div class="search">
                         <form action="shop.php" method="get">
-                            <input type="text" name="keyword" class="searchTerm" placeholder="search..." <?php echo $keyword ?>>
+                            <input type="text" name="keyword" class="searchTerm" placeholder="search...">
                             <button type="submit" class="searchButton">
                                 <i class="fa fa-search">Tìm Kiếm</i>
                             </button>
