@@ -32,6 +32,7 @@
                 type: 'post',
                 data: formData,
                 success: function(reponse) {
+                    console.log(reponse);
                     setTimeout(function() {
                         clearForm();
                         callGetContentTable();
@@ -79,7 +80,7 @@
                 key: 'content'
             },
             success: function(reponse) {
-                console.log(reponse);
+               // console.log(reponse);
                 $("#products-table > thead").remove();
                 $("#products-table > tbody").remove();
                 //add
@@ -131,7 +132,9 @@
             data: 'ProductID=' + ProductID,
             success: function(reponse) {
                 setTimeout(function() {
+                    
                     if (IsJsonString(reponse)) {
+                        
                         var obj = JSON.parse(reponse.toString());
                         updateForm(obj);
                     }

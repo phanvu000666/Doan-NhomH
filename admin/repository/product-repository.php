@@ -81,7 +81,7 @@ class ProductRepository
         }
         if (is_array($params)) {
 
-
+            var_dump($params);
             //add product.
             $paramsproduct['ProductName'] = $params['ProductName'];
             $paramsproduct['ManufacturerID']  = $params['ManufacturerID'];
