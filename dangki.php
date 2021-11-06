@@ -1,4 +1,5 @@
 <?php
+echo "123";
 session_start();
 require_once("model/config.php");
 	if (isset($_POST["btn_submit"])) {
@@ -9,6 +10,7 @@ require_once("model/config.php");
 		$md5Password = md5($password);
 		$email = $_POST["email"];
         echo "123";
+
 		//Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
 		if ($username == "" || $md5Password == "" || $fullname == "" || $email == "") {
 			echo '<script language="javascript">alert("Nhập đủ các trường để đăng kí!"); window.location="dangki.php";</script>';
