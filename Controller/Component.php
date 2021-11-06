@@ -2,11 +2,6 @@
 
 function cartElement($product_img, $productName, $product_Price, $product_id, $quantity) {
     $id      = $product_id;
-<<<<<<< HEAD
-    //var_dump($id);
-
-=======
->>>>>>> origin/TrongTinh
     $element = "
     
     <form method=\"post\" action = \"cart.php?action=remove&id=$product_id\" class=\"cart-items\" style='margin-bottom: 2px;border: 2px solid #000000;'>
@@ -53,10 +48,7 @@ function checkOutElment($product_img, $productName,$product_Price, $product_id, 
     $price = (double)$product_Price;
     $gia = $price *  $_SESSION['quanlity'][$id];
     $product_Price= $gia;
-<<<<<<< HEAD
-    //var_dump($_SESSION['quanlity'][$id]);
-=======
->>>>>>> origin/TrongTinh
+
     $elementCheckOut = " 
                  <div class='line'></div>
   <table class='order-table' >
