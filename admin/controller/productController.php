@@ -131,8 +131,9 @@ class ProductController
 
     public function update()
     {
-
+       
         if (!empty($_POST['ProductID']) && count($_POST) > 1) {
+            var_dump("day la form update");
             //list expected fields  
             $expected = ['ProductName',  'ManufacturerID', 'CategoryID', 'Description', 'Quantity', 'Price'];
             //set required fields
@@ -143,11 +144,12 @@ class ProductController
             require  "{$base_dir}include{$ds}processform.php";
 
             if ($_FILES &&  !empty($_FILES['ImageUrl'])) {
-                $path = "../../pictures{$ds}Upload{$ds}";
+                $root = $_SERVER['DOCUMENT_ROOT'];
+                $path = "{$root}{$ds}pictures{$ds}Upload{$ds}";
                 $file = new Upload($path);
                 $file->upload("ImageUrl");
             }
-
+           
             ProductRepository::update($_POST);
         }
     }
