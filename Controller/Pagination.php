@@ -4,8 +4,7 @@
 use SmartWeb\DataBase\DBMYSQL;
 use SmartWeb\DBPDO;
 use SmartWeb\Phone;
- //ok
- echo"fig bug";
+
 class Pagination
 {
     public static function createPageLinks($totalRow, $perPage, $page)
@@ -20,18 +19,16 @@ class Pagination
         $active = '';
 
         // Kiểm tra next
-        if($next < $numberPage) {
+        if ($next < $numberPage) {
             $next++;
-        }
-        else {
+        } else {
             $disableNext = 'disabled';
         }
 
         // Kiểm tra Previous
-        if($prev > 1) {
+        if ($prev > 1) {
             $prev--;
-        }
-        else {
+        } else {
             $disablePrev = 'disabled';
         }
 
@@ -42,19 +39,18 @@ class Pagination
                         <a class="page-link" href="?page=' . $prev . '" tabindex="-1" aria-disabled="true">Previous</a>
                     </li>
                     ';
-        for ($i=1; $i <= $numberPage ; $i++) {
+        for ($i = 1; $i <= $numberPage; $i++) {
             // Kiểm tra active
-            if($page == $i) {
+            if ($page == $i) {
                 $active = 'active';
-            }
-            else {
+            } else {
                 $active = '';
             }
             $output .= '
                     <li class="page-item ' . $active . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>
                     ';
         }
-        
+
         $output .= '
                     <li class="page-item ' . $disableNext . '">
                         <a class="page-link" href="?page=' . $next . '">Next</a>
@@ -66,11 +62,11 @@ class Pagination
 
     function Search($keyword)
     {
-        $key="%$keyword%";
+        $key = "%$keyword%";
         //var_dump(self::$conn);
         $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? ");
-        $sql-> bind_param('s',$key);
-        $sql->execute();//return an object
+        $sql->bind_param('s', $key);
+        $sql->execute(); //return an object
         $items = array();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         //var_dump($items);
@@ -78,16 +74,18 @@ class Pagination
 
     }
 
-    public function countAll(){
+    public function countAll()
+    {
         $sql = "SELECT * FROM products";
         $result = self::$conn->query($sql);
         return $result->num_rows;
     }
-    function Search_Paginate($start, $litmit,$keyword){
-        $key="%$keyword%";
+    function Search_Paginate($start, $litmit, $keyword)
+    {
+        $key = "%$keyword%";
         $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? LIMIT $start,$litmit");
-        $sql-> bind_param('s',$key);
-        $sql->execute();//return an object
+        $sql->bind_param('s', $key);
+        $sql->execute(); //return an object
         $items = array();
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items; //return an array
