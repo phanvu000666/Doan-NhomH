@@ -1,4 +1,9 @@
 <?php
+
+use SmartWeb\DataBase\DBMYSQL;
+use SmartWeb\DBPDO;
+use SmartWeb\Phone;
+
 class Pagination
 {
     public static function createPageLinks($totalRow, $perPage, $page)
@@ -13,18 +18,16 @@ class Pagination
         $active = '';
 
         // Kiểm tra next
-        if($next < $numberPage) {
+        if ($next < $numberPage) {
             $next++;
-        }
-        else {
+        } else {
             $disableNext = 'disabled';
         }
 
         // Kiểm tra Previous
-        if($prev > 1) {
+        if ($prev > 1) {
             $prev--;
-        }
-        else {
+        } else {
             $disablePrev = 'disabled';
         }
 
@@ -35,19 +38,18 @@ class Pagination
                         <a class="page-link" href="?page=' . $prev . '" tabindex="-1" aria-disabled="true">Previous</a>
                     </li>
                     ';
-        for ($i=1; $i <= $numberPage ; $i++) {
+        for ($i = 1; $i <= $numberPage; $i++) {
             // Kiểm tra active
-            if($page == $i) {
+            if ($page == $i) {
                 $active = 'active';
-            }
-            else {
+            } else {
                 $active = '';
             }
             $output .= '
                     <li class="page-item ' . $active . '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>
                     ';
         }
-        
+
         $output .= '
                     <li class="page-item ' . $disableNext . '">
                         <a class="page-link" href="?page=' . $next . '">Next</a>
@@ -59,32 +61,33 @@ class Pagination
 
     function Search($keyword)
     {
-        $key="%$keyword%";
-        //var_dump(self::$conn);
-        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? ");
-        $sql-> bind_param('s',$key);
-        $sql->execute();//return an object
-        $items = array();
-        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+        $key = "%$keyword%";
+
+        $phone = Phone::getInstance(new DBMYSQL);
+        $con = $phone->getCon();
+        $sql = "SELECT * FROM products INNER JOIN property ON products.ProductID = property.ProductID 
+        WHERE ProductName  LIKE  ? ";
+        $items = $con->select($sql);
         //var_dump($items);
         return $items; //return an array
 
     }
 
-    public function countAll(){
+    public function countAll()
+    {
+        $phone = Phone::getInstance(new DBMYSQL);
+        $con = $phone->getCon();
         $sql = "SELECT * FROM products";
-        $result = self::$conn->query($sql);
+        $result = $con->select($sql);
         return $result->num_rows;
     }
-    function Search_Paginate($start, $litmit,$keyword){
-        $key="%$keyword%";
-        $sql = self::$conn->prepare("SELECT * FROM products WHERE ProductName  LIKE  ? LIMIT $start,$litmit");
-        $sql-> bind_param('s',$key);
-        $sql->execute();//return an object
-        $items = array();
-        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
+    function Search_Paginate($start, $litmit, $keyword)
+    {
+        $key = "%$keyword%";
+        $phone = Phone::getInstance(new DBMYSQL);
+        $con = $phone->getCon();
+        $sql = "SELECT * FROM products WHERE ProductName  LIKE  ? LIMIT $start,$litmit";
+        $items = $con->select($sql);
         return $items; //return an array
-
-
     }
 }
