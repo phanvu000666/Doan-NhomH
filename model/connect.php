@@ -1,4 +1,5 @@
 <?php
+//UPDATE MODEL
 namespace SmartWeb;
 
 include_once "config.php";
@@ -35,3 +36,5 @@ class ConnectMySqli extends Connect
         }
     }
 }
+ //ok
+ echo"fig bug";
