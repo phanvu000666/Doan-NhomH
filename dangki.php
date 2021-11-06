@@ -9,7 +9,7 @@ require_once("model/config.php");
 		$password = $_POST["password"];
 		$md5Password = md5($password);
 		$email = $_POST["email"];
-        echo "123";
+        
 
 		//Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
 		if ($username == "" || $md5Password == "" || $fullname == "" || $email == "") {
