@@ -1,9 +1,10 @@
 <?php
-require_once 'Controller/Product.php';
-require_once 'Controller/order.php';
-require_once('PHP/component.php');
-require_once 'Controller/Pagination.php';
-$products = new Product();
+include "model/config.php";
+include "model/mysqli_con.php";
+include "Controller/FactoryPattern.php";
+
+$factory = new FactoryPattern();
+$products = $factory->make('product');
 $total    = 0;
 $data     = $products->getData();
 
@@ -20,8 +21,9 @@ if (isset($_POST['remove'])) {
         foreach ($_SESSION['cart'] as $key => $value) {
             if ($value["prductID"] == $_GET['id']) {
                 unset($_SESSION['cart'][$key]);
-                echo "<script>alert('Product has been Removed...')</script>";
+                echo "<script>alert('Sản phẩm đã được xoá khỏi giỏ hàng ...');</script>";
             }
+            unset($_SESSION['quanlity']);
         }
     }
 }
@@ -53,6 +55,7 @@ if (isset($_POST['minus'])) {
                 $giam = $_SESSION['quanlity'][$id];
                 if (isset($_SESSION['quanlity'][$id]) && $giam > 1) {
                     --$_SESSION['quanlity'][$id];
+                    var_dump($_SESSION['quanlity'][$id]);
                     $_SESSION['tong'] = $_SESSION['quanlity'][$id] * $_SESSION['total'];
 
                 }
@@ -149,7 +152,7 @@ if (isset($_POST['check_out'])) {
                                         if ($listIDs[$i]['ProductID'] == $id) {
                                             cartElement($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
                                             $total = $total + (int) $listIDs[$i]['Price'];
-
+                                        var_dump($_SESSION['cart']);
                                         }
                                     }
                                 }

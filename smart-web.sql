@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1:3306
--- Thời gian đã tạo: Th10 01, 2021 lúc 01:24 PM
+-- Thời gian đã tạo: Th10 03, 2021 lúc 04:55 AM
 -- Phiên bản máy phục vụ: 10.4.10-MariaDB
 -- Phiên bản PHP: 7.3.12
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Cơ sở dữ liệu: `nhom11`
+-- Cơ sở dữ liệu: `smart-web`
 --
 
 -- --------------------------------------------------------
@@ -175,7 +175,6 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`ProductID`, `ManufacturerID`, `CategoryID`, `ProductName`, `ImageUrl`, `Price`, `Quantity`, `Description`, `Body`) VALUES
-(50, 17, 2, 'Dây cáp Micro USB 1m', '1128036469cap-micro-1m-esaver-ds118br-tb-avatar-1-600x600.jpg', 40000, 40, 'Dây cáp Micro USB 1 m eSaver DS118-TB có màu xanh đẹp mắt, thiết kế quen thuộc giúp người dùng dễ sử dụng ngay trong lần đầu tiên.', 'Jack cắm:	Micro USB. \r\nTính năng:	Sạc. Truyền dữ liệu. Dòng sạc tối đa:	Max 3A. \r\nĐộ dài dây:	1 m. Xuất xứ: Trung Quốc'),
 (51, 11, 3, 'iPhone Xs Max 256GB', '2048737244iphone-xs-max-256gb-white-400x460.png', 35000000, 24, 'Sau 1 năm mong chờ, chiếc smartphone cao cấp nhất của Apple đã chính thức ra mắt mang tên iPhone Xs Max. Máy các trang bị các tính năng cao cấp nhất từ chip A12 Bionic, dàn loa đa chiều cho tới camera kép tích hợp trí tuệ nhân tạo.', 'Màn hình:	OLED, 6.5\", Super Retina. \r\nHệ điều hành:	iOS 12. \r\nCamera sau:	Chính 12 MP & Phụ 12 MP.'),
 (49, 13, 6, 'Laptop Dell Vostro 3578 i7 ', '1140683981dell-vostro-3578-ngmpf11-450x300-600x600-600x600.jpg', 20990000, 20, 'Laptop Dell Vostro 3578 là dòng máy tính xách tay mới của Dell trong năm 2018 với cấu hình cực cao bao gồm vi xử lý i7 8550U thế hệ thứ 8 có hiệu năng vượt trội, card màn hình rời Radeon 520 và 8 GB RAM. Với cấu hình mạnh mẽ máy có thể chạy tốt các ứng dụng phục vụ cho công việc, học tập, xử lý đồ hoạ cũng như chơi game ở mức cấu hình tầm trung khá mượt mà.', 'CPU:	Intel Core i7 Kabylake Refresh, 8550U, 1.80 GHz. \r\nRAM:	8 GB, DDR4 (2 khe), 2400 MHz. \r\nỔ cứng:	HDD: 1 TB. \r\nMàn hình:	15.6 inch, Full HD (1920 x 1080)'),
 (48, 13, 6, 'Laptop HP 15 da0054TU', '734178429hp-15-da0054tu-4me68pa-thumbnail-600x600.jpg', 10990000, 30, 'Laptop HP 15 da0054TU là phiên bản máy tính xách tay với cấu hình được trang bị vi xử lý chip Intel Core i3 Kabylake thế hệ 7 đem đến hiệu năng ổn định khi thao tác các tác vụ cơ bản, phù hợp cho công việc văn phòng, học tập.', ''),
@@ -203,7 +202,7 @@ INSERT INTO `products` (`ProductID`, `ManufacturerID`, `CategoryID`, `ProductNam
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
-  `GroupID` int(11) NOT NULL,
+  `GroupID` int(11) DEFAULT NULL,
   `FullName` varchar(255) NOT NULL,
   `UserName` varchar(20) NOT NULL,
   `PassWord` varchar(32) NOT NULL,
@@ -212,14 +211,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `UserName` (`UserName`),
   UNIQUE KEY `Email` (`Email`),
   KEY `GroupID` (`GroupID`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
 
 --
 -- Đang đổ dữ liệu cho bảng `users`
 --
 
 INSERT INTO `users` (`UserID`, `GroupID`, `FullName`, `UserName`, `PassWord`, `Email`) VALUES
-(40, 1, 'admin', '1', '1', '1');
+(80, 3, 'tinh', 'tinh', '802df3c585cfbaf52752a907665bc12f', 'tinh@gmail.com'),
+(79, 3, 'hau', 'hau', 'a23ed18c6f9425dc306fc002e5c2046e', 'hau@gmail.com'),
+(76, 1, 'vu', 'vu', '0730b75e96c0453b1b196be7ff4fa194', 'vu@gmail.com'),
+(65, 1, 'admin', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin@gmail.com'),
+(77, 3, 'tuan', 'tuan', 'd6b8cc42803ea100735c719f1d7f5e11', 'tuan@gmail.com');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

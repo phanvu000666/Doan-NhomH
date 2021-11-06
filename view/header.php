@@ -1,7 +1,9 @@
 <?php
-if (!isset($_SESSION['username'])) {
-    header('Location: login.php');
-}
+//session_start();
+// var_dump($_SESSION);
+// if (!isset($_SESSION['username'])||!isset($_SESSION['email'])) {
+//     header('Location: dangnhap.php');
+// }
 ?>
 <!DOCTYPE html>
 <!--
@@ -51,12 +53,25 @@ if (!isset($_SESSION['username'])) {
                 <div class="col-md-8">
                     <div class="user-menu">
                         <ul>
+                            <?php
+                            if (isset($_SESSION['username']) && $_SESSION['groupID'] == 1 ) {
+                                echo" <li><a href='admin/'><i class='fa fa-user'></i> Trang Quản trị </a></li>";
+                            }
+                            ?>
                             <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
                             <li><a href="#"><i class="fa fa-heart"></i> Wishlist</a></li>
                             <li><a href="cart.php"><i class="fa fa-user"></i> My Cart</a></li>
                             <li><a href="checkout.php"><i class="fa fa-user"></i> Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
-                            <li><a href="logout.php"><i class="fa fa-user"></i> Logout </a></li>
+                            <?php
+                            if (!isset($_SESSION['username'])) {
+                              echo" <li><a href='dangnhap.php'><i class='fa fa-user'></i> Login </a></li>";
+                            }
+                            ?>
+                            <?php
+                            if (isset($_SESSION['username'])) {
+                              echo" <li><a href='dangxuat.php'><i class='fa fa-user'></i> Logout </a></li>";
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -72,16 +87,18 @@ if (!isset($_SESSION['username'])) {
                         <h1><a href="./"><img src="img/logo.png"></a></h1>
                     </div>
                 </div><br>
-                <div class="search">
-                    <form action="shop.php" method="get">
-                        <input type="text" name="keyword" class="searchTerm" placeholder="search..."
-                            <?php echo $keyword ?>>
-                        <button type="submit" class="searchButton">
-                            <i class="fa fa-search">Tìm Kiếm</i>
-                        </button>
-                    </form>
-                </div>
-                <div class="col-sm-6">
+                <div class="col-sm-4">
+                    <div class="search">
+                        <form action="shop.php" method="get">
+                            <input type="text" name="keyword" class="searchTerm" placeholder="search..."
+                                <?php echo $keyword ?>>
+                            <button type="submit" class="searchButton">
+                                <i class="fa fa-search">Tìm Kiếm</i>
+                            </button>
+                        </form>
+                    </div>
+                </div><br>
+                <div class="col-sm-2">
                     <div class="shopping-item">
                         <a href="cart.php">Cart <i class="fa fa-shopping-cart"></i></a>
                         <?php

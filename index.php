@@ -1,8 +1,10 @@
 <?php
-require 'Controller/Product.php';
 require 'Controller/Pagination.php';
-require_once('PHP/component.php');
-$product = new Product();
+include "model/mysqli_con.php";
+include "model/config.php";
+require_once 'Controller/FactoryPattern.php';
+$factory = new FactoryPattern();
+$product = $factory->make('product');
 $products = $product->getData();
 $result = $product->getSPNew();
 //=================================================================
