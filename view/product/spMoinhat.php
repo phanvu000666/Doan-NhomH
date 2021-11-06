@@ -7,7 +7,7 @@
                     <h2 class="section-title">Sản Phẩm Mới Nhất</h2>
                     <div class="product-carousel">
                         
-                        <?php foreach ($result as $key => $value) {
+                        <?php  foreach ($result as $key => $value) {
 
                             ?>
                             <div class="single-product">

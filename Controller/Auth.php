@@ -1,8 +1,7 @@
 <?php
-//UPDATE MODEL ...
-
 // require "./model/config.php";
 // require "./model/mysqli_con.php";
+
 use SmartWeb\DBMYSQL;
 use SmartWeb\Model;
 
@@ -13,8 +12,6 @@ class Auths extends Model
     public static function getInstance()
     {
         if (empty(self::$_instance)) {
-            //ok
-            echo"fig bug";
             self::$_instance = new self(new DBMYSQL);
         }
 

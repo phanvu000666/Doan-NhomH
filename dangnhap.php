@@ -66,9 +66,9 @@ if (!empty($_POST['submit'])) {
 
     <style>
     .wrap-login100 {
-        /* background-image: url('pictures/upload/ROGTHEME.jpg');
-        background-size:contain; */
-        background: #3399ff;
+        background-image: url('pictures/upload/ROGTHEME.jpg');
+        background-size:contain;
+        
     }
     </style>
 

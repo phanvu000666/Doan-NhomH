@@ -33,25 +33,7 @@ abstract class DB implements IDB
         if (empty($params) || !is_array($params)) {
             return;
         }
-        $refers = array();
-        $values = array();
-        if (isset($params[0]) && is_array($params[0])) {
-            $refers = $params[0];
-        }
-        //$refers = array_keys($params);
-        $refers = "";
-        $values = array_values($params);
-        if (is_array($values)) {
-            $refers = array_keys($params);
-            foreach ($values as $key => $value) {
-                $stmt->bind_param("{$refers[$key]}", $value);
-            }
-        } else {
-            $values = $params;
-            foreach ($values as $key => $value) {
-                $stmt->bind_param("{$key}", $value);
-            }
-        }
+        call_user_func_array(array($stmt, 'bind_param'), $params);
     }
 }
 //mysqli

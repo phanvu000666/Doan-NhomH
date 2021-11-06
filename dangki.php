@@ -73,9 +73,9 @@ require_once("model/config.php");
 <body bgcolor="#FFFFFF">
 <style>
     .wrap-login100 {
-        /* background-image: url('pictures/upload/ROGTHEME.jpg');
-        background-size:contain; */
-        background: #3399ff;
+        background-image: url('pictures/upload/ROGTHEME.jpg');
+        background-size: contain;
+
     }
     </style>
     <div class="container-login100" style="background-image: url('pictures/upload/ROGTHEME.jpg');">

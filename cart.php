@@ -2,9 +2,9 @@
 require_once 'Controller/Pagination.php';
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
-$products = $factory->make('product');
+$product = $factory->make('product');
 $total    = 0;
-$data     = $products->getData();
+$data     = $product->getData();
 
 $keyword = '';
 if ( ! empty($_GET['keyword'])) {

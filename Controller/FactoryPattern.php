@@ -1,6 +1,4 @@
 <?php
-//UPDATE MODEL
-
 require "./model/model.php";
 require "Auth.php";
 require "./model/phone.php";
@@ -11,8 +9,7 @@ require "Component.php";
 use SmartWeb\Phone;
 use SmartWeb\Manufacture;
 use SmartWeb\Category;
-//ok
-echo"fig bug";
+
 class FactoryPattern
 {
     public function make($model)
