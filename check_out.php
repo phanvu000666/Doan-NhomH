@@ -11,7 +11,6 @@ $total    = 0;
 $data     = $products->getData();
 $user     = $products->getUsers();
 $getORDER = $oder->getOrderItems();
-var_dump($getORDER);
 include "./view/check_out/header.php";
 $_SESSION['user'] = $user;
 

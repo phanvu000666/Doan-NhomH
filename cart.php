@@ -152,7 +152,6 @@ if (isset($_POST['check_out'])) {
                                         if ($listIDs[$i]['ProductID'] == $id) {
                                             cartElement($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
                                             $total = $total + (int) $listIDs[$i]['Price'];
-                                        var_dump($_SESSION['cart']);
                                         }
                                     }
                                 }
@@ -160,8 +159,6 @@ if (isset($_POST['check_out'])) {
                                     $_SESSION['total'] = $total;
                                     echo "<script>window.location.reload()</script>";
                                 }
-
-
                             } else {
                                 echo "<h3> Cart is Empty !!!</h3>";
                             }
