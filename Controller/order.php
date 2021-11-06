@@ -1,4 +1,6 @@
 <?php
+//UPDATE MODEL
+
 // session_start();
 // require "./model/config.php";
 // require "./model/mysqli_con.php";

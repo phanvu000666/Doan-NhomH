@@ -1,7 +1,8 @@
 <?php
+//UPDATE MODEL
+
 // require "./model/config.php";
 // require "./model/mysqli_con.php";
-
 use SmartWeb\DBMYSQL;
 use SmartWeb\Model;
 
