@@ -1,51 +1,41 @@
 <?php
 session_start();
-require_once("model/config.php");
-if (isset($_POST["btn_submit"])) {
-    //lấy thông tin từ các form bằng phương thức POST
+
+require_once 'Controller/FactoryPattern.php';
+$factory = new FactoryPattern();
+$Auth = $factory->make('auth');
+
+$error = " ";
+if (!empty($_POST['submit'])) {
     $username = $_POST["username"];
-    $fullname = $_POST["fullname"];
-    $password = $_POST["password"];
-    $md5Password = md5($password);
-    $email = $_POST["email"];
-    //Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
-    if ($username == "" || $md5Password == "" || $fullname == "" || $email == "") {
-        echo '<script language="javascript">alert("Nhập đủ các trường để đăng kí!"); window.location="dangki.php";</script>';
-    } else {
-        // Kiểm tra username hoặc email có bị trùng hay không
-        $sql = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
-        $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
-        $result = mysqli_query($con, $sql);
-
-        // Nếu kết quả trả về lớn hơn 1 thì nghĩa là username hoặc email đã tồn tại trong CSDL
-        if (mysqli_num_rows($result) > 0) {
-            echo '<script language="javascript">alert("Bị trùng tên hoặc chưa nhập tên!"); window.location="dangki.php";</script>';
-            // Dừng chương trình
-            die();
-        } else {
-            var_dump($username);
-            var_dump($fullname);
-            $sql = "INSERT INTO users (username,fullname, password, email) VALUES ('$username','$fullname','$md5Password','$email')";
-            $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
-            mysqli_query($con, $sql);
-            echo '<script language="javascript">alert("Đăng kí thành công!"); window.location="dangnhap.php";</script>';
-
-            if (mysqli_query($conn, $sql)) {
-                echo "Tên đăng nhập: " . $_POST['username'] . "<br/>";
-                echo "Họ và tên: " . $_POST['fullname'] . "<br/>";
-                echo "Mật khẩu: " . $_POST['password'] . "<br/>";
-                echo "Email đăng nhập: " . $_POST['email'] . "<br/>";
-            } else {
-                echo '<script language="javascript">alert("Có lỗi trong quá trình xử lý"); window.location="dangki.php";</script>';
-            }
-        }
+     //Sử dùng htmlentities để chuyển đổi tất cả các ký tự áp dụng thành các thực thể HTML trước khi login
+    $users = [
+        'username' => htmlentities($_POST['username']),
+        'password' => htmlentities($_POST['password'])
+    ];
+    $user = NULL;
+    if ($user = $Auth->auth($users['username'], $users['password'])) {
+        //Login successful
+        $_SESSION['id'] = $user[0]['UserID'];
+        $_SESSION['username'] =$username;
+        $_SESSION['groupID'] = $user[0]['GroupID'];
+        $_SESSION['message'] = 'Login successful';
+        header('location: index.php');
+        
+    }else {
+        //Login failed
+        echo '<script language="javascript">alert("Sai tên đăng nhập hoặc mật khẩu!"); window.location="dangnhap.php";</script>';
     }
+
 }
+
 ?>
-<html>
+
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>Login Smart Phone</title>
+    <title>Forgot PassWord</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -72,53 +62,45 @@ if (isset($_POST["btn_submit"])) {
     <!--===============================================================================================-->
 </head>
 
-<body bgcolor="#FFFFFF">
-    <style>
-        .wrap-login100 {
-            background-image: url('pictures/upload/ROGTHEME.jpg');
-            background-size: contain;
+<body>
 
-        }
+    <style>
+    .wrap-login100 {
+        background-image: url('pictures/upload/ROGTHEME.jpg');
+        background-size:contain;
+        
+    }
     </style>
+
+
     <div class="container-login100" style="background-image: url('pictures/upload/ROGTHEME.jpg');">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
-            <form method="post" class="login100-form validate-form">
+            <form action="quenmatkhau.php" method="POST" class="login100-form validate-form">
                 <span class="login100-form-title p-b-37">
-                    Sign Up
+                    Recover your password
+                    <p>Vui lòng nhập địa chỉ email của bạn mà bạn sử dụng để đăng ký trên trang web này và chúng tôi sẽ 
+                        hỗ trợ bạn khôi phục mật khẩu của mình.</p>
                 </span>
 
-                <div class="wrap-input100 validate-input m-b-20" data-validate="Enter username">
-                    <input class="input100" type="text" id="username" name="username" placeholder="Username">
+                <div class="wrap-input100 validate-input m-b-20" data-validate="Enter username or email">
+                    <input class="input100" type="email" name="email" placeholder="Username or email">
                     <span class="focus-input100"></span>
                 </div>
-
-                <div class="wrap-input100 validate-input m-b-25" data-validate="Enter fullname">
-                    <input class="input100" type="text" id="fullname" name="fullname" placeholder="Fullname">
-                    <span class="focus-input100"></span>
-                </div>
-                <div class="wrap-input100 validate-input m-b-20" data-validate="Enter email">
-                    <input class="input100" type="text" id="email" name="email" placeholder="Email">
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="wrap-input100 validate-input m-b-25" data-validate="Enter password">
-                    <input class="input100" type="password" id="password" name="password" placeholder="Password">
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <button name="btn_submit" class="login100-form-btn">
-                        Sign Up
+               
+                 <div class="container-login100-form-btn">
+                    <button type="submit" name="quenmatkhau" value="submit"
+                        class="login100-form-btn">
+                        Recover your password
                     </button>
-                </div>
-
-                <div class="text-center p-t-57 p-b-20">
+                
+                                
+                <!-- <div class="text-center p-t-57 p-b-20">
                     <span class="txt1">
                         Or login with
                     </span>
-                </div>
+                </div> --> -->
 
-                <div class="flex-c p-b-112">
+                <!-- <div class="flex-c p-b-112">
                     <a href="#" class="login100-social-item">
                         <i class="fa fa-facebook-f"></i>
                     </a>
@@ -126,16 +108,22 @@ if (isset($_POST["btn_submit"])) {
                     <a href="#" class="login100-social-item">
                         <img src="pictures/icons/icon-google.png" alt="GOOGLE">
                     </a>
-                </div>
+                </div> -->
 
-                <div class="text-center">
-                    <a href="dangnhap.php" class="txt2 hov1">
-                        Do you have an account ? Log in !
+                <!-- <div class="text-center">
+                    <a href="dangki.php" class="txt2 hov1">
+                        Sign Up !
                     </a>
-                </div>
+                </div> -->
+                <div style="font-size: 0.8cm; text-align: center ;"><a href="quenmatkhau.php">Forgot your PassWord??</a></div>
             </form>
+
+
         </div>
     </div>
+
+
+
     <div id="dropDownSelect1"></div>
 
     <!--===============================================================================================-->

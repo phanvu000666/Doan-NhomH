@@ -203,4 +203,4 @@ function isAdmin()
 		return false;
     }
 }
-
+?>
