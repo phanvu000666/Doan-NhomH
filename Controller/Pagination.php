@@ -1,5 +1,4 @@
 <?php
-//UPDATE MODEL
 
 use SmartWeb\DataBase\DBMYSQL;
 use SmartWeb\DBPDO;
@@ -62,9 +61,8 @@ class Pagination
 
     function Search($keyword)
     {
-                //ok
-                echo"fig bug";
         $key = "%$keyword%";
+
         $phone = Phone::getInstance(new DBMYSQL);
         $con = $phone->getCon();
         $sql = "SELECT * FROM products INNER JOIN property ON products.ProductID = property.ProductID 

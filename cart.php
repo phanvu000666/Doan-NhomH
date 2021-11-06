@@ -1,22 +1,15 @@
 <?php
-<<<<<<< HEAD
 require_once 'Controller/Pagination.php';
 require_once 'Controller/FactoryPattern.php';
-=======
-include "model/config.php";
-include "model/mysqli_con.php";
-include "Controller/FactoryPattern.php";
-
->>>>>>> TrongTinh
 $factory = new FactoryPattern();
-$products = $factory->make('product');
+$product = $factory->make('product');
 $total    = 0;
-$data     = $products->getData();
+$data     = $product->getData();
 
 $keyword = '';
 if ( ! empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
-    $Search  = $products->Search($keyword);
+    $Search  = $product->Search($keyword);
     //var_dump($Search);
 }
 include_once("view/header.php");
@@ -60,7 +53,6 @@ if (isset($_POST['minus'])) {
                 $giam = $_SESSION['quanlity'][$id];
                 if (isset($_SESSION['quanlity'][$id]) && $giam > 1) {
                     --$_SESSION['quanlity'][$id];
-                    var_dump($_SESSION['quanlity'][$id]);
                     $_SESSION['tong'] = $_SESSION['quanlity'][$id] * $_SESSION['total'];
 
                 }
@@ -150,14 +142,14 @@ if (isset($_POST['check_out'])) {
                             <?php
                             if (isset($_SESSION['cart'])) {
                                 $product_id = array_column($_SESSION['cart'], 'prductID');
-                                $listIDs    = $products->getData();
+                                $listIDs    = $product->getData();
 
                                 foreach ($product_id as $id) {
                                     for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
                                         if ($listIDs[$i]['ProductID'] == $id) {
                                             cartElement($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
                                             $total = $total + (int) $listIDs[$i]['Price'];
-                                        var_dump($_SESSION['cart']);
+
                                         }
                                     }
                                 }

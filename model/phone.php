@@ -1,8 +1,7 @@
 <?php
-//UPDATE MODEL 
+
 namespace SmartWeb;
- //ok
- echo"fig bug";
+
 class Phone extends Model
 {
     private static Phone $_instance;

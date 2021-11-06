@@ -1,5 +1,5 @@
 <?php
-//UPDATE MODEL
+
 declare(strict_types=1);
 
 namespace SmartWeb;
@@ -8,8 +8,6 @@ require_once "connect.php";
 
 //----------------------------------------------------------------------------------------------------------
 //creator
- //ok
- echo"fig bug";
 interface IDB
 {
     public function select($sql);

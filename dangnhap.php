@@ -1,7 +1,6 @@
 <?php
 session_start();
-include  "model/config.php";
-include "model/mysqli_con.php";
+
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
 $Auth = $factory->make('auth');
@@ -67,9 +66,9 @@ if (!empty($_POST['submit'])) {
 
     <style>
     .wrap-login100 {
-        /* background-image: url('pictures/upload/ROGTHEME.jpg');
-        background-size:contain; */
-        background: #3399ff;
+        background-image: url('pictures/upload/ROGTHEME.jpg');
+        background-size:contain;
+        
     }
     </style>
 
