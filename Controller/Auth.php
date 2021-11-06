@@ -1,5 +1,5 @@
 <?php
-//UPDATE MODEL
+//UPDATE MODEL ...
 
 // require "./model/config.php";
 // require "./model/mysqli_con.php";
@@ -12,10 +12,12 @@ class Auths extends Model
     //design pattern factory
     public static function getInstance()
     {
-        if(self::$_instance !== null){
-            return self::$_instance;
+        if (empty(self::$_instance)) {
+            //ok
+            echo"concac";
+            self::$_instance = new self(new DBMYSQL);
         }
-        self::$_instance = new self();
+
         return self::$_instance;
     }
     public function auth($userName, $password)
@@ -23,15 +25,15 @@ class Auths extends Model
         $md5Password = md5($password);
         $sql = 'SELECT * FROM users WHERE username  = "' . $userName . '" AND password = "' . $md5Password . '"';
 
-        $user = $this->selects($sql);
+        $user = $this->con->selects($sql);
         return $user;
     }
 
     public function findUserById($id)
     {
-        
+
         $sql = 'SELECT * FROM users WHERE id = ' . $id;
-        $user = $this->select($sql);
+        $user = $this->con->selects($sql);
 
         return $user;
     }
@@ -39,7 +41,7 @@ class Auths extends Model
     public function findUser($keyword)
     {
         $sql = 'SELECT * FROM users WHERE user_name LIKE %' . $keyword . '%' . ' OR user_email LIKE %' . $keyword . '%';
-        $user = $this->select($sql);
+        $user = $this->con->selects($sql);
 
         return $user;
     }
@@ -50,20 +52,20 @@ class Auths extends Model
      * @return mixed
      */
     public function deleteUserById($id)
-    {   
+    {
         $isAuth = $this->getUsers();
         foreach ($isAuth as $item) {
             if ($item['id'] == $id) {
                 $sql = 'DELETE FROM users WHERE id = ' . $item['id'];
-                return $this->delete($sql);
+                return $this->con->noSelect($sql);
             }
         }
     }
     // Delete user by id : Step 2
     public function dropUserById($id)
-    {   
+    {
         $sql = 'DELETE FROM users WHERE id = ' . $id;
-        return $this->delete($sql);
+        return $this->con->noSelect($sql);
     }
     /**
      * Delete user by id
@@ -83,14 +85,16 @@ class Auths extends Model
      */
     public function updateUser($input)
     {
+        $mysqli = new mysqli("localhost", "root", "", "smart-web");
         $sql = 'UPDATE users SET 
-                 name = "' . mysqli_real_escape_string(self::$_connection, $input['name']) . '"
+                 name = "' . mysqli_real_escape_string($mysqli, $input['name']) . '"
                 ,`fullname`="' . $input['full-name'] . '"
                 ,email="' . $input['email'] . '"
                 ,type="' . $input['type'] . '"
                 ,password="' . md5($input['password']) . '"
                 WHERE id = ' . $input['id'];
-        $user = $this->update($sql);
+
+        $user = $this->con->noSelct($sql);
         return $user;
     }
 
@@ -106,11 +110,11 @@ class Auths extends Model
         $sql = "INSERT INTO `users` (`username`,`fullname`, `email` , `password`) VALUES (" .
             "'" . $input['username'] . "', '" . $input['fullname'] . "' , '" . $input['email'] . "', '" . $password . "')";
 
-        $user = $this->insert($sql);
+        $user = $this->con->noSelect($sql);
 
         return $user;
     }
-    
+
 
     /**
      * Search users
@@ -119,6 +123,7 @@ class Auths extends Model
      */
     public function getUsers($params = [])
     {
+        $mysqli = new mysqli("localhost", "root", "", "smart-web");
         //Keyword
         if (!empty($params['keyword'])) {
             $sql = 'SELECT * FROM users WHERE name LIKE "%' . $params['keyword'] . '%"';
@@ -126,13 +131,11 @@ class Auths extends Model
             //Keep this line to use Sql Injection
             //Don't change
             //Example keyword: abcef%";TRUNCATE banks;##
-            $users = self::$_connection->multi_query($sql);
+            $users = $mysqli->multi_query($sql);
         } else {
             $sql = 'SELECT * FROM users';
-            $users = $this->select($sql);
+            $users = $this->con->select($sql);
         }
-
         return $users;
     }
-    
 }
