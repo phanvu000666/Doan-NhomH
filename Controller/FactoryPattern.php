@@ -1,6 +1,7 @@
 <?php
-require "./model/config.php";
-require "./model/mysqli_con.php";
+//UPDATE MODEL
+
+require "./model/model.php";
 require "Auth.php";
 require "Product.php";
 require "Manufacturers.php";

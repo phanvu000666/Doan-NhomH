@@ -1,7 +1,14 @@
 <?php
+//UPDATE MODEL
+
 // require "./model/config.php";
 // require "./model/mysqli_con.php";
-class Auths extends My_MySQLI{
+use SmartWeb\DBMYSQL;
+use SmartWeb\Model;
+
+class Auths extends Model
+{
+    private static Auths $_instance;
     //design pattern factory
     public static function getInstance()
     {

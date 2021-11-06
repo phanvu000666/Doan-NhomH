@@ -1,4 +1,10 @@
 <?php
+//UPDATE MODEL
+
+use SmartWeb\DataBase\DBMYSQL;
+use SmartWeb\DBPDO;
+use SmartWeb\Phone;
+
 class Pagination
 {
     public static function createPageLinks($totalRow, $perPage, $page)

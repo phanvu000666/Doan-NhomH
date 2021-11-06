@@ -1,5 +1,7 @@
 <?php
- session_start();
+//UPDATE MODEL
+
+// session_start();
 // require "./model/config.php";
 // require "./model/mysqli_con.php";
 use SmartWeb\Model;
@@ -88,54 +90,19 @@ class Order extends Model
             $email   = $_POST['email'];
             $sdt     = $_POST['sdt'];
             $diachi  = $_POST['diachi'];
-<<<<<<< HEAD
             $status = 0;
             $total = $_SESSION['total'];
 
             $sql = $this->con->select("INSERT INTO `orders`( `UserID`, `Ten`, `Address`, `Phone`, `mail`, `Status`, `total`)
-=======
-            $status= 0;
-            $total= $_SESSION['total'];
-            $sql = self::$conn->query("INSERT INTO `orders`( `UserID`, `Ten`, `Address`, `Phone`, `mail`, `Status`, `total`)
->>>>>>> TrongTinh
     VALUES ('$id_user', '$name', '$diachi', '$sdt','$email', '$status', '$total')");
             return $sql;
         }
     }
 
-<<<<<<< HEAD
     function getDataOder()
     {
         $sql =  $this->con->select("SELECT * FROM orders");
         $sql->execute(); //return an object
-=======
-    public function insertItems(){
-
-        $product_id = array_column($_SESSION['cart'], 'prductID');
-        $listIDs    = $this->getData();
-
-        foreach ($product_id as $id) {
-            for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
-                if ($listIDs[$i]['ProductID'] == $id) {
-
-                }
-            }
-        }
-        $sql = self::$conn->query("INSERT INTO `orderitems`(`id`, `OrderID`, `ProductID`, `quantity`) 
-                                    VALUES ([value-1],[value-2],[value-3],[value-4])");
-        return $sql;
-    }
-    function getOrderItems(){
-       $sql= self::$conn->prepare("SELECT MAX(OrderID) as `OrderID` FROM orders");
-        $sql->execute();//return an object
-        $items = [];
-        $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
-        return $items;
-    }
-    function getDataOder() {
-        $sql = self::$conn->prepare("SELECT * FROM orders");
-        $sql->execute();//return an object
->>>>>>> TrongTinh
         $items = [];
         $items = $sql->get_result()->fetch_all(MYSQLI_ASSOC);
         return $items; //return an array
