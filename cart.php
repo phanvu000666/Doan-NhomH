@@ -9,7 +9,7 @@ $data     = $product->getData();
 $keyword = '';
 if ( ! empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
-    $Search  = $products->Search($keyword);
+    $Search  = $product->Search($keyword);
     //var_dump($Search);
 }
 include_once("view/header.php");
@@ -142,7 +142,7 @@ if (isset($_POST['check_out'])) {
                             <?php
                             if (isset($_SESSION['cart'])) {
                                 $product_id = array_column($_SESSION['cart'], 'prductID');
-                                $listIDs    = $products->getData();
+                                $listIDs    = $product->getData();
 
                                 foreach ($product_id as $id) {
                                     for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
