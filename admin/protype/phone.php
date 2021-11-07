@@ -63,7 +63,31 @@ class Phone extends Product
         $sql = "UPDATE products 
         SET ProductName=:ProductName, CategoryID=:CategoryID, ManufacturerID=:ManufacturerID
         WHERE ProductID = :ProductID";
-        
+
+        $is_finished =  $this->db->notSelect($sql, $params);
+        if ($is_finished) {
+            $id = $params['ProductID'];
+            $is_finished =  $this->setVersion($id);
+        }
+        return $is_finished;
+    }
+
+    public function getVersion($param)
+    {
+        $sql = "SELECT products.Version  Version
+        FROM products INNER JOIN property ON products.ProductID = property.ProductID
+        WHERE products.ProductID =:ProductID";
+        $params = ['ProductID' => $param];
+        $result = $this->db->select($sql, $params);
+        return $result[0];
+    }
+
+    private function setVersion($param)
+    {
+        $sql = "UPDATE products 
+        SET Version = Version + 1
+        WHERE ProductID =:ProductID";
+        $params = ['ProductID' => $param];
         $is_finished =  $this->db->notSelect($sql, $params);
         return $is_finished;
     }
