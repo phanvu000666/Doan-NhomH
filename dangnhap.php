@@ -1,7 +1,8 @@
 <?php
+ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+
 session_start();
-include  "model/config.php";
-include "model/mysqli_con.php";
+
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
 $Auth = $factory->make('auth');
@@ -119,6 +120,7 @@ if (!empty($_POST['submit'])) {
                         Sign Up !
                     </a>
                 </div>
+                <div style="font-size: 0.8cm; text-align: center ;"><a href="quenmatkhau.php">Forgot your PassWord??</a></div>
             </form>
 
 

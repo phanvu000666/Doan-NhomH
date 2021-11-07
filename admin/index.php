@@ -34,21 +34,32 @@ include "header.php";
 ?>
 
 <body>
-    <div id="ajax"></div>
+    
+    <!-- ...:::: Start Breadcrumb Section:::... -->
+    <div class="breadcrumb-section breadcrumb-bg-color--golden">
+        <div class="breadcrumb-wrapper">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="breadcrumb-title">ADMIN</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- ...:::: End Breadcrumb Section:::... -->
+
     <div class="container">
         <!-- Content here -->
         <div class="row">
-            <div class="col-4">
+            <div class="col-2">
                 <!-- dang de trong -->
             </div>
-            <div class="col-8">
+            <div class="col-10">
                 <?php include "./manager/product/information.php" ?>
             </div>
         </div>
     </div>
 
-
     <?php
     include "footer.php"
     ?>
-    

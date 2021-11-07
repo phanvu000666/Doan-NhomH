@@ -1,6 +1,7 @@
 <?php
-//session_start();
-// var_dump($_SESSION);
+ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+session_start();
+
 // if (!isset($_SESSION['username'])||!isset($_SESSION['email'])) {
 //     header('Location: dangnhap.php');
 // }
@@ -20,8 +21,7 @@
     <title>Shop SmartPhone</title>
 
     <!-- Google Fonts -->
-    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet'
-        type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,700,600' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
@@ -54,8 +54,8 @@
                     <div class="user-menu">
                         <ul>
                             <?php
-                            if (isset($_SESSION['username']) && $_SESSION['groupID'] == 1 ) {
-                                echo" <li><a href='admin/'><i class='fa fa-user'></i> Trang Quản trị </a></li>";
+                            if (isset($_SESSION['username']) && $_SESSION['groupID'] == 1) {
+                                echo " <li><a href='admin/'><i class='fa fa-user'></i> Trang Quản trị </a></li>";
                             }
                             ?>
                             <li><a href="#"><i class="fa fa-user"></i> My Account</a></li>
@@ -64,12 +64,12 @@
                             <li><a href="checkout.php"><i class="fa fa-user"></i> Checkout</a></li>
                             <?php
                             if (!isset($_SESSION['username'])) {
-                              echo" <li><a href='dangnhap.php'><i class='fa fa-user'></i> Login </a></li>";
+                                echo " <li><a href='dangnhap.php'><i class='fa fa-user'></i> Login </a></li>";
                             }
                             ?>
                             <?php
                             if (isset($_SESSION['username'])) {
-                              echo" <li><a href='dangxuat.php'><i class='fa fa-user'></i> Logout </a></li>";
+                                echo " <li><a href='dangxuat.php'><i class='fa fa-user'></i> Logout </a></li>";
                             }
                             ?>
                         </ul>
@@ -90,8 +90,7 @@
                 <div class="col-sm-4">
                     <div class="search">
                         <form action="shop.php" method="get">
-                            <input type="text" name="keyword" class="searchTerm" placeholder="search..."
-                                <?php echo $keyword ?>>
+                            <input type="text" name="keyword" class="searchTerm" placeholder="search...">
                             <button type="submit" class="searchButton">
                                 <i class="fa fa-search">Tìm Kiếm</i>
                             </button>
@@ -102,13 +101,13 @@
                     <div class="shopping-item">
                         <a href="cart.php">Cart <i class="fa fa-shopping-cart"></i></a>
                         <?php
-                                            if (isset($_SESSION['cart'])) {
-                                                $count = count($_SESSION['cart']);
-                                                echo "<span class='text-warning bg-light' id='cart_count'> $count</span>";
-                                            } else {
-                                                echo "<span class='text-warning bg-light' id='cart_count'>0</span>";
-                                            }
-                                            ?>
+                        if (isset($_SESSION['cart'])) {
+                            $count = count($_SESSION['cart']);
+                            echo "<span class='text-warning bg-light' id='cart_count'> $count</span>";
+                        } else {
+                            echo "<span class='text-warning bg-light' id='cart_count'>0</span>";
+                        }
+                        ?>
 
                     </div>
                 </div>
@@ -119,8 +118,7 @@
             <div class="container">
                 <div class="row">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse"
-                            data-target=".navbar-collapse">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -140,7 +138,7 @@
 
                                     <?php
                                     include_once("view/category/category.php");
-                                ?>
+                                    ?>
 
                                 </div>
                             </li>
@@ -151,7 +149,7 @@
 
                                     <?php
                                     include_once("view\manufactures\manufacturers.php");
-                                ?>
+                                    ?>
 
                                 </div>
                             </li>
@@ -163,3 +161,7 @@
                 </div>
             </div>
         </div> <!-- End mainmenu area -->
+
+        <?php
+
+     

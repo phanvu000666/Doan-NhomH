@@ -33,9 +33,8 @@ function cartElement($product_img, $productName, $product_Price, $product_id, $q
                                 </div>
                             </div>
                         </form>
-                        <?php  }?>
+                        <?php }?>
     ";
-
 
     echo $element;
 }
@@ -45,7 +44,6 @@ function checkOutElment($product_img, $productName,$product_Price, $product_id, 
     $price = (double)$product_Price;
     $gia = $price *  $_SESSION['quanlity'][$id];
     $product_Price= $gia;
-
     $elementCheckOut = " 
                  <div class='line'></div>
   <table class='order-table' >
