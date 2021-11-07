@@ -23,7 +23,6 @@ if (isset($_POST['remove'])) {
                 unset($_SESSION['cart'][$key]);
                 echo "<script>alert('Sản phẩm đã được xoá khỏi giỏ hàng ...');</script>";
             }
-            unset($_SESSION['quanlity']);
         }
     }
 }
