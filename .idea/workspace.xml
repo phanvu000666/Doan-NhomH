@@ -2,24 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f846128-93be-44c6-9fb1-070c59531ff3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/check_out.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/checkout_cart.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css/check_out.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/check_out.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/view/check_out/header.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/Product.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/order.php" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/order.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PHP/component.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/component.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/controller/product-controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/controller/product-controller.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/admin/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cart.php" beforeDir="false" afterPath="$PROJECT_DIR$/cart.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cart2.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index2.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view/product/spMoinhat.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/product/spMoinhat.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/AddToCart.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/Auth.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/Component.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/FactoryPattern.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/Pagination.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/order.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/model/config.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +41,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../2-training-PHP" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
@@ -88,6 +78,8 @@
       <workItem from="1635381266227" duration="12000" />
       <workItem from="1635843457038" duration="19483000" />
       <workItem from="1635902381709" duration="35384000" />
+      <workItem from="1636246242810" duration="35000" />
+      <workItem from="1636246280228" duration="3594000" />
     </task>
     <servers />
   </component>
