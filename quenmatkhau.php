@@ -1,6 +1,4 @@
 <?php
-ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
-
 session_start();
 
 require_once 'Controller/FactoryPattern.php';
@@ -37,7 +35,7 @@ if (!empty($_POST['submit'])) {
 <html lang="en">
 
 <head>
-    <title>Login Smart Phone</title>
+    <title>Forgot PassWord</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -77,35 +75,32 @@ if (!empty($_POST['submit'])) {
 
     <div class="container-login100" style="background-image: url('pictures/upload/ROGTHEME.jpg');">
         <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
-            <form method="POST" class="login100-form validate-form">
+            <form action="quenmatkhau.php" method="POST" class="login100-form validate-form">
                 <span class="login100-form-title p-b-37">
-                    Sign In
+                    Recover your password
+                    <p>Vui lòng nhập địa chỉ email của bạn mà bạn sử dụng để đăng ký trên trang web này và chúng tôi sẽ 
+                        hỗ trợ bạn khôi phục mật khẩu của mình.</p>
                 </span>
 
                 <div class="wrap-input100 validate-input m-b-20" data-validate="Enter username or email">
-                    <input class="input100" type="text" name="username" placeholder="Username or email">
+                    <input class="input100" type="email" name="email" placeholder="Username or email">
                     <span class="focus-input100"></span>
                 </div>
-
-                <div class="wrap-input100 validate-input m-b-25" data-validate="Enter password">
-                    <input class="input100" type="password" name="password" placeholder="Password">
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <button type="submit" name="submit" value="submit"
+               
+                 <div class="container-login100-form-btn">
+                    <button type="submit" name="quenmatkhau" value="submit"
                         class="login100-form-btn">
-                        Sign In
+                        Recover your password
                     </button>
-                </div>
+                
                                 
-                <div class="text-center p-t-57 p-b-20">
+                <!-- <div class="text-center p-t-57 p-b-20">
                     <span class="txt1">
                         Or login with
                     </span>
-                </div>
+                </div> --> -->
 
-                <div class="flex-c p-b-112">
+                <!-- <div class="flex-c p-b-112">
                     <a href="#" class="login100-social-item">
                         <i class="fa fa-facebook-f"></i>
                     </a>
@@ -113,13 +108,13 @@ if (!empty($_POST['submit'])) {
                     <a href="#" class="login100-social-item">
                         <img src="pictures/icons/icon-google.png" alt="GOOGLE">
                     </a>
-                </div>
+                </div> -->
 
-                <div class="text-center">
+                <!-- <div class="text-center">
                     <a href="dangki.php" class="txt2 hov1">
                         Sign Up !
                     </a>
-                </div>
+                </div> -->
                 <div style="font-size: 0.8cm; text-align: center ;"><a href="quenmatkhau.php">Forgot your PassWord??</a></div>
             </form>
 

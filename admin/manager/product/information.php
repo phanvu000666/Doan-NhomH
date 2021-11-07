@@ -38,6 +38,7 @@
             <div class="modal-body">
                 <form action="" id="fproduct" enctype="multipart/form-data">
                     <input type="text" name="ProductID" id="ProductID" hidden>
+                    <input type="text" name="Version" id="Version" hidden>
                     <p>
                         <label for="ProductName">
                             Name product

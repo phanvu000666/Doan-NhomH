@@ -1,4 +1,6 @@
 <?php
+ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+
 session_start();
 require_once("model/config.php");
 if (isset($_POST["btn_submit"])) {
@@ -14,7 +16,7 @@ if (isset($_POST["btn_submit"])) {
     } else {
         // Kiểm tra username hoặc email có bị trùng hay không
         $sql = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
-        $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, POST);
+        $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
         $result = mysqli_query($con, $sql);
 
         // Nếu kết quả trả về lớn hơn 1 thì nghĩa là username hoặc email đã tồn tại trong CSDL
@@ -26,7 +28,7 @@ if (isset($_POST["btn_submit"])) {
             var_dump($username);
             var_dump($fullname);
             $sql = "INSERT INTO users (username,fullname, password, email) VALUES ('$username','$fullname','$md5Password','$email')";
-            $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, POST);
+            $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
             mysqli_query($con, $sql);
             echo '<script language="javascript">alert("Đăng kí thành công!"); window.location="dangnhap.php";</script>';
 

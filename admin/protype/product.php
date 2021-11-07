@@ -1,6 +1,7 @@
 <?php
 
 namespace SmartWeb\Models;
+
 include "db.php";
 class Product
 {
@@ -10,6 +11,3 @@ class Product
         $this->db =  $db;
     }
 }
-
-
-

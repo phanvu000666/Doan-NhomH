@@ -80,7 +80,7 @@
                 key: 'content'
             },
             success: function(reponse) {
-               // console.log(reponse);
+                console.log(reponse);
                 $("#products-table > thead").remove();
                 $("#products-table > tbody").remove();
                 //add
@@ -110,6 +110,7 @@
         $("#Description").val("");
         $("#CategoryID").val(0);
         $("#ManufacturerID").val(0);
+        $("#Version").val(0);
     }
 
     function updateForm(values) {
@@ -119,8 +120,10 @@
         $("#Price").val(values.Price);
         $("#Quantity").val(values.Quantity);
         $("#Description").val(values.Description);
-        $("#CategoryID").val(values.CategoryID);
-        $("#ManufacturerID").val(values.ManufacturerID);
+        $("#CategoryID ").val(values.CategoryID);
+        //$("select #ManufacturerID ").val(values.ManufacturerID);
+        $("#ManufacturerID option:selected").val(values.ManufacturerID);
+        $("#Version").val(values.Version);
     }
 
     function editProduct(ProductID) {
@@ -132,9 +135,8 @@
             data: 'ProductID=' + ProductID,
             success: function(reponse) {
                 setTimeout(function() {
-                    
+
                     if (IsJsonString(reponse)) {
-                        
                         var obj = JSON.parse(reponse.toString());
                         updateForm(obj);
                     }
