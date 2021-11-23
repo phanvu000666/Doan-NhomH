@@ -33,6 +33,7 @@ session_start();
         <!-- Font Awesome -->
         <link rel="stylesheet" href="/css/font-awesome.min.css">
         <link rel="stylesheet" href="../css/css-header.css">
+        <link rel="stylesheet" href="../css/css-shop-page.css">
 
 
         <!-- Custom CSS -->

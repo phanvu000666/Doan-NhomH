@@ -20,31 +20,22 @@ $cateName = $cate->getCateName($id);
 
 <div class="single-product-area">
     <div class="zigzag-bottom"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <?php
+    <div class="container mt-4">
+        <div class="grid-layout">
+            <?php
                 if (count($result1) < 1) {
                     echo "<center><h2>Không có sản phẩm nào</h2></center>";
-                }
-                foreach ($result1 as $key => $value)
-                    echo "<div class='col-md-4'>
-                    <div class='single-shop-product'>
-                        <div class='product-upper'>
-                            <img src='pictures/upload/" . $result1[$key]['ImageUrl'] . "' style='width:220px;height:220px;'>
-                        </div>
-                        <h2><a href='single-product.php?id=" . $result1[$key]['ProductID'] . "'>" . ($result1[$key]['ProductName']) . "</a></h2>
-                        <div class='product-carousel-price'>
-                        <h2>" . number_format($result1[$key]['Price']) . " VND</h2>
-                        </div>  
-                        
-                        <div class='product-option-shop'>
-                            <a class='add_to_cart_button' data-quantity='1' data-product_sku='' data-product_id='70' rel='nofollow' href='updateOrder.php?id=" . $result1[$key]['ProductID'] . "&action=3'>Add to cart</a>
-                        </div>   
-                        </div>              
-                    </div>";
-                ?>
-            </div>
+                } else foreach ($result1 as $key => $value)
+            echo"<div class='recipe_card'>
+                <div class='top'><img
+                        src='pictures/upload/".$result1[$key]['ImageUrl']."'
+                        href='single-product.php?id=".$result1[$key]['ProductID']."' style='width:360px;height:290px;'></div>
+                <div class='center'><a href='single-product.php?id=".$result1[$key]['ProductID']."'>".($result1[$key]['ProductName'])."</a></div>
+                <div class='center'>".number_format($result1[$key]['Price'])."</div>
+                <div class='bottom'><button class='btn btn-small btn-primary-detail'><a rel='nofollow noopener'
+                            href='updateOrder.php?id=".$result1[$key]['ProductID']."&action=3'>ADD TO CARD</a></button></div>
+            </div>";
+                    ?>
         </div>
     </div>
 </div>

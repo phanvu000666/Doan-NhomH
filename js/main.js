@@ -1,3 +1,8 @@
+// Material Select Initialization
+$(document).ready(function() {
+$('.mdb-select').materialSelect();
+});
+
 jQuery(document).ready(function($){
     
     // jQuery sticky Menu
