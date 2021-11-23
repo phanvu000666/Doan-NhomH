@@ -2,11 +2,12 @@
 
 namespace SmartWeb\Controller;
 
-
+use SmartWeb\DataBase\Product\Model;
 use SmartWeb\Models\ObjectAssembler;
 use SmartWeb\Models\Phone;
 use SmartWeb\Repository\ProductRepository;
 use SmartWeb\File\Upload;
+use SmartWeb\Models\Product;
 
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
@@ -131,7 +132,6 @@ class ProductController
 
     public function update()
     {
-
         if (!empty($_POST['ProductID']) && count($_POST) > 1) {
             //list expected fields  
             $expected = ['ProductName',  'ManufacturerID', 'CategoryID', 'Description', 'Quantity', 'Price'];
@@ -142,13 +142,20 @@ class ProductController
             $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
             require  "{$base_dir}include{$ds}processform.php";
 
-            if ($_FILES &&  !empty($_FILES['ImageUrl'])) {
-                $path = "../../pictures{$ds}Upload{$ds}";
-                $file = new Upload($path);
-                $file->upload("ImageUrl");
-            }
+            $product = ProductRepository::getProduct();
+            $version  = $product->getVersion($_POST['ProductID']);
+            
+            if ($version['Version'] === $_POST['Version']) {
+                var_dump("hien tai o day");
+                if ($_FILES &&  !empty($_FILES['ImageUrl'])) {
+                    $root = $_SERVER['DOCUMENT_ROOT'];
+                    $path = "{$root}{$ds}pictures{$ds}Upload{$ds}";
+                    $file = new Upload($path);
+                    $file->upload("ImageUrl");
+                }
 
-            ProductRepository::update($_POST);
+                $is_update  = ProductRepository::update($_POST);
+            }
         }
     }
 }

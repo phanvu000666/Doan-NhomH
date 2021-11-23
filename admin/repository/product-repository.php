@@ -31,17 +31,17 @@ class ProductRepository
         if (is_array($params)) {
 
             //add product.
-            $paramsproduct['ProductName'] = $params['ProductName'];
-            $paramsproduct['CategoryID'] = $params['CategoryID'];
-            $paramsproduct['ManufacturerID']  = $params['ManufacturerID'];
+            $paramsproduct['ProductName'] = htmlentities($params['ProductName']);
+            $paramsproduct['CategoryID'] = htmlentities($params['CategoryID']);
+            $paramsproduct['ManufacturerID']  = htmlentities($params['ManufacturerID']);
             $is_finished =  static::$product->insert($paramsproduct);
             //add property.
             $id_max = (int)static::$product->getMaxID();
-            $paramsproperty['ProductID'] = $id_max;
-            $paramsproperty['ImageUrl'] = $params['ImageUrl'];
-            $paramsproperty['Price'] = $params['Price'];
-            $paramsproperty['Quantity'] = $params['Quantity'];
-            $paramsproperty['Description'] = $params['Description'];
+            $paramsproperty['ProductID'] = htmlentities($id_max);
+            $paramsproperty['ImageUrl'] = htmlentities($params['ImageUrl']);
+            $paramsproperty['Price'] = htmlentities($params['Price']);
+            $paramsproperty['Quantity'] = htmlentities($params['Quantity']);
+            $paramsproperty['Description'] = htmlentities($params['Description']);
             $is_finished = static::$property->insert($paramsproperty);
         }
         return $is_finished;
@@ -79,24 +79,43 @@ class ProductRepository
             static::$product = $assembler->getComponent(Product::class);
             static::$property = $assembler->getComponent(\SmartWeb\Models\Property::class);
         }
+        $is_finished = false;
         if (is_array($params)) {
 
 
             //add product.
-            $paramsproduct['ProductName'] = $params['ProductName'];
-            $paramsproduct['ManufacturerID']  = $params['ManufacturerID'];
-            $paramsproduct['CategoryID'] = $params['CategoryID'];
-            $paramsproduct['ProductID'] = $params['ProductID'];
+            $paramsproduct['ProductName'] = htmlentities($params['ProductName']);
+            $paramsproduct['ManufacturerID']  = (int) htmlentities($params['ManufacturerID']);
+            $paramsproduct['CategoryID'] = (int)htmlentities($params['CategoryID']);
+            $paramsproduct['ProductID'] = (int)htmlentities($params['ProductID']);
 
             $is_finished =  static::$product->update($paramsproduct);
-
-            //add property.
-            $paramsproperty['ImageUrl'] = $params['ImageUrl'];
-            $paramsproperty['Price'] = $params['Price'];
-            $paramsproperty['Quantity'] = $params['Quantity'];
-            $paramsproperty['Description'] = $params['Description'];
-            $paramsproperty['ProductID'] = $paramsproduct['ProductID'];
-            $is_finished = static::$property->update($paramsproperty);
+            if ($is_finished) {
+                //add property.
+                $paramsproperty['ImageUrl'] = htmlentities($params['ImageUrl']);
+                $paramsproperty['Price'] = (int)htmlentities($params['Price']);
+                $paramsproperty['Quantity'] = htmlentities($params['Quantity']);
+                $paramsproperty['Description'] = htmlentities($params['Description']);
+                $paramsproperty['ProductID'] =(int) htmlentities($paramsproduct['ProductID']);
+                $is_finished = static::$property->update($paramsproperty);
+            }
         }
+
+        return $is_finished;
+    }
+
+    public static function getProduct()
+    {
+        //initialize product and property.
+        if (empty($product) && empty($property)) {
+            $ds = DIRECTORY_SEPARATOR;
+            $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
+            $conf = "{$base_dir}dj{$ds}object.xml";
+            $assembler = new ObjectAssembler($conf);
+
+            static::$product = $assembler->getComponent(Product::class);
+            static::$property = $assembler->getComponent(\SmartWeb\Models\Property::class);
+        }
+        return static::$product;
     }
 }

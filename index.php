@@ -1,20 +1,15 @@
 <?php
+
 require 'Controller/Pagination.php';
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
 $product = $factory->make('product');
 $products = $product->getData();
 $result = $product->getSPNew();
+
 //=================================================================
-$keyword = '';
-if (!empty($_GET['keyword'])) {
-    $keyword = $_GET['keyword'];
-    $Search = $product->Search($keyword);
-    //var_dump($Search);
-}
 include_once("view/header.php");
 $totalRow = $product->getTotalRow();
-var_dump($totalRow);
 $perPage = 3;
 $page = 1;
 if (isset($_GET['page'])) {

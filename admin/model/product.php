@@ -13,6 +13,7 @@ use SmartWeb\DataBase\DB;
 abstract class Model
 {
    protected DB $db;
+  
    protected function __construct(DB $db)
    {
       $this->db = $db;
@@ -21,6 +22,7 @@ abstract class Model
 
 class Phone extends Model
 {
+   public static $count = 0;
    private static Phone $phone;
    public static function getInstance(DB $db)
    {
