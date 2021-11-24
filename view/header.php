@@ -70,10 +70,6 @@ session_start();
                         </li>
                         <li
                             class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-36029">
-                            <a href="single-product.php" class="nav-link">SINGLE_PRODUCT</a>
-                        </li>
-                        <li
-                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-36029">
                             <a href="#" class="nav-link">CATEGORY</a>
                             <ul class="sub-menu">
                                 <?php include_once("view/category/category.php"); ?>
