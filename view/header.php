@@ -63,7 +63,7 @@ session_start();
                             <a href="#" class="nav-link">HOME</a>
                         </li>
                         <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-36029">
-                            <a href="#" class="nav-link">SINGLE-PRODUCT</a>
+                            <a href="#" class="nav-link">SHOP-PAGE</a>
                         </li>
                         <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-36029">
                             <a href="#" class="nav-link">CART</a>
