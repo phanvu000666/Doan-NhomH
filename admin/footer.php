@@ -120,9 +120,8 @@
         $("#Price").val(values.Price);
         $("#Quantity").val(values.Quantity);
         $("#Description").val(values.Description);
-        $("#CategoryID ").val(values.CategoryID);
-        //$("select #ManufacturerID ").val(values.ManufacturerID);
-        $("#ManufacturerID option:selected").val(values.ManufacturerID);
+        $("#CategoryID").val(values.CategoryID);
+        $("#ManufacturerID").val(values.ManufacturerID);
         $("#Version").val(values.Version);
     }
 
