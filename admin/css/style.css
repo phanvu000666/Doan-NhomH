@@ -459,16 +459,16 @@ body {
     padding: 40px 0 40px;
 }
 
-.brands-area {
+/* .brands-area {
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
     color: #fff;
     padding: 20px 0 20px;
-}
+} */
 
-.promo-area .zigzag-bottom, .brands-area .zigzag-bottom {
+/* .promo-area .zigzag-bottom, .brands-area .zigzag-bottom {
     background: #f4f4f4
-}
+} */
 
 .single-promo {
     font-size: 25px;
@@ -638,10 +638,10 @@ body {
     padding: 1px 10px;
 }
 
-.latest-product .owl-nav div:hover, .brand-wrapper .owl-nav div:hover, .related-products-wrapper .owl-nav div:hover {
+/* .latest-product .owl-nav div:hover, .brand-wrapper .owl-nav div:hover, .related-products-wrapper .owl-nav div:hover {
     color: #FFF;
     background: #f95f5f;
-}
+} */
 
 .brand-list {
     padding-top: 40px;
@@ -653,7 +653,7 @@ body {
     top: 0;
 }
 
-.brand-wrapper .owl-nav div {
+/* .brand-wrapper .owl-nav div {
     border: 1px solid #fff;
     color: #fff;
     display: inline-block;
@@ -667,7 +667,7 @@ body {
     display: inline-block;
     margin-left: 15px;
     padding: 1px 10px;
-}
+} */
 
 .maincontent-area {
     padding-bottom: 50px;
@@ -958,13 +958,15 @@ ol.slide-indicators li.active {
 input[type="text"], input[type="password"], input[type="email"], textarea {
     border: 1px solid #ddd;
     padding: 10px;
+    width: 306px;
+    height: 40px;
 }
 
 input[type="submit"], button[type=submit] {
     background: none repeat scroll 0 0 #197837;
     border: medium none;
     color: #fff;
-    padding: 11px 20px;
+    padding: 10px 22px;
     text-transform: uppercase;
 }
 

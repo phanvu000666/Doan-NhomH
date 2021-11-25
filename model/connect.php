@@ -25,7 +25,7 @@ class ConnectMySqli extends Connect
     public static function connect()
     {
         try {
-            $db = new \mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
+            $db = new \mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE,PORT);
             if ($db) {
                 return  $db;
             }
