@@ -1,6 +1,6 @@
 <?php
 include "model/config.php";
-include "model/mysqli_con.php";
+// include "model/mysqli_con.php";
 include "Controller/FactoryPattern.php";
 
 $factory = new FactoryPattern();
@@ -90,9 +90,9 @@ if (isset($_POST['check_out'])) {
                 <div class="col-md-4">
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Search Products</h2>
-                        <form action="#">
-                            <input type="text" placeholder="Search products...">
-                            <input type="submit" value="Search">
+                        <form class="form-search" action="#">
+                            <input class="searchTerm" type="text" placeholder="Search products...">
+                            <input class="searchButton" type="submit" value="Search">
                         </form>
                     </div>
 
@@ -117,24 +117,14 @@ if (isset($_POST['check_out'])) {
 
                         <div class="col-md-6">
                             <h4>
-                                $ <?php if (isset($_SESSION['tong'])) echo number_format($_SESSION['tong'], 0); ?></h4>
+                                <?php echo isset($_SESSION['tong']) ? number_format($_SESSION['tong'], 0) : 0; ?> VNĐ</h4>
                             <h4 class="text-success">FREE</h4>
                             <hr>
                             <h4>
-                                $ <?php if (isset($_SESSION['tong'])) echo number_format($_SESSION['tong'], 0); ?></h4>
+                                <?php echo isset($_SESSION['tong']) ? number_format($_SESSION['tong'], 0) : 0; ?> VNĐ</h4>
                             <br><br><br>
                         </div>
                         <br><br><br>
-                        <div class="single-sidebar">
-                            <h2 class="sidebar-title">Recent Posts</h2>
-                            <ul>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <!-- DANH SÁCH SẢN PHẨM ORDER -->
