@@ -3,6 +3,7 @@
 use SmartWeb\Controller\ManufactureController;
 use SmartWeb\Controller\ProductController;
 use SmartWeb\Controller\CategoryController;
+use SmartWeb\Controller\UserController;
 use SmartWeb\Repository\ProductRepository;
 use SmartWeb\Models\ObjectAssembler;
 
@@ -12,6 +13,7 @@ $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 include("{$base_dir}admin{$ds}controller{$ds}productController.php");
 include_once "{$base_dir}controller{$ds}cateController.php";
 include_once "{$base_dir}controller{$ds}manuController.php";
+include_once "{$base_dir}controller{$ds}userController.php";
 include "{$base_dir}dj{$ds}dj.php";
 include "{$base_dir}utilities.php";
 //
@@ -19,8 +21,9 @@ $conf = "{$base_dir}dj{$ds}object.xml";
 $phonecontrol = new ProductController($conf);
 $manucontrol = new ManufactureController($conf);
 $catecontrol = new CategoryController($conf);
+$usercontrol = new UserController($conf);
 
-
+$usercontrol->showUserData();
 $phonecontrol->insert();
 $phonecontrol->update();
 $phonecontrol->delete();
