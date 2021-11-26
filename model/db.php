@@ -1,5 +1,5 @@
 <?php
-//UPDATE MODEL
+
 declare(strict_types=1);
 
 namespace SmartWeb;
@@ -31,6 +31,7 @@ abstract class DB implements IDB
         if (empty($params) || !is_array($params)) {
             return;
         }
+       
         call_user_func_array(array($stmt, 'bind_param'), $params);
     }
 }

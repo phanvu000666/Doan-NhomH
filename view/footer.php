@@ -65,8 +65,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="copyright">
-                    <p>&copy; 2015 uCommerce. All Rights Reserved. <a href="http://www.freshdesignweb.com"
-                                                                      target="_blank">freshDesignweb.com</a></p>
+                    <p>&copy; 2015 uCommerce. All Rights Reserved. <a href="http://www.freshdesignweb.com" target="_blank">freshDesignweb.com</a></p>
                 </div>
             </div>
 
@@ -101,5 +100,27 @@
 <!-- Slider -->
 <script type="text/javascript" src="admin/js/bxslider.min.js"></script>
 <script type="text/javascript" src="admin/js/script.slider.js"></script>
+
+<script>
+    // le anh vu slider
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 4
+            }
+        }
+    });
+</script>
 </body>
+
 </html>

@@ -1,19 +1,20 @@
 <?php
 require_once 'Controller/Product.php';
-require_once('PHP/component.php');
+require_once('Controller/component.php');
 $products = new Product();
 $oder     = new Order();
 $insertOd = $oder->insertOder();
 $total    = 0;
 $data     = $products->getData();
 $user     = $products->getUsers();
-
+$getORDER = $oder->getOrderItems();
 include "./view/check_out/header.php";
 $_SESSION['user'] = $user;
 
 ?>
 <?php
-if (isset($_SESSION['username'])) { ?>
+if (isset($_SESSION['username'])) {?>
+
     <div class='container'>
         <div class='window'>
             <div class='order-info'>
@@ -25,15 +26,11 @@ if (isset($_SESSION['username'])) { ?>
 
                         foreach ($product_id as $id) {
                             for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
-                                if ($listIDs[$i]['ProductID'] == $id) {
-                                    //var_dump($listIDs[$i]);
+                                if ( $listIDs[$i]['ProductID'] == $id) {
                                     checkOutElment($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
                                     $total = $total + (int) $listIDs[$i]['Price'];
-
-
                                 }
                             }
-
                         }
                         if ($total != $_SESSION['total']) {
                             $_SESSION['total'] = $total;

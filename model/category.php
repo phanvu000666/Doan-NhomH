@@ -1,5 +1,5 @@
 <?php
-//UPDATE MODEL
+
 namespace SmartWeb;
 
 class Category extends Model

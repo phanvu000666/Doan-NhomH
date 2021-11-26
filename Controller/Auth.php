@@ -23,14 +23,14 @@ class Auths extends Model
         $sql = 'SELECT * FROM users WHERE username  = "' . $userName . '" AND password = "' . $md5Password . '"';
 
         $user = $this->db->select($sql);
-        return $sql;
+        return $user;
     }
 
     public function findUserById($id)
     {
 
         $sql = 'SELECT * FROM users WHERE id = ' . $id;
-        $user = $this->con->selects($sql);
+        $user = $this->db->select($sql);
 
         return $user;
     }
@@ -38,7 +38,7 @@ class Auths extends Model
     public function findUser($keyword)
     {
         $sql = 'SELECT * FROM users WHERE user_name LIKE %' . $keyword . '%' . ' OR user_email LIKE %' . $keyword . '%';
-        $user = $this->con->selects($sql);
+        $user = $this->db->select($sql);
 
         return $user;
     }
@@ -54,7 +54,7 @@ class Auths extends Model
         foreach ($isAuth as $item) {
             if ($item['id'] == $id) {
                 $sql = 'DELETE FROM users WHERE id = ' . $item['id'];
-                return $this->con->noSelect($sql);
+                return $this->db->notSelect($sql);
             }
         }
     }
@@ -62,7 +62,7 @@ class Auths extends Model
     public function dropUserById($id)
     {
         $sql = 'DELETE FROM users WHERE id = ' . $id;
-        return $this->con->noSelect($sql);
+        return $this->db->notSelect($sql);
     }
     /**
      * Delete user by id
@@ -91,7 +91,7 @@ class Auths extends Model
                 ,password="' . md5($input['password']) . '"
                 WHERE id = ' . $input['id'];
 
-        $user = $this->con->noSelct($sql);
+        $user = $this->db->notSelect($sql);
         return $user;
     }
 
@@ -107,7 +107,7 @@ class Auths extends Model
         $sql = "INSERT INTO `users` (`username`,`fullname`, `email` , `password`) VALUES (" .
             "'" . $input['username'] . "', '" . $input['fullname'] . "' , '" . $input['email'] . "', '" . $password . "')";
 
-        $user = $this->con->noSelect($sql);
+        $user = $this->db->notSelect($sql);
 
         return $user;
     }
@@ -131,7 +131,7 @@ class Auths extends Model
             $users = $mysqli->multi_query($sql);
         } else {
             $sql = 'SELECT * FROM users';
-            $users = $this->con->select($sql);
+            $users = $this->db->select($sql);
         }
         return $users;
     }

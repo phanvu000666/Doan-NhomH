@@ -1,8 +1,7 @@
 <?php
-//UPDATE MODEL
+
 namespace SmartWeb;
 //factory
-
 class TerrainFactory
 {
     #[InjectConstructor(DB::class, Product::class)]

@@ -24,11 +24,11 @@ class CategoryController
         foreach ($result as $key => $value) {
             $select .= <<< Select
             <option value="{$value['CategoryID']}">{$value['CategoryName']}</option>
-            Select;
+Select;
         }
         $select .= <<< Select
         </select>
-        Select;
+Select;
         return $select;
     }
 

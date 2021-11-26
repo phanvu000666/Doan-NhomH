@@ -13,7 +13,7 @@ class ConnectPDO extends Connect
     public static function connect()
     {
         try {
-            return  new \PDO("mysql:host=" . SEVERNAME . ";dbname=" . DATABASE, USERNAME, PASSWORD);
+            return  new \PDO("mysql:host=" . SEVERNAME . ";port=" . PORT . " ;dbname=" . DATABASE, USERNAME, PASSWORD);
         } catch (\PDOException $pe) {
             die("Could not connect to the database" . DATABASE . " :" . $pe->getMessage());
         }

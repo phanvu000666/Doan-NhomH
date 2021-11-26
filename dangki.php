@@ -1,44 +1,48 @@
 <?php
+ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+
 session_start();
 require_once("model/config.php");
-	if (isset($_POST["btn_submit"])) {
-		//lấy thông tin từ các form bằng phương thức POST
-		$username = $_POST["username"];
-        $fullname = $_POST["fullname"];
-		$password = $_POST["password"];
-		$md5Password = md5($password);
-		$email = $_POST["email"];
-		//Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
-		if ($username == "" || $md5Password == "" || $fullname == "" || $email == "") {
-			echo '<script language="javascript">alert("Nhập đủ các trường để đăng kí!"); window.location="dangki.php";</script>';
-		}else{
-			// Kiểm tra username hoặc email có bị trùng hay không
-				$sql = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
-				$result = mysqli_query($conn, $sql);
+if (isset($_POST["btn_submit"])) {
+    //lấy thông tin từ các form bằng phương thức POST
+    $username = $_POST["username"];
+    $fullname = $_POST["fullname"];
+    $password = $_POST["password"];
+    $md5Password = md5($password);
+    $email = $_POST["email"];
+    //Kiểm tra điều kiện bắt buộc đối với các field không được bỏ trống
+    if ($username == "" || $md5Password == "" || $fullname == "" || $email == "") {
+        echo '<script language="javascript">alert("Nhập đủ các trường để đăng kí!"); window.location="dangki.php";</script>';
+    } else {
+        // Kiểm tra username hoặc email có bị trùng hay không
+        $sql = "SELECT * FROM users WHERE username = '$username' OR email = '$email'";
+        $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
+        $result = mysqli_query($con, $sql);
 
-				// Nếu kết quả trả về lớn hơn 1 thì nghĩa là username hoặc email đã tồn tại trong CSDL
-				if (mysqli_num_rows($result) > 0)
-				{
-				echo '<script language="javascript">alert("Bị trùng tên hoặc chưa nhập tên!"); window.location="dangki.php";</script>';
-				// Dừng chương trình
-				die ();
-				}
-				else {
-				$sql = "INSERT INTO users (username,fullname, password, email) VALUES ('$username','$fullname','$md5Password','$email')";
-				echo '<script language="javascript">alert("Đăng kí thành công!"); window.location="dangnhap.php";</script>';
+        // Nếu kết quả trả về lớn hơn 1 thì nghĩa là username hoặc email đã tồn tại trong CSDL
+        if (mysqli_num_rows($result) > 0) {
+            echo '<script language="javascript">alert("Bị trùng tên hoặc chưa nhập tên!"); window.location="dangki.php";</script>';
+            // Dừng chương trình
+            die();
+        } else {
+            var_dump($username);
+            var_dump($fullname);
+            $sql = "INSERT INTO users (username,fullname, password, email) VALUES ('$username','$fullname','$md5Password','$email')";
+            $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
+            mysqli_query($con, $sql);
+            echo '<script language="javascript">alert("Đăng kí thành công!"); window.location="dangnhap.php";</script>';
 
-				if (mysqli_query($conn, $sql)){
-				echo "Tên đăng nhập: ".$_POST['username']."<br/>";
-				echo "Họ và tên: ".$_POST['fullname']."<br/>";
-				echo "Mật khẩu: " .$_POST['password']."<br/>";
-				echo "Email đăng nhập: ".$_POST['email']."<br/>";
-				}
-				else {
-				echo '<script language="javascript">alert("Có lỗi trong quá trình xử lý"); window.location="dangki.php";</script>';
-				}
-			}	
-		}
-	}
+            if (mysqli_query($conn, $sql)) {
+                echo "Tên đăng nhập: " . $_POST['username'] . "<br/>";
+                echo "Họ và tên: " . $_POST['fullname'] . "<br/>";
+                echo "Mật khẩu: " . $_POST['password'] . "<br/>";
+                echo "Email đăng nhập: " . $_POST['email'] . "<br/>";
+            } else {
+                echo '<script language="javascript">alert("Có lỗi trong quá trình xử lý"); window.location="dangki.php";</script>';
+            }
+        }
+    }
+}
 ?>
 <html>
 
@@ -67,73 +71,48 @@ require_once("model/config.php");
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/css-auth.css">
+
     <!--===============================================================================================-->
 </head>
 
-<body bgcolor="#FFFFFF">
-<style>
-    .wrap-login100 {
-        background-image: url('pictures/upload/ROGTHEME.jpg');
-        background-size: contain;
+<body>
 
-    }
-    </style>
-    <div class="container-login100" style="background-image: url('pictures/upload/ROGTHEME.jpg');">
-        <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
-            <form method="post" class="login100-form validate-form">
-                <span class="login100-form-title p-b-37">
-                    Sign Up
-                </span>
-
-                <div class="wrap-input100 validate-input m-b-20" data-validate="Enter username">
-                    <input class="input100" type="text" id="username" name="username" placeholder="Username">
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="wrap-input100 validate-input m-b-25" data-validate="Enter fullname">
-                    <input class="input100" type="text" id="fullname" name="fullname" placeholder="Fullname">
-                    <span class="focus-input100"></span>
-                </div>
-                <div class="wrap-input100 validate-input m-b-20" data-validate="Enter email">
-                    <input class="input100" type="text" id="email" name="email" placeholder="Email">
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="wrap-input100 validate-input m-b-25" data-validate="Enter password">
-                    <input class="input100" type="password" id="password" name="password" placeholder="Password">
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <button name="btn_submit" class="login100-form-btn">
-                        Sign Up
-                    </button>
-                </div>
-
-                <div class="text-center p-t-57 p-b-20">
-                    <span class="txt1">
-                        Or login with
-                    </span>
-                </div>
-
-                <div class="flex-c p-b-112">
-                    <a href="#" class="login100-social-item">
-                        <i class="fa fa-facebook-f"></i>
-                    </a>
-
-                    <a href="#" class="login100-social-item">
-                        <img src="pictures/icons/icon-google.png" alt="GOOGLE">
-                    </a>
-                </div>
-
-                <div class="text-center">
-                    <a href="dangnhap.php" class="txt2 hov1">
-                        Do you have an account ? Log in !
-                    </a>
-                </div>
-            </form>
+    <div class="login-box">
+        <h2>Sign Up</h2>
+        <form method="post">
+            <div class="user-box">
+                <input type="text" name="username" required="">
+                <label>Username</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="fullname" required="">
+                <label>Fullname</label>
+            </div>
+            <div class="user-box">
+                <input type="text" name="email" required="">
+                <label>Email</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" required="">
+                <label>Password</label>
+            </div>
+            <a href="#" name="submit" value="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Sign Up
+            </a>
+        </form>
+        <br><br>
+        <div class="text-center">
+            <a href="dangnhap.php">
+            Do you already have an account? Log in!
+            </a>
         </div>
     </div>
+
     <div id="dropDownSelect1"></div>
 
     <!--===============================================================================================-->
