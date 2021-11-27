@@ -1,7 +1,7 @@
 <?php
 
-require 'Controller/Pagination.php';
-require_once 'Controller/FactoryPattern.php';
+require 'admin/controller/Pagination.php';
+require_once 'admin/Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
 $product = $factory->make('product');
 $products = $product->getData();
