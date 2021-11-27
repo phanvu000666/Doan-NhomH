@@ -27,7 +27,7 @@ session_start();
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="admin_backup/css/bootstrap.min.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -36,9 +36,9 @@ session_start();
 
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="admin/css/owl.carousel.css">
-    <link rel="stylesheet" href="admin/css/style.css">
-    <link rel="stylesheet" href="admin/css/responsive.css">
+    <link rel="stylesheet" href="admin_backup/css/owl.carousel.css">
+    <link rel="stylesheet" href="admin_backup/css/style.css">
+    <link rel="stylesheet" href="admin_backup/css/responsive.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
