@@ -6,4 +6,8 @@
 		<arg num="0" inst="SmartWeb\Models\DBPDO"/>
 		<instance inst="SmartWeb\Models\Phone"/>
 	</class>
+	<class name="SmartWeb\Models\User">
+		<arg num="0" inst="SmartWeb\Models\DBPDO"/>
+		<instance inst="SmartWeb\Models\User"/>
+	</class>
 </object>

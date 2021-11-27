@@ -3,6 +3,7 @@
 use SmartWeb\Controller\ManufactureController;
 use SmartWeb\Controller\ProductController;
 use SmartWeb\Controller\CategoryController;
+use SmartWeb\Controller\UserController;
 use SmartWeb\Repository\ProductRepository;
 use SmartWeb\Models\ObjectAssembler;
 
@@ -19,7 +20,6 @@ $conf = "{$base_dir}dj{$ds}object.xml";
 $phonecontrol = new ProductController($conf);
 $manucontrol = new ManufactureController($conf);
 $catecontrol = new CategoryController($conf);
-
 
 $phonecontrol->insert();
 $phonecontrol->update();
