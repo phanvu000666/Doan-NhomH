@@ -61,8 +61,6 @@ if (isset($_POST['add'])) {
 <?php include_once("view/product/spMoinhat.php"); ?>
 <!-- logo -->
 <?php include_once("view/manufactures/logo.php"); ?>
-<!-- product_widget -->
-<?php include_once("view/product/product_widget.php"); ?>
 <!-- footer -->
 <?php include_once("view/footer.php");?>
 

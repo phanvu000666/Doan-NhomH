@@ -61,69 +61,35 @@ if (!empty($_POST['submit'])) {
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="css/util.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/css-auth.css">
     <!--===============================================================================================-->
 </head>
 
 <body>
-
-    <style>
-    .wrap-login100 {
-        background-image: url('pictures/upload/ROGTHEME.jpg');
-        background-size:contain;
-        
-    }
-    </style>
-
-
-    <div class="container-login100" style="background-image: url('pictures/upload/ROGTHEME.jpg');">
-        <div class="wrap-login100 p-l-55 p-r-55 p-t-80 p-b-30">
-            <form method="POST" class="login100-form validate-form">
-                <span class="login100-form-title p-b-37">
-                    Sign In
-                </span>
-
-                <div class="wrap-input100 validate-input m-b-20" data-validate="Enter username or email">
-                    <input class="input100" type="text" name="username" placeholder="Username or email">
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="wrap-input100 validate-input m-b-25" data-validate="Enter password">
-                    <input class="input100" type="password" name="password" placeholder="Password">
-                    <span class="focus-input100"></span>
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <button type="submit" name="submit" value="submit"
-                        class="login100-form-btn">
-                        Sign In
-                    </button>
-                </div>
-                                
-                <div class="text-center p-t-57 p-b-20">
-                    <span class="txt1">
-                        Or login with
-                    </span>
-                </div>
-
-                <div class="flex-c p-b-112">
-                    <a href="#" class="login100-social-item">
-                        <i class="fa fa-facebook-f"></i>
-                    </a>
-
-                    <a href="#" class="login100-social-item">
-                        <img src="pictures/icons/icon-google.png" alt="GOOGLE">
-                    </a>
-                </div>
-
-                <div class="text-center">
-                    <a href="dangki.php" class="txt2 hov1">
-                        Sign Up !
-                    </a>
-                </div>
-                <div style="font-size: 0.8cm; text-align: center ;"><a href="quenmatkhau.php">Forgot your PassWord??</a></div>
-            </form>
-
-
+    <div class="login-box">
+        <h2>Login</h2>
+        <form method="post">
+            <div class="user-box">
+                <input type="text" name="username" required="">
+                <label>Username</label>
+            </div>
+            <div class="user-box">
+                <input type="password" name="password" required="">
+                <label>Password</label>
+            </div>
+            <a href="#" name="submit" value="submit">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Submit
+            </a>
+        </form>
+        <br><br>
+        <div class="text-center">
+            <a href="dangki.php">
+            Do not have an account? Sign Up!
+            </a>
         </div>
     </div>
 
