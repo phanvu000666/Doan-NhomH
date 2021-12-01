@@ -3,6 +3,7 @@
 
 if ($_POST && $_FILES) {
     $_POST['ImageUrl'] = $_FILES['ImageUrl']['name'];
+    $_POST['BannerImage'] = $_FILES['BannerImage']['name'];
 }
 foreach ($_POST as $key => $value) {
     # value != array. strip whitespace from $value.

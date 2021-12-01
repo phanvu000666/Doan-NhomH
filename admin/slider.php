@@ -4,7 +4,8 @@ use SmartWeb\Controller\ManufactureController;
 use SmartWeb\Controller\ProductController;
 use SmartWeb\Controller\CategoryController;
 use SmartWeb\Controller\UserController;
-use SmartWeb\Repository\ProductRepository;
+use SmartWeb\Controller\BannerController;
+use SmartWeb\Repository\BannerRepository;
 use SmartWeb\Models\ObjectAssembler;
 
 $ds = DIRECTORY_SEPARATOR;
@@ -13,6 +14,7 @@ $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 include("{$base_dir}admin{$ds}controller{$ds}productController.php");
 include_once "{$base_dir}controller{$ds}cateController.php";
 include_once "{$base_dir}controller{$ds}manuController.php";
+include_once "{$base_dir}controller{$ds}bannerController.php";
 include "{$base_dir}dj{$ds}dj.php";
 include "{$base_dir}utilities.php";
 //
@@ -20,14 +22,22 @@ $conf = "{$base_dir}dj{$ds}object.xml";
 $phonecontrol = new ProductController($conf);
 $manucontrol = new ManufactureController($conf);
 $catecontrol = new CategoryController($conf);
+$bannerControl = new BannerController($conf);
+$bannerControl->insert();
+$bannerControl->delete();
+$bannerControl->update();
 
-$phonecontrol->insert();
-$phonecontrol->update();
-$phonecontrol->delete();
-$phonecontrol->send_data_from();
+// $bannerControl->insert();
+// $phonecontrol->update();
+// $phonecontrol->delete();
+// $phonecontrol->send_data_from();
 $result = "";
+// if (isset($_POST['key']) && $_POST['key'] === "content") {
+//     $result =  $phonecontrol->display_products();
+//     exit($result);
+// }
 if (isset($_POST['key']) && $_POST['key'] === "content") {
-    $result =  $phonecontrol->display_products();
+    $result =  $bannerControl->display_banners();
     exit($result);
 }
 include "header.php";
@@ -194,7 +204,7 @@ include "header.php";
                         </div>
 
                         <!-- Project Card Example -->
-                        <?php include "./manager/product/products.php" ?>
+                        <?php include "./manager/slider/display_banners.php" ?>
 
                     </div>
                     <!-- /.container-fluid -->
@@ -225,8 +235,8 @@ include "header.php";
         </a>
 
         <!-- Model bootstrap for edit product -->
-        <?php include "./views/edit-product.php" ?>
+        <?php include "./views/form-banner.php" ?>
 
         <?php
-        include "footer.php"
+        include "footer.php";
         ?>
