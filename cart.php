@@ -1,13 +1,10 @@
 <?php
 include "model/config.php";
-include "model/mysqli_con.php";
-include "Controller/FactoryPattern.php";
+include "admin/Controller/FactoryPattern.php";
 
 $factory = new FactoryPattern();
 $products = $factory->make('product');
-$total    = 0;
 $data     = $products->getData();
-
 $keyword = '';
 if ( ! empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
@@ -19,8 +16,8 @@ include_once("view/header.php");
 if (isset($_POST['remove'])) {
     if ($_GET['action'] == 'remove') {
         foreach ($_SESSION['cart'] as $key => $value) {
-            if ($value["prductID"] == $_GET['id']) {
-                unset($_SESSION['cart'][$key]);
+            if ($value["ProductID"] == $_GET['id']) {
+                unset($_SESSION['cart'][0]);
                 echo "<script>alert('Sản phẩm đã được xoá khỏi giỏ hàng ...');</script>";
             }
         }
@@ -33,7 +30,6 @@ if (isset($_POST['plus'])) {
             //var_dump($value);
             $id = $value["ProductID"];
             if ($id == $_GET['id']) {
-
                 if (isset($_SESSION['quanlity'][$id])) {
                     ++$_SESSION['quanlity'][$id];
                     var_dump($_SESSION['total']);
@@ -143,20 +139,8 @@ if (isset($_POST['check_out'])) {
                         <div class="woocommerce">
                             <?php
                             if (isset($_SESSION['cart'])) {
-                                $product_id = array_column($_SESSION['cart'], 'prductID');
-                                $listIDs    = $products->getData();
-
-                                foreach ($product_id as $id) {
-                                    for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
-                                        if ($listIDs[$i]['ProductID'] == $id) {
-                                            cartElement($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
-                                            $total = $total + (int) $listIDs[$i]['Price'];
-                                        }
-                                    }
-                                }
-                                if ($total != $_SESSION['total']) {
-                                    $_SESSION['total'] = $total;
-                                    echo "<script>window.location.reload()</script>";
+                                foreach ($_SESSION['cart'] as $item=>$value) {
+                                   echo cartElement($value);
                                 }
                             } else {
                                 echo "<h3> Cart is Empty !!!</h3>";
@@ -167,7 +151,7 @@ if (isset($_POST['check_out'])) {
                 </div>
             </div>
         </div>
+
+
     </div>
-
-
 <?php include_once("view/footer.php"); ?>
