@@ -1,6 +1,6 @@
 <?php
 include "model/config.php";
-include "admin/Controller/FactoryPattern.php";
+include "Controller/FactoryPattern.php";
 
 $factory = new FactoryPattern();
 $products = $factory->make('product');
@@ -12,7 +12,6 @@ if ( ! empty($_GET['keyword'])) {
     //var_dump($Search);
 }
 include_once("view/header.php");
-
 if (isset($_POST['remove'])) {
     if ($_GET['action'] == 'remove') {
         foreach ($_SESSION['cart'] as $key => $value) {
@@ -61,7 +60,7 @@ if (isset($_POST['minus'])) {
 }
 if (isset($_POST['check_out'])) {
     if ($_GET['action'] == 'remove') {
-        echo "<script>window.location='check_out.php'</script>";
+        echo "<script>window.location='checkout.php'</script>";
     }
 }
 ?>
@@ -139,6 +138,7 @@ if (isset($_POST['check_out'])) {
                         <div class="woocommerce">
                             <?php
                             if (isset($_SESSION['cart'])) {
+//                                unset($_SESSION['cart']);
                                 foreach ($_SESSION['cart'] as $item=>$value) {
                                    echo cartElement($value);
                                 }

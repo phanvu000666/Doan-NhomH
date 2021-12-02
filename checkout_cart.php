@@ -1,10 +1,8 @@
 <?php
 include "./view/check_out/header.php";
-require_once 'Controller/Product.php';
-require_once 'Controller/order.php';
-$data = new Order();
-$dataoder = $data->getDataOder();
-//var_dump($dataoder);
+require_once 'Controller/FactoryPattern.php';
+$factory = new FactoryPattern();
+$product = $factory->make('product');
 ?>
 <table id="tblDanhSach" class="table table-bordered table-hover table-sm table-responsive mt-2">
     <thead class="thead-dark">
