@@ -65,8 +65,7 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="copyright">
-                    <p>&copy; 2015 uCommerce. All Rights Reserved. <a href="http://www.freshdesignweb.com"
-                                                                      target="_blank">freshDesignweb.com</a></p>
+                    <p>&copy; 2015 uCommerce. All Rights Reserved. <a href="http://www.freshdesignweb.com" target="_blank">freshDesignweb.com</a></p>
                 </div>
             </div>
 
@@ -89,17 +88,39 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <!-- jQuery sticky menu -->
-<script src="admin/js/owl.carousel.min.js"></script>
-<script src="admin/js/jquery.sticky.js"></script>
+<script src="admin_backup/js/owl.carousel.min.js"></script>
+<script src="admin_backup/js/jquery.sticky.js"></script>
 
 <!-- jQuery easing -->
-<script src="admin/js/jquery.easing.1.3.min.js"></script>
+<script src="admin_backup/js/jquery.easing.1.3.min.js"></script>
 
 <!-- Main Script -->
-<script src="admin/js/main.js"></script>
+<script src="admin_backup/js/main.js"></script>
 
 <!-- Slider -->
-<script type="text/javascript" src="admin/js/bxslider.min.js"></script>
-<script type="text/javascript" src="admin/js/script.slider.js"></script>
+<script type="text/javascript" src="admin_backup/js/bxslider.min.js"></script>
+<script type="text/javascript" src="admin_backup/js/script.slider.js"></script>
+
+<script>
+    // le anh vu slider
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        nav: false,
+        dots: false,
+        responsive: {
+            0: {
+                items: 1
+            },
+            600: {
+                items: 3
+            },
+            1000: {
+                items: 4
+            }
+        }
+    });
+</script>
 </body>
+
 </html>
