@@ -67,14 +67,17 @@ class BannerRepository
         }
         $is_finished = false;
         if (is_array($params)) {
-
-
             //add banner.
-            $paramsbanner['BannerImage'] = htmlentities($params['BannerImage']);
-            $paramsbanner['BannerTitle']  = htmlentities($params['BannerTitle']);
-            $paramsbanner['BannerSubTitle'] = htmlentities($params['BannerSubTitle']);
-            $paramsbanner['BannerId'] = (int)htmlentities($params['BannerId']);
-
+            if ($params['BannerImage'] === '') {
+                $paramsbanner['BannerTitle']  = htmlentities($params['BannerTitle']);
+                $paramsbanner['BannerSubTitle'] = htmlentities($params['BannerSubTitle']);
+                $paramsbanner['BannerId'] = (int)htmlentities($params['BannerId']);
+            } else {
+                $paramsbanner['BannerImage'] = htmlentities($params['BannerImage']);
+                $paramsbanner['BannerTitle']  = htmlentities($params['BannerTitle']);
+                $paramsbanner['BannerSubTitle'] = htmlentities($params['BannerSubTitle']);
+                $paramsbanner['BannerId'] = (int)htmlentities($params['BannerId']);
+            }
             $is_finished =  static::$banner->update($paramsbanner);
         }
 

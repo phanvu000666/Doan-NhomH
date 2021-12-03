@@ -42,16 +42,24 @@ class Banner extends Product
         $sql = "";
         if (empty($params['BannerImage'])) {
             $sql = "UPDATE banner
-            SET BannerImage=:BannerImage, BannerTitle=:BannerTitle, BannerSubTitle=:BannerSubTitle
+            SET BannerTitle=:BannerTitle, BannerSubTitle=:BannerSubTitle
             WHERE BannerId =:BannerId";
-            //remove
-            unset($params['BannerImage']);
         } else {
             $sql = "UPDATE banner 
-            SET BannerImage=:BannerImage, BannerTitle=:BannerTitle, BannerSubTittle=:BannerSubTittle
+            SET BannerImage=:BannerImage, BannerTitle=:BannerTitle, BannerSubTitle=:BannerSubTitle
             WHERE BannerId =:BannerId";
         }
+
         $is_finished =  $this->db->notSelect($sql, $params);
         return $is_finished;
+    }
+    public function getBannerID($id)
+    {
+        $sql = "SELECT * FROM banner 
+        WHERE banner.BannerId=:BannerId";
+
+        $params['BannerId'] = $id;
+        $result = $this->db->select($sql, $params);
+        return $result;
     }
 }

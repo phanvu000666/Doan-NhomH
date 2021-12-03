@@ -83,7 +83,7 @@ class BannerController
     }
     public function insert()
     {
-        if (empty($_POST['BannerID']) && isset($_POST) && count($_POST) > 1) {
+        if (isset($_POST) && count($_POST) > 1 && isset($_POST['BannerId']) && $_POST['BannerId'] === "") {
             //list expected fields
             $expected = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             //set required fields
@@ -119,35 +119,37 @@ class BannerController
                 $id = decryptionID($id);
                 #delete banner.
                 $result = BannerRepository::delete($id);
+                header('Location: slider.php');
             }
         }
     }
     public function update()
     {
         if (!empty($_POST['BannerId']) && count($_POST) > 1) {
-            //list expected fields  
-            $expected = ['ProductName',  'ManufacturerID', 'CategoryID', 'Description', 'Quantity', 'Price'];
+            //list expected fields
+            $expected = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             //set required fields
-            $required = ['ProductName', 'ManufacturerID', 'CategoryID', 'Description', 'Quantity', 'Price'];
+            $required = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             //require processform.php
             $ds = DIRECTORY_SEPARATOR;
             $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
             require  "{$base_dir}include{$ds}processform.php";
-
-            $product = ProductRepository::getProduct();
-            $version  = $product->getVersion($_POST['ProductID']);
-
-            if ($version['Version'] === $_POST['Version']) {
-                var_dump("hien tai o day");
-                if ($_FILES &&  !empty($_FILES['ImageUrl'])) {
-                    $root = $_SERVER['DOCUMENT_ROOT'];
-                    $path = "{$root}{$ds}pictures{$ds}Upload{$ds}";
-                    $file = new Upload($path);
-                    $file->upload("ImageUrl");
-                }
-
-                $is_update  = ProductRepository::update($_POST);
+            if ($_FILES &&  !empty($_FILES['BannerImage'])) {
+                $root = $_SERVER['DOCUMENT_ROOT'];
+                $path = "{$root}{$ds}img{$ds}";
+                $file = new Upload($path);
+                $file->upload("BannerImage");
             }
+            $is_update  = BannerRepository::update($_POST);
+        }
+    }
+    public function send_data_from()
+    {
+        if (isset($_POST['BannerId']) && !empty($_POST['BannerId']) && count($_POST) == 1) {
+            $id = decryptionID($_POST['BannerId']);
+            $banner = $this->banner->getBannerID($id)[0];
+            echo json_encode($banner);
+            exit;
         }
     }
 }

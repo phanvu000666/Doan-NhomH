@@ -19,23 +19,13 @@ include "{$base_dir}dj{$ds}dj.php";
 include "{$base_dir}utilities.php";
 //
 $conf = "{$base_dir}dj{$ds}object.xml";
-$phonecontrol = new ProductController($conf);
-$manucontrol = new ManufactureController($conf);
-$catecontrol = new CategoryController($conf);
 $bannerControl = new BannerController($conf);
 $bannerControl->insert();
-$bannerControl->delete();
 $bannerControl->update();
+$bannerControl->delete();
+$bannerControl->send_data_from();
 
-// $bannerControl->insert();
-// $phonecontrol->update();
-// $phonecontrol->delete();
-// $phonecontrol->send_data_from();
 $result = "";
-// if (isset($_POST['key']) && $_POST['key'] === "content") {
-//     $result =  $phonecontrol->display_products();
-//     exit($result);
-// }
 if (isset($_POST['key']) && $_POST['key'] === "content") {
     $result =  $bannerControl->display_banners();
     exit($result);
