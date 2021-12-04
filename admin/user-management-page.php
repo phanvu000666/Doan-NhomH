@@ -1,35 +1,58 @@
 <?php
 
-use SmartWeb\Controller\ManufactureController;
-use SmartWeb\Controller\ProductController;
-use SmartWeb\Controller\CategoryController;
 use SmartWeb\Controller\UserController;
-use SmartWeb\Repository\ProductRepository;
-use SmartWeb\Models\ObjectAssembler;
 
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 
-include("{$base_dir}admin{$ds}controller{$ds}productController.php");
-include_once "{$base_dir}controller{$ds}cateController.php";
-include_once "{$base_dir}controller{$ds}manuController.php";
+include("{$base_dir}admin{$ds}controller{$ds}userController.php");
 include "{$base_dir}dj{$ds}dj.php";
 include "{$base_dir}utilities.php";
 //
 $conf = "{$base_dir}dj{$ds}object.xml";
-$phonecontrol = new ProductController($conf);
-$manucontrol = new ManufactureController($conf);
-$catecontrol = new CategoryController($conf);
 
-$phonecontrol->insert();
-$phonecontrol->update();
-$phonecontrol->delete();
-$phonecontrol->send_data_from();
-$result = "";
-if (isset($_POST['key']) && $_POST['key'] === "content") {
-    $result =  $phonecontrol->display_products();
-    exit($result);
+$usercontrol = new UserController($conf);
+
+header('Access-Control-Allow-Origin: *');
+// Get raw data
+$data = json_decode(file_get_contents("php://input"), true);
+if (isset($data)) {
+    $action = $data['action'];
+
+    if ($action == 'get') {
+        unset($data['action']);
+        $id = null;
+
+        if (isset($data['UserID'])) {
+            $id = $data['UserID'];
+        } // dành cho trường hợp lấy update hoặc lấy để add.
+        
+        echo json_encode($usercontrol->getFormUserInfo($id));
+    } else if ($action == 'add') {
+        unset($data['action']);
+        $result = $usercontrol->createNewUser($data);
+        echo json_encode($result);
+    } else if ($action == 'edit') {
+        unset($data['action']);
+        $result = $usercontrol->updateUser($data);
+        echo json_encode($result);
+    } else {
+        header('location: /admin/user-management-page');
+    }
+
+    die();
 }
+
+if (isset($_POST['UserID'])) {
+    $userID = $_POST['UserID'];
+
+    if ($usercontrol->deleteUserByID($userID) !== null) {
+        echo "User deleted";
+    } else {
+        echo "User not deleted";
+    }
+}
+
 include "header.php";
 ?>
 
@@ -44,15 +67,15 @@ include "header.php";
             <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+                <li class="sidebar-brand d-flex align-items-center justify-content-center">
                     <div class="sidebar-brand-icon rotate-n-15">
                         <i class="fas fa-laugh-wink"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3">Nhóm H <sup>2</sup></div>
-                </a>
+                </li>
 
                 <!-- Divider -->
-                <hr class="sidebar-divider my-0">
+                <li class="sidebar-divider my-0"></li>
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
@@ -62,12 +85,12 @@ include "header.php";
                 </li>
 
                 <!-- Divider -->
-                <hr class="sidebar-divider">
+                <li class="sidebar-divider my-0"></li>
 
                 <!-- Heading -->
-                <div class="sidebar-heading">
+                <li class="sidebar-heading">
                     Addons
-                </div>
+                </li>
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
@@ -75,7 +98,7 @@ include "header.php";
                         <i class="fas fa-fw fa-folder"></i>
                         <span>Pages</span>
                     </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div id="collapsePages" class="collapse" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Pages manager</h6>
                             <a class="collapse-item" href="login.html">Quản trị sản phẩm.</a>
@@ -94,9 +117,9 @@ include "header.php";
                 </li>
 
                 <!-- Sidebar Toggler (Sidebar) -->
-                <div class="text-center d-none d-md-inline">
+                <li class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
-                </div>
+                </li>
             </ul>
             <!-- End of Sidebar -->
 
@@ -117,7 +140,7 @@ include "header.php";
                         <!-- Topbar Search -->
                         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button">
                                         <i class="fas fa-search fa-sm"></i>
@@ -135,10 +158,10 @@ include "header.php";
                                     <i class="fas fa-search fa-fw"></i>
                                 </a>
                                 <!-- Dropdown - Messages -->
-                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in">
                                     <form class="form-inline mr-auto w-100 navbar-search">
                                         <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for...">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary" type="button">
                                                     <i class="fas fa-search fa-sm"></i>
@@ -148,13 +171,13 @@ include "header.php";
                                     </form>
                                 </div>
                             </li>
-                            <div class="topbar-divider d-none d-sm-block"></div>
+                            <li class="topbar-divider d-none d-sm-block"></li>
 
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
-                                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                    <img class="img-profile rounded-circle" src="img/undraw_profile.svg" alt="#!">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -193,8 +216,8 @@ include "header.php";
                             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                         </div>
 
-                        <!-- Project Card Example -->
-                        <?php include "./manager/product/products.php" ?>
+                        <!-- User table data -->
+                        <?php include "./manager/user-management/users.php" ?>
 
                     </div>
                     <!-- /.container-fluid -->
@@ -225,7 +248,7 @@ include "header.php";
         </a>
 
         <!-- Model bootstrap for edit product -->
-        <?php include "./views/edit-product.php" ?>
+        <?php include "./views/edit-user.php" ?>
 
         <?php
         include "footer.php"
