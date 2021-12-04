@@ -81,8 +81,8 @@ include "header.php";
                             <a class="collapse-item" href="login.html">Quản trị sản phẩm.</a>
                             <a class="collapse-item" href="register.html">Quản trị đơn hàng.</a>
                             <a class="collapse-item" href="forgot-password.html">Quản tri danh mục.</a>
-                            <a class="collapse-item" href="forgot-password.html">Quản tri loại sản phẩm.</a>
-                            <a class="collapse-item" href="forgot-password.html">Quản tri hãng sản xuất.</a>
+                            <a class="collapse-item" href="../admin/category.php">Quản tri loại sản phẩm.</a>
+                            <a class="collapse-item" href="#">Quản tri hãng sản xuất.</a>
                             <a class="collapse-item" href="forgot-password.html">Quản tri người dùng.</a>
                             <a class="collapse-item" href="forgot-password.html">Quản tri sliders.</a>
                             <!-- <div class="collapse-divider"></div>
