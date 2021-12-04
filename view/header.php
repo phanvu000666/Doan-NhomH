@@ -106,7 +106,7 @@ session_start();
                     <div class="nav-right-item mr-0 ml-auto">
                         <ul class="navbar-nav mr-auto align-items-lg-center align-items-start">
                             <li class="nav-item">
-                                <a class="navbar-btn">Login/Register</a>
+                                <a href="dangnhap.php" class="navbar-btn">Login/Register</a>
                             </li>
                             <li class="nav-item">
                                 <a class="navbar-btn"><i class="fa fa-shopping-cart"></i> <span>0</span></a>
