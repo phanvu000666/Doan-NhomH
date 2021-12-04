@@ -21,10 +21,10 @@ $phonecontrol = new ProductController($conf);
 $manucontrol = new ManufactureController($conf);
 $catecontrol = new CategoryController($conf);
 
-$phonecontrol->insert();
-$phonecontrol->update();
-$phonecontrol->delete();
-$phonecontrol->send_data_from();
+$catecontrol->delete();
+$catecontrol->displayOneCateByJsonData();
+$catecontrol->update();
+$catecontrol->insert();
 $result = "";
 if (isset($_POST['key']) && $_POST['key'] === "content") {
     $result =  $phonecontrol->display_products();
@@ -84,7 +84,7 @@ include "header.php";
                             <a class="collapse-item" href="../admin/category.php">Quản tri loại sản phẩm.</a>
                             <a class="collapse-item" href="#">Quản tri hãng sản xuất.</a>
                             <a class="collapse-item" href="forgot-password.html">Quản tri người dùng.</a>
-                            <a class="collapse-item" href="slider.php">Quản tri sliders.</a>
+                            <a class="collapse-item" href="forgot-password.html">Quản tri sliders.</a>
                             <!-- <div class="collapse-divider"></div>
                             <h6 class="collapse-header">Other Pages:</h6>
                             <a class="collapse-item" href="404.html">404 Page</a>
@@ -194,7 +194,26 @@ include "header.php";
                         </div>
 
                         <!-- Project Card Example -->
-                        <?php include "./manager/product/products.php" ?>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                <h6 class="m-0 font-weight-bold text-primary">CATEGORY</h6>
+                                <a href="#add-new-manufacture" class="btn btn-primary btn-icon-split ms-auto
+                                    d-flex justify-content-between align-items-center">
+                                    <svg width="20" height="20" fill="currentColor" class="bi bi-plus-circle ml-1"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path
+                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                    <span class="text" data-toggle="modal" data-target="#editCategory" id="add-manu-btn">Thêm mới</span>
+                                </a>
+                            </div>
+                            <table id="project-table">
+                            <?php $catecontrol->display_category(); ?>
+                            </table>
+
+                        </div>
 
                     </div>
                     <!-- /.container-fluid -->
@@ -225,7 +244,7 @@ include "header.php";
         </a>
 
         <!-- Model bootstrap for edit product -->
-        <?php include "./views/edit-product.php" ?>
+        <?php include "./views/edit-category.php" ?>
 
         <?php
         include "footer.php"
