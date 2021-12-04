@@ -4,5 +4,6 @@ unset($_SESSION["id"]);
 unset($_SESSION["username"]);
 unset($_SESSION["groupID"]);
 unset($_SESSION["message"]);
-header("Location: index.php");
+header("location:dangnhap.php");
+exit;
 ?>
