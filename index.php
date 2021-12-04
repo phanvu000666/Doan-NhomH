@@ -5,7 +5,7 @@ require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
 $product = $factory->make('product');
 $banner = $factory->make('banner');
-$baner = $banner->getBanner();
+$ban = $banner->getBanner();
 $products = $product->getData();
 $result = $product->getSPNew();
 
