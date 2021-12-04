@@ -22,5 +22,11 @@
     <!-- Chèn styles cho custom products: tên người làm!!! -->
     <link rel="stylesheet" href="./css/product-css/styles.css">
 
+    <!-- styles : Hoang Vu -->
+    <style>
+         .edit-manu-i::before {
+             font-weight: 900 !important;
+         }
+    </style>
 
 </head>

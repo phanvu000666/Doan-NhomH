@@ -10,4 +10,8 @@
 		<arg num="0" inst="SmartWeb\Models\DBPDO"/>
 		<instance inst="SmartWeb\Models\User"/>
 	</class>
+	<class name="SmartWeb\Models\Manufacture">
+		<arg num="0" inst="SmartWeb\Models\DBPDO"/>
+		<instance inst="SmartWeb\Models\Manufacture"/>
+	</class>
 </object>
