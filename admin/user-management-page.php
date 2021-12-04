@@ -1,35 +1,58 @@
 <?php
 
-use SmartWeb\Controller\ManufactureController;
-use SmartWeb\Controller\ProductController;
-use SmartWeb\Controller\CategoryController;
-use SmartWeb\Repository\ProductRepository;
-use SmartWeb\Models\ObjectAssembler;
+use SmartWeb\Controller\UserController;
 
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 
-include("{$base_dir}admin{$ds}controller{$ds}productController.php");
-include_once "{$base_dir}controller{$ds}cateController.php";
-include_once "{$base_dir}controller{$ds}manuController.php";
+include("{$base_dir}admin{$ds}controller{$ds}userController.php");
 include "{$base_dir}dj{$ds}dj.php";
 include "{$base_dir}utilities.php";
 //
 $conf = "{$base_dir}dj{$ds}object.xml";
-$phonecontrol = new ProductController($conf);
-$manucontrol = new ManufactureController($conf);
-$catecontrol = new CategoryController($conf);
 
+$usercontrol = new UserController($conf);
 
-$phonecontrol->insert();
-$phonecontrol->update();
-$phonecontrol->delete();
-$phonecontrol->send_data_from();
-$result = "";
-if (isset($_POST['key']) && $_POST['key'] === "content") {
-    $result =  $phonecontrol->display_products();
-    exit($result);
+header('Access-Control-Allow-Origin: *');
+// Get raw data
+$data = json_decode(file_get_contents("php://input"), true);
+if (isset($data)) {
+    $action = $data['action'];
+
+    if ($action == 'get') {
+        unset($data['action']);
+        $id = null;
+
+        if (isset($data['UserID'])) {
+            $id = $data['UserID'];
+        } // dành cho trường hợp lấy update hoặc lấy để add.
+        
+        echo json_encode($usercontrol->getFormUserInfo($id));
+    } else if ($action == 'add') {
+        unset($data['action']);
+        $result = $usercontrol->createNewUser($data);
+        echo json_encode($result);
+    } else if ($action == 'edit') {
+        unset($data['action']);
+        $result = $usercontrol->updateUser($data);
+        echo json_encode($result);
+    } else {
+        header('location: /admin/user-management-page');
+    }
+
+    die();
 }
+
+if (isset($_POST['UserID'])) {
+    $userID = $_POST['UserID'];
+
+    if ($usercontrol->deleteUserByID($userID) !== null) {
+        echo "User deleted";
+    } else {
+        echo "User not deleted";
+    }
+}
+
 include "header.php";
 ?>
 

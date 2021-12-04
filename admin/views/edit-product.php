@@ -229,6 +229,7 @@
                     }
                 }, 500);
             },
+           
             error: function(e) {
                 alert("that bai");
                 console.log(e.message);
