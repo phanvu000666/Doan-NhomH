@@ -3,14 +3,14 @@
     <div class='block-slider block-slider4'>
     <ul class='' id='bxslider-home4'>
     <?php   
-foreach ($baner as $key => $value)
+foreach ($ban as $key => $value)
         echo"<li>
-                <img src='img/".$baner[$key]['BannerImage']."' alt='Slide'>
+                <img src='img/".$ban[$key]['BannerImage']."' alt='Slide'>
                 <div class='caption-group'>
                     <h2 class='caption title'>
-                        <a href=''>".($baner[$key]['BannerTitle'])."</a>
+                        <a href=''>".($ban[$key]['BannerTitle'])."</a>
                     </h2>
-                    <h4 class='caption subtitle'>".$baner[$key]['BannerSubTitle']."</h4>
+                    <h4 class='caption subtitle'>".$ban[$key]['BannerSubTitle']."</h4>
                     <a class='caption button-radius' href='shop.php'><span class='icon'></span>Shop now</a>
                 </div>
             </li>;"
