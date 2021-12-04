@@ -1,8 +1,9 @@
 <?php
 
 function cartElement($product) {
+    var_dump($product);
     $element = "
-    <form method=\"post\" action = \"cart.php?action=remove&id={$product["ProductID"]}\" class=\"cart-items\" style='margin-bottom: 2px;border: 2px solid #000000;'>
+    <form method=\"post\" action = \"cart.php?action=remove&id={$product['ProductID']}\" class=\"cart-items\" style='margin-bottom: 2px;border: 2px solid #000000;'>
                             <div class=\"row bg-white\">
                                 <div class=\"col-md-3\">
                                     <img src =\"pictures/upload/{$product["ImageUrl"]}\"style='width:180px;height:220px;';>
