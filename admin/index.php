@@ -78,7 +78,7 @@ include "header.php";
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Pages manager</h6>
-                            <a class="collapse-item" href="login.html">Quản trị sản phẩm.</a>
+                            <a class="collapse-item" href="../admin">Quản trị sản phẩm.</a>
                             <a class="collapse-item" href="register.html">Quản trị đơn hàng.</a>
                             <a class="collapse-item" href="forgot-password.html">Quản tri danh mục.</a>
                             <a class="collapse-item" href="../admin/category.php">Quản tri loại sản phẩm.</a>
