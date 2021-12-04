@@ -3,7 +3,7 @@ ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../s
 
 session_start();
 require_once("model/config.php");
-if (isset($_POST["btn_submit"])) {
+if (isset($_POST["submit"])) {
     //lấy thông tin từ các form bằng phương thức POST
     $username = $_POST["username"];
     $fullname = $_POST["fullname"];
@@ -97,13 +97,15 @@ if (isset($_POST["btn_submit"])) {
                 <input type="password" name="password" required="">
                 <label>Password</label>
             </div>
-            <a href="#" name="submit" value="submit">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Sign Up
-            </a>
+            <div class="submit">
+                <input type="submit" name="submit" value="submit">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </input>
+            </div>
+            
         </form>
         <br><br>
         <div class="text-center">
