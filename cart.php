@@ -1,10 +1,13 @@
 <?php
 include "model/config.php";
+// include "model/mysqli_con.php";
 include "Controller/FactoryPattern.php";
 
 $factory = new FactoryPattern();
 $products = $factory->make('product');
+$total    = 0;
 $data     = $products->getData();
+
 $keyword = '';
 if ( ! empty($_GET['keyword'])) {
     $keyword = $_GET['keyword'];
@@ -12,11 +15,12 @@ if ( ! empty($_GET['keyword'])) {
     //var_dump($Search);
 }
 include_once("view/header.php");
+
 if (isset($_POST['remove'])) {
     if ($_GET['action'] == 'remove') {
         foreach ($_SESSION['cart'] as $key => $value) {
-            if ($value["ProductID"] == $_GET['id']) {
-                unset($_SESSION['cart'][0]);
+            if ($value["prductID"] == $_GET['id']) {
+                unset($_SESSION['cart'][$key]);
                 echo "<script>alert('Sản phẩm đã được xoá khỏi giỏ hàng ...');</script>";
             }
         }
@@ -29,6 +33,7 @@ if (isset($_POST['plus'])) {
             //var_dump($value);
             $id = $value["ProductID"];
             if ($id == $_GET['id']) {
+
                 if (isset($_SESSION['quanlity'][$id])) {
                     ++$_SESSION['quanlity'][$id];
                     var_dump($_SESSION['total']);
@@ -60,7 +65,7 @@ if (isset($_POST['minus'])) {
 }
 if (isset($_POST['check_out'])) {
     if ($_GET['action'] == 'remove') {
-        echo "<script>window.location='checkout.php'</script>";
+        echo "<script>window.location='check_out.php'</script>";
     }
 }
 ?>
@@ -85,9 +90,9 @@ if (isset($_POST['check_out'])) {
                 <div class="col-md-4">
                     <div class="single-sidebar">
                         <h2 class="sidebar-title">Search Products</h2>
-                        <form action="#">
-                            <input type="text" placeholder="Search products...">
-                            <input type="submit" value="Search">
+                        <form class="form-search" action="#">
+                            <input class="searchTerm" type="text" placeholder="Search products...">
+                            <input class="searchButton" type="submit" value="Search">
                         </form>
                     </div>
 
@@ -112,24 +117,14 @@ if (isset($_POST['check_out'])) {
 
                         <div class="col-md-6">
                             <h4>
-                                $ <?php if (isset($_SESSION['tong'])) echo number_format($_SESSION['tong'], 0); ?></h4>
+                                <?php echo isset($_SESSION['tong']) ? number_format($_SESSION['tong'], 0) : 0; ?> VNĐ</h4>
                             <h4 class="text-success">FREE</h4>
                             <hr>
                             <h4>
-                                $ <?php if (isset($_SESSION['tong'])) echo number_format($_SESSION['tong'], 0); ?></h4>
+                                <?php echo isset($_SESSION['tong']) ? number_format($_SESSION['tong'], 0) : 0; ?> VNĐ</h4>
                             <br><br><br>
                         </div>
                         <br><br><br>
-                        <div class="single-sidebar">
-                            <h2 class="sidebar-title">Recent Posts</h2>
-                            <ul>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                                <li><a href="#">Sony Smart TV - 2015</a></li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <!-- DANH SÁCH SẢN PHẨM ORDER -->
@@ -138,9 +133,20 @@ if (isset($_POST['check_out'])) {
                         <div class="woocommerce">
                             <?php
                             if (isset($_SESSION['cart'])) {
-//                                unset($_SESSION['cart']);
-                                foreach ($_SESSION['cart'] as $item=>$value) {
-                                   echo cartElement($value);
+                                $product_id = array_column($_SESSION['cart'], 'prductID');
+                                $listIDs    = $products->getData();
+
+                                foreach ($product_id as $id) {
+                                    for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
+                                        if ($listIDs[$i]['ProductID'] == $id) {
+                                            cartElement($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);
+                                            $total = $total + (int) $listIDs[$i]['Price'];
+                                        }
+                                    }
+                                }
+                                if ($total != $_SESSION['total']) {
+                                    $_SESSION['total'] = $total;
+                                    echo "<script>window.location.reload()</script>";
                                 }
                             } else {
                                 echo "<h3> Cart is Empty !!!</h3>";
@@ -151,7 +157,7 @@ if (isset($_POST['check_out'])) {
                 </div>
             </div>
         </div>
-
-
     </div>
+
+
 <?php include_once("view/footer.php"); ?>
