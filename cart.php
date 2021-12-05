@@ -133,10 +133,11 @@ if (isset($_POST['check_out'])) {
                         <div class="woocommerce">
                             <?php
                             if (isset($_SESSION['cart'])) {
-                                $product_id = array_column($_SESSION['cart'], 'prductID');
+                                $product_id = array_column($_SESSION['cart'], 'ProductID');
+                                var_dump($product_id);
                                 $listIDs    = $products->getData();
-
                                 foreach ($product_id as $id) {
+                                    var_dump($product_id);
                                     for ($i = 0, $iMax = count($listIDs); $i < $iMax; $i++) {
                                         if ($listIDs[$i]['ProductID'] == $id) {
                                             cartElement($listIDs[$i]['ImageUrl'], $listIDs[$i]['ProductName'], $listIDs[$i]['Price'], $listIDs[$i]['ProductID'], $listIDs[$i]['Quantity']);

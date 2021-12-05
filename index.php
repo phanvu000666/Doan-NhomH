@@ -4,6 +4,8 @@ require 'controller/Pagination.php';
 require_once 'Controller/FactoryPattern.php';
 $factory  = new FactoryPattern();
 $product  = $factory->make('product');
+$banner = $factory->make('banner');
+$ban = $banner->getBanner();
 $products = $product->getData();
 $result   = $product->getSPNew();
 

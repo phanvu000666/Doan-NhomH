@@ -77,13 +77,14 @@ if (!empty($_POST['submit'])) {
                 <input type="password" name="password" required="">
                 <label>Password</label>
             </div>
-            <a href="#" name="submit" value="submit">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                Submit
-            </a>
+            <div class="submit">
+                <input type="submit" name="submit" value="submit">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </input>
+            </div>
         </form>
         <br><br>
         <div class="text-center">
