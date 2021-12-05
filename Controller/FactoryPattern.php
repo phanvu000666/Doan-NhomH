@@ -4,11 +4,13 @@ require "Auth.php";
 require "./model/phone.php";
 require "./model/manufacture.php";
 require "./model/category.php";
+require "./model/banner.php";
 require "Component.php";
 
 use SmartWeb\Phone;
 use SmartWeb\Manufacture;
 use SmartWeb\Category;
+use SmartWeb\Banner;
 
 class FactoryPattern
 {
@@ -22,6 +24,8 @@ class FactoryPattern
             return Manufacture::getInstance();
         } else if ($model == 'category') {
             return Category::getInstance();
+        } else if ($model == 'banner') {
+            return Banner::getInstance();
         } else if ($model == 'order') {
             return Order::getInstance();
         } else {

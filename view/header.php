@@ -1,17 +1,57 @@
 <?php
-ini_set('session.save_path',realpath(dirname($_SERVER['DOCUMENT_ROOT']) . '/../session'));
+ini_set('session.save_path', realpath(dirname($_SERVER['DOCUMENT_ROOT']).'/../session'));
 session_start();
-
+ob_start();
 // if (!isset($_SESSION['username'])||!isset($_SESSION['email'])) {
 //     header('Location: dangnhap.php');
 // }
+//session_unset();
+
+//Add shopping cart.
+if (isset($_POST["add-cart"])) {
+    if (isset($_SESSION['cart'])) {
+        $_SESSION['count'] = count($_SESSION['cart']);
+        //id product
+        $product_ids = array_column($_SESSION['cart'], "ProductID");
+        var_dump(array_column($_SESSION['cart'], "ProductID"));
+        //check id
+        if ( ! in_array($_POST["ProductID"], $product_ids)) { //check ProductID hien tai co trong cart.
+            $_SESSION['cart'][($_SESSION['count'])] = [
+                    "ProductID"       => $_POST["ProductID"],
+                    "ProductName"     => $_POST["ProductName"],
+                    "ImageUrl"        => $_POST["ImageUrl"],
+                    "CurrentQuantity" => 1,
+                    "Quantity"        => $_POST["Quantity"],
+                    "Price"           => $_POST["Price"],
+            ];
+        } else {
+            for ($i = 0; $i < (int) count($product_ids); $i++) {
+                if ($_SESSION['cart'][$i]["ProductID"] === $_POST["ProductID"]) {
+                    $_SESSION['cart'][$i]["CurrentQuantity"] += 1;
+                }
+            }
+        }
+
+    } else {
+        $_SESSION['cart'][0] = [
+                "ProductID"       => $_POST["ProductID"],
+                "ProductName"     => $_POST["ProductName"],
+                "ImageUrl"        => $_POST["ImageUrl"],
+                "CurrentQuantity" => 1,
+                "Quantity"        => $_POST["Quantity"],
+                "Price"           => $_POST["Price"],
+        ];
+    }
+    $_SESSION['count']   = count($_SESSION['cart']);
+}
+
 ?>
-<!DOCTYPE html>
-<!--
-        ustora by freshdesignweb.com
-        Twitter: https://twitter.com/freshdesignweb
-        URL: https://www.freshdesignweb.com/ustora/
-    -->
+    <!DOCTYPE html>
+    <!--
+            ustora by freshdesignweb.com
+            Twitter: https://twitter.com/freshdesignweb
+            URL: https://www.freshdesignweb.com/ustora/
+        -->
 <html lang="en">
 
 <head>
@@ -27,7 +67,7 @@ session_start();
     <link href='http://fonts.googleapis.com/css?family=Raleway:400,100' rel='stylesheet' type='text/css'>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="admin/css/bootstrap.min.css">
+    <link rel="stylesheet" href="admin_backup/css/bootstrap.min.css">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="/css/font-awesome.min.css">
@@ -36,9 +76,9 @@ session_start();
 
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="admin/css/owl.carousel.css">
-    <link rel="stylesheet" href="admin/css/style.css">
-    <link rel="stylesheet" href="admin/css/responsive.css">
+    <link rel="stylesheet" href="admin_backup/css/owl.carousel.css">
+    <link rel="stylesheet" href="admin_backup/css/style.css">
+    <link rel="stylesheet" href="admin_backup/css/responsive.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -89,10 +129,9 @@ session_start();
                             <?php include_once("view\manufactures\manufacturers.php"); ?>
                         </ul>
                     </li>
-                    <li
-                            class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-36029">
-                            <a href="cart.php" class="nav-link">CART</a>
-                        </li>
+                    <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-36029">
+                        <a href="cart.php" class="nav-link">CART</a>
+                    </li>
                     <div class="col-sm-4">
                         <div class="search">
                             <form action="shop.php" method="get" style="display: flex">
@@ -106,10 +145,11 @@ session_start();
                     <div class="nav-right-item mr-0 ml-auto">
                         <ul class="navbar-nav mr-auto align-items-lg-center align-items-start">
                             <li class="nav-item">
-                                <a class="navbar-btn">Login/Register</a>
+                                <a href="dangnhap.php" class="navbar-btn">Login/Register</a>
                             </li>
                             <li class="nav-item">
-                                <a class="navbar-btn"><i class="fa fa-shopping-cart"></i> <span>0</span></a>
+                                <a href="cart.php" class="navbar-btn"><i class="fa fa-shopping-cart"></i>
+                                    <span><?= (isset($_SESSION['count']) ? $_SESSION['count'] : 0) ?></span></a>
                             </li>
                         </ul>
                     </div>

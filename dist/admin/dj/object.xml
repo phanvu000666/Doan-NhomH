@@ -1,0 +1,13 @@
+<object>
+	<class name="SmartWeb\Models\DB">
+		<instance inst="SmartWeb\Models\DBPDO" />
+	</class>
+	<class name="SmartWeb\Models\Product">
+		<arg num="0" inst="SmartWeb\Models\DBPDO"/>
+		<instance inst="SmartWeb\Models\Phone"/>
+	</class>
+	<class name="SmartWeb\Models\User">
+		<arg num="0" inst="SmartWeb\Models\DBPDO"/>
+		<instance inst="SmartWeb\Models\User"/>
+	</class>
+</object>

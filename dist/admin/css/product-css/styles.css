@@ -1,0 +1,44 @@
+#project-table {
+  margin: 15px;
+  box-sizing: border-box;
+}
+
+#project-table tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#project-table tr {
+  vertical-align: center;
+}
+
+#project-table td {
+  vertical-align: center;
+}
+
+#project-table .single-product {
+  /* padding: 20px 0; */
+}
+
+#project-table .product-id {
+  font-size: 0.7rem;
+}
+
+#project-table .product-thumb a>img {
+  width: 100px;
+  height: 90px;
+}
+
+#project-table .product-name {}
+
+#project-table .product-price {}
+
+#project-table .product-quantity {}
+
+#project-table .product-handle {
+  display: flex;
+  align-items: center;
+}
+
+#project-table .product-handle>div {
+  padding: 27px;
+}
