@@ -8,9 +8,6 @@
 <!-- Custom scripts for all pages-->
 <script src="js/sb-admin-2.min.js"></script>
 
-<!-- Javascript UI for User Management: Lê Anh Vũ. -->
-<script src="js/user-management.js" defer></script>
-
 </body>
 
 </html>

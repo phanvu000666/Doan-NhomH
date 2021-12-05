@@ -26,7 +26,7 @@ if (isset($data)) {
         if (isset($data['UserID'])) {
             $id = $data['UserID'];
         } // dành cho trường hợp lấy update hoặc lấy để add.
-        
+
         echo json_encode($usercontrol->getFormUserInfo($id));
     } else if ($action == 'add') {
         unset($data['action']);
@@ -250,6 +250,8 @@ include "header.php";
         <!-- Model bootstrap for edit product -->
         <?php include "./views/edit-user.php" ?>
 
+        <!-- Javascript UI for User Management: Lê Anh Vũ. -->
+        <script src="js/user-management.js" defer></script>
         <?php
         include "footer.php"
         ?>
