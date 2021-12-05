@@ -147,6 +147,8 @@
             }
 
             // xu ly ajax gui yeu cau xoa category
+
+            
             $.ajax({
                 url: "category",
                 contentType: false,
