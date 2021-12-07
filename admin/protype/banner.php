@@ -2,6 +2,10 @@
 
 namespace SmartWeb\Models;
 
+// $ds = DIRECTORY_SEPARATOR;
+// $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
+// require_once("{$base_dir}model{$ds}db.php");
+
 class Banner extends Product
 {
     private static Banner $banner;
@@ -61,5 +65,17 @@ class Banner extends Product
         $params['BannerId'] = $id;
         $result = $this->db->select($sql, $params);
         return $result;
+    }
+    public function sumb($a, $b){
+        return $a + $b;
+    }
+    public function startTransaction()
+    {
+        self::$_connection->begin_transaction();
+    }
+
+    public function rollBack()
+    {
+        self::$_connection->rollback();
     }
 }

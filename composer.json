@@ -1,0 +1,11 @@
+{
+    "autoload": {
+        "classmap": [
+            "admin/protype/",
+            "admin/model"
+        ]
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5.10"
+    }
+}
