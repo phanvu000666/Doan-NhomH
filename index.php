@@ -1,69 +1,49 @@
 <?php
 
-require 'Controller/Pagination.php';
+require 'controller/Pagination.php';
 require_once 'Controller/FactoryPattern.php';
-$factory = new FactoryPattern();
-$product = $factory->make('product');
+$factory  = new FactoryPattern();
+$product  = $factory->make('product');
+$banner = $factory->make('banner');
+$ban = $banner->getBanner();
 $products = $product->getData();
-$result = $product->getSPNew();
+$result   = $product->getSPNew();
 
 //=================================================================
 include_once("view/header.php");
 $totalRow = $product->getTotalRow();
-$perPage = 3;
-$page = 1;
+$perPage  = 3;
+$page     = 1;
 if (isset($_GET['page'])) {
     $page = $_GET['page'];
 }
 $pageLinks = Pagination::createPageLinks($totalRow, $perPage, $page);
-$productID = $product->getID();
-//var_dump($result);
-//var_dump($total_rows);
-
-if (isset($_POST['add'])) {
-    if (isset($_SESSION['cart'])) {
-        $item_array_id = array_column($_SESSION['cart'], "prductID");
-        if (in_array($_POST['productID'], $item_array_id)) {
-            echo "<script>alert('Sản phẩm đã tồn tại trong giỏ hàng !!!')</script>";
-        } else {
-            $count      = count($_SESSION['cart']);
-            $id = $_POST['productID'];
-            $item_array = ['prductID' => $id];
-            //var_dump($_POST);
-            $_SESSION['cart'][$count] = $item_array;
-            $_SESSION['quanlity'][$id] =1;
-        }
-        echo "<script>window.location='index.php'</script>";
-    } else {
-        $id = $_POST['productID'];
-        $item_array          = ['prductID' => $id];
-        $_SESSION['cart'][0] = $item_array;
-        $_SESSION['quanlity'][$id] =1;
-    }
-
+//hien thi array.
+function pre_r($array) {
+    echo "<pre>";
+    print_r($array);
+    echo "<pre>";
 }
-
 ?>
-
-<!-- header -->
+    <!-- header -->
 <?php
-        if (!isset($_GET['mod'])) {
-            include_once("view/slider.php");
-        }
-        if(isset($_GET['mod'])) {
-            $a = ucfirst($_GET['mod']);
-            $b = ucfirst($_GET['act']);
+if ( ! isset($_GET['mod'])) {
+    include_once("view/slider.php");
+}
+if (isset($_GET['mod'])) {
+    $a = ucfirst($_GET['mod']);
+    $b = ucfirst($_GET['act']);
 
-            include_once("view/".$a."/".$b.".php");
-        }
-    ?>
-<!-- Hiển thị sp mới nhất -->
+    include_once("view/".$a."/".$b.".php");
+}
+?>
+    <!-- Hiển thị sp mới nhất -->
 <?php include_once("view/product/spMoinhat.php"); ?>
-<!-- logo -->
+    <!-- logo -->
 <?php include_once("view/manufactures/logo.php"); ?>
-<!-- footer -->
-<?php include_once("view/footer.php");?>
+    <!-- footer -->
+<?php include_once("view/footer.php"); ?>
 
 <?php
-    ob_end_flush();
+ob_end_flush();
 ?>

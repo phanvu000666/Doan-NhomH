@@ -4,6 +4,7 @@ require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
 $product = $factory->make('product');
 $sanpham = $product->get3SPNew();
+$getData  = $product->getData();
 $keyword = '';
 ?>
 <?php include_once("view/header.php"); ?>
@@ -16,9 +17,9 @@ $keyword = '';
             <div class="col-md-4">
                 <div class="single-sidebar">
                     <h2 class="sidebar-title">Search Products</h2>
-                    <form action="shop.php" method="get">
-                        <input type="text" name="keyword" class="searchTerm" placeholder="Search products..."
-                            <?php echo $keyword ?>></input>
+                    <form class="form-group form-search" action="shop.php" method="get">
+                        <input type="text" name="keyword" class="form-control searchTerm"
+                            placeholder="Search products..." <?php echo $keyword ?>></input>
                         <button type="submit" class="searchButton">
                             <i class="fa fa-search"></i>
                         </button>
@@ -26,27 +27,17 @@ $keyword = '';
                 </div>
                 <div class='single-sidebar'>
                     <h2 class='sidebar-title'>Sản phẩm mới nhất</h2>
-                    <?php foreach ($sanpham as $key => $value)
-                echo "
+                    <?php foreach ($sanpham as $key => $value) {
+    echo "
                     <div class='thubmnail-recent'>
                     <img src='pictures/upload/" . $value['ImageUrl'] . "' class='recent-thumb' style='width:70px;height:70px;'>
                     <h2><a href='single-product.php?id=" . $value['ProductID'] . " '>" . ($sanpham[$key]['ProductName']) . "</a></h2>                
                     <div class='product-sidebar-price'>
                     <h2>" . number_format($sanpham[$key]['Price']) . " VND</h2>
                         </div>
-                    </div>"
-                ?>x
-                </div>
-
-                <div class="single-sidebar">
-                    <h2 class="sidebar-title">Recent Posts</h2>
-                    <ul>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                        <li><a href="">Sony Smart TV - 2015</a></li>
-                    </ul>
+                    </div>";
+}
+                ?>
                 </div>
             </div>
 
@@ -61,11 +52,12 @@ $keyword = '';
                     <div class="row">
                         <div class="col-sm-6">
                             <?php
-                      if(!isset($_GET['id'])){
+                      if (!isset($_GET['id'])) {
                           echo "Vui lòng chọn sản phẩm !";
-                      }else foreach ($product->getData() as $key => $value)
-                        if($_GET['id']==$product->getData()[$key]['ProductID'])
-                      echo"<div class='product-images'>
+                      } else {
+                          foreach ($product->getData() as $key => $value) {
+                              if ($_GET['id']==$product->getData()[$key]['ProductID']) {
+                                  echo"<div class='product-images'>
                           <div class='product-main-img'>
                               <img src='pictures/upload/".$product->getData()[$key]['ImageUrl']."'>
                           </div>
@@ -109,7 +101,10 @@ $keyword = '';
                                   </div>
                               </div>
                           </div>
-                          ;"?>
+                          ;";
+                              }
+                          }
+                      }?>
 
                         </div>
                     </div>
@@ -117,107 +112,25 @@ $keyword = '';
                 <div class="related-products-wrapper">
                     <h2 class="related-products-title">Related Products</h2>
                     <div class="related-products-carousel">
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/product-1.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
-                                        Add to cart</a>
-                                    <a href="" class="view-details-link"><i class="fa fa-link"></i> See
-                                        details</a>
-                                </div>
-                            </div>
-
-                            <h2><a href="">Sony Smart TV - 2015</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$700.00</ins> <del>$100.00</del>
-                            </div>
+                                    <?php foreach ($getData as $key => $value) {
+                            echo"
+                    <div class='single-shop-product'>
+                        <div class='product-upper'>
+                            <img src='pictures/upload/".$getData[$key]['ImageUrl']."'style='width:220px;height:220px;'>
                         </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/product-2.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
-                                        Add to cart</a>
-                                    <a href="" class="view-details-link"><i class="fa fa-link"></i> See
-                                        details</a>
-                                </div>
-                            </div>
-
-                            <h2><a href="">Apple new mac book 2015 March :P</a></h2>
-                            <div class="product-carousel-price">
-                                <ins>$899.00</ins> <del>$999.00</del>
-                            </div>
+                        <div class='product-content'>
+                        <h2><a href='single-product.php?id=".$getData[$key]['ProductID']."'>".($getData[$key]['ProductName'])."</a></h2>
+                        <div class='product-carousel-price'>
+                        <h2>".number_format($getData[$key]['Price'])." VND</h2>
+                        </div>  
+                        
+                        <div class='product-option-shop'>
+                            <a class='add_to_cart_button' data-quantity='1' data-product_sku='' data-product_id='70' rel='nofollow' href='updateOrder.php?id=".$getData[$key]['ProductID']."&action=3'>Add to cart</a>
+                        </div>   
                         </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/product-3.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
-                                        Add to cart</a>
-                                    <a href="" class="view-details-link"><i class="fa fa-link"></i> See
-                                        details</a>
-                                </div>
-                            </div>
-
-                            <h2><a href="">Apple new i phone 6</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$400.00</ins> <del>$425.00</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/product-4.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
-                                        Add to cart</a>
-                                    <a href="" class="view-details-link"><i class="fa fa-link"></i> See
-                                        details</a>
-                                </div>
-                            </div>
-
-                            <h2><a href="">Sony playstation microsoft</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$200.00</ins> <del>$225.00</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/product-5.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
-                                        Add to cart</a>
-                                    <a href="" class="view-details-link"><i class="fa fa-link"></i> See
-                                        details</a>
-                                </div>
-                            </div>
-
-                            <h2><a href="">Sony Smart Air Condtion</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$1200.00</ins> <del>$1355.00</del>
-                            </div>
-                        </div>
-                        <div class="single-product">
-                            <div class="product-f-image">
-                                <img src="img/product-6.jpg" alt="">
-                                <div class="product-hover">
-                                    <a href="" class="add-to-cart-link"><i class="fa fa-shopping-cart"></i>
-                                        Add to cart</a>
-                                    <a href="" class="view-details-link"><i class="fa fa-link"></i> See
-                                        details</a>
-                                </div>
-                            </div>
-
-                            <h2><a href="">Samsung gallaxy note 4</a></h2>
-
-                            <div class="product-carousel-price">
-                                <ins>$400.00</ins>
-                            </div>
-                        </div>
+                        </div>";
+                        }
+                    ?>
                     </div>
                 </div>
             </div>

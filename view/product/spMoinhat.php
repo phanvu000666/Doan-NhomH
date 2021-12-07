@@ -27,13 +27,18 @@
                                     <del><?php echo "$".number_format($value['Price'],1) ?></del>
                                 </div>
                                 <form action="index.php" method="post">
-                                    <button type="submit" name="add"
+                                    <input type="hidden" name="ProductID"
+                                           value=<?= $value['ProductID'] ?>>
+                                    <input name="ProductName" value="<?=$value['ProductName']?>" hidden>
+                                    <input name="Quantity" value="<?=$value['Quantity']?>" hidden>
+                                    <input name="Price" value="<?=$value['Price']?>" hidden>
+                                    <input name="ImageUrl" value="<?= $value['ImageUrl'] ?>" hidden>
+                                    <button type="submit" name="add-cart"
                                             class="btn btn-warning my3">Add to
                                         Cart <i
                                                 class="fa fa-shopping-cart"></i>
                                     </button>
-                                    <input type="hidden" name="productID"
-                                           value=<?= $value['ProductID'] ?>>
+
                                 </form>
                             </div>
                         <?php } ?>
