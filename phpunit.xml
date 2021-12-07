@@ -15,6 +15,7 @@ cacheResult ="false"
 <filter>
 <whitelist processUncoveredFilesFromWhitelist="true">
 <directory suffix=".php">./admin/protype</directory>
+<directory suffix=".php">./admin/controller</directory>
 </whitelist>
 </filter>
 

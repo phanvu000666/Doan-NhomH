@@ -2,11 +2,10 @@
 
 namespace SmartWeb\Models;
 
-// $ds = DIRECTORY_SEPARATOR;
-// $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-// require_once("{$base_dir}model{$ds}db.php");
 
-class Banner extends Product
+
+class Banner 
+extends Product
 {
     private static Banner $banner;
 
@@ -27,10 +26,16 @@ class Banner extends Product
 
     public function insert(array $param)
     {
-        $sql = "INSERT INTO banner(BannerImage,BannerTitle,BannerSubTitle) 
-        VALUES(:BannerImage, :BannerTitle, :BannerSubTitle)";
+        $is_finished = false;
 
-        $is_finished =  $this->db->notSelect($sql, $param);
+        
+
+        if(is_array($param) && count($param) == 3)
+        {
+            $sql = "INSERT INTO banner(BannerImage,BannerTitle,BannerSubTitle) 
+            VALUES(:BannerImage, :BannerTitle, :BannerSubTitle)";
+            $is_finished =  $this->db->notSelect($sql, $param);
+        }
         return $is_finished;
     }
 
@@ -71,11 +76,11 @@ class Banner extends Product
     }
     public function startTransaction()
     {
-        self::$_connection->begin_transaction();
+        $this->db->getConnect()->beginTransaction();
     }
 
     public function rollBack()
     {
-        self::$_connection->rollback();
+        $this->db->getConnect()->rollback();
     }
 }

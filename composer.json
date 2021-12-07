@@ -2,7 +2,8 @@
     "autoload": {
         "classmap": [
             "admin/protype/",
-            "admin/model"
+            "admin/controller/",
+            "admin/dj/"
         ]
     },
     "require-dev": {
