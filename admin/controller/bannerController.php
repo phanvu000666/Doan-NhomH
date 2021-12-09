@@ -130,17 +130,29 @@ class BannerController
             $expected = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             //set required fields
             $required = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
-            //require processform.php
-            $ds = DIRECTORY_SEPARATOR;
-            $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
-            require  "{$base_dir}include{$ds}processform.php";
-            if ($_FILES &&  !empty($_FILES['BannerImage'])) {
-                $root = $_SERVER['DOCUMENT_ROOT'];
-                $path = "{$root}{$ds}img{$ds}";
-                $file = new Upload($path);
-                $file->upload("BannerImage");
+            // process Version
+            $ver = $this->banner->getVersion($_POST['BannerId']);
+            var_dump($ver['Version']);
+            if ($ver['Version'] == $_POST['Version']) {
+              //  echo  "<script>alert('tesst')</script>";
+                // $this->banner->setVersion($_POST['BannerId']);
+                //require processform.php
+                $ds = DIRECTORY_SEPARATOR;
+                $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
+                require  "{$base_dir}include{$ds}processform.php";
+                if ($_FILES &&  !empty($_FILES['BannerImage'])) {
+                    $root = $_SERVER['DOCUMENT_ROOT'];
+                    $path = "{$root}{$ds}img{$ds}";
+                    $file = new Upload($path);
+                    $file->upload("BannerImage");
+                }
+                $is_update  = BannerRepository::update($_POST);
+                if ($is_update==true) {
+                    $this->banner->setVersion($_POST['BannerId']);
+                }
+                // var_dump($_POST);
             }
-            $is_update  = BannerRepository::update($_POST);
+            
         }
     }
     public function send_data_from()

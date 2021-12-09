@@ -4,7 +4,7 @@ namespace SmartWeb\Models;
 
 
 
-class Banner 
+class Banner
 extends Product
 {
     private static Banner $banner;
@@ -27,11 +27,7 @@ extends Product
     public function insert(array $param)
     {
         $is_finished = false;
-
-        
-
-        if(is_array($param) && count($param) == 3)
-        {
+        if (is_array($param) && count($param) == 3) {
             $sql = "INSERT INTO banner(BannerImage,BannerTitle,BannerSubTitle) 
             VALUES(:BannerImage, :BannerTitle, :BannerSubTitle)";
             $is_finished =  $this->db->notSelect($sql, $param);
@@ -41,6 +37,7 @@ extends Product
 
     public function delete($params)
     {
+        $is_finished = !empty($params['BannerId']);
         $sql = "DELETE FROM banner WHERE BannerId =:BannerId";
         $is_finished =  $this->db->notSelect($sql, $params);
         return $is_finished;
@@ -49,17 +46,36 @@ extends Product
     public function update($params)
     {
         $sql = "";
-        if (empty($params['BannerImage'])) {
-            $sql = "UPDATE banner
+        $is_finished = false;
+        if (is_array($params) && count($params) >= 3) {
+            if (empty($params['BannerImage'])) {
+                $sql = "UPDATE banner
             SET BannerTitle=:BannerTitle, BannerSubTitle=:BannerSubTitle
             WHERE BannerId =:BannerId";
-        } else {
-            $sql = "UPDATE banner 
+            } else {
+                $sql = "UPDATE banner 
             SET BannerImage=:BannerImage, BannerTitle=:BannerTitle, BannerSubTitle=:BannerSubTitle
             WHERE BannerId =:BannerId";
+            }
+            $is_finished =  $this->db->notSelect($sql, $params);
+            return $is_finished;
         }
+    }
+    public function getVersion($id)
+    {
+        $sql = "SELECT banner.Version FROM banner 
+        WHERE banner.BannerId=:BannerId";
 
-        $is_finished =  $this->db->notSelect($sql, $params);
+        $params['BannerId'] = $id;
+        $result = $this->db->select($sql, $params);
+        return $result;
+    }
+    public function setVersion($id)
+    {
+        $sql = "UPDATE banner SET Version = Version + 1 WHERE BannerId =:BannerId";
+
+        $param = ["BannerId" => $id];
+        $is_finished =  $this->db->notSelect($sql, $param);
         return $is_finished;
     }
     public function getBannerID($id)
@@ -70,9 +86,6 @@ extends Product
         $params['BannerId'] = $id;
         $result = $this->db->select($sql, $params);
         return $result;
-    }
-    public function sumb($a, $b){
-        return $a + $b;
     }
     public function startTransaction()
     {

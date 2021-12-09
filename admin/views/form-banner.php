@@ -52,6 +52,7 @@
                              Image of Banner
                          </label>
                      </p>
+                     <input type="text" name="Version" id="Version" hidden>
                  </form>
              </div>
              <div class="modal-footer">
@@ -116,7 +117,7 @@
                      setTimeout(function() {
                         //  clearForm();
                          // callGetContentTable();
-                         location.reload();
+                        // location.reload();
                      }, 500);
 
                  },
@@ -196,6 +197,7 @@
          $("#BannerId").val(values.BannerId);
          $("#BannerTitle").val(values.BannerTitle);
          $("#BannerSubTitle").val(values.BannerSubTitle);
+         $("#Version").val(values.Version);
          //chuyển ảnh sang base64
      }
 

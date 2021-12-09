@@ -68,7 +68,7 @@ class BannerRepository
         $is_finished = false;
         if (is_array($params)) {
             //add banner.
-            if ($params['BannerImage'] === '') {
+            if (!isset($params['BannerImage'])) {
                 $paramsbanner['BannerTitle']  = htmlentities($params['BannerTitle']);
                 $paramsbanner['BannerSubTitle'] = htmlentities($params['BannerSubTitle']);
                 $paramsbanner['BannerId'] = (int)htmlentities($params['BannerId']);
