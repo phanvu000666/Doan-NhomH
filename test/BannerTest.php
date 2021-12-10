@@ -7,6 +7,7 @@ use SmartWeb\Models\Banner;
 // use SmartWeb\Models\
 use SmartWeb\Models\DBPDO;
 use SmartWeb\Controller\BannerController;
+use SmartWeb\Models\CSRFToken;
 
 use PHPUnit\Framework\TestCase;
 
@@ -140,7 +141,7 @@ class BannerTest extends TestCase
         }
         $banner->rollback();
     }
-   
+
     public function testInsertImageOK()
     {
         $banner = new Banner(new DBPDO());
@@ -273,10 +274,11 @@ class BannerTest extends TestCase
         $banner->rollback();
     }
 
+
     public function testGetBannerIdOK()
     {
         $banner = new Banner(new DBPDO());
-        $bannerId = "1";
+        $bannerId = 1;
         $excImg = "h4-slide.png";
         $actual = $banner->getBannerID($bannerId);
         $this->assertEquals($excImg, $actual[0]['BannerImage']);
@@ -484,7 +486,10 @@ class BannerTest extends TestCase
         $title = "ádasda";
         $subTitle = "ádad";
         $id = 43;
-        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id];
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
+        //array.
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id, "Hash" => $token];
         $banner->startTransaction();
         $banner->update($params);
         $this->assertEquals(14, count($banner->getBannerList()));
@@ -496,7 +501,10 @@ class BannerTest extends TestCase
         $title = "ádasda";
         $subTitle = "ádad";
         $id = 43;
-        $params = ["BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id];
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
+        //array.
+        $params = ["BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id, "Hash" => $token];
         $banner->startTransaction();
         $banner->update($params);
         $this->assertEquals(14, count($banner->getBannerList()));
@@ -570,8 +578,10 @@ class BannerTest extends TestCase
         $title = "','');TRUNCATE TABLE banner##','";
         $subTitle = "ádad";
         $id = 43;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
         //array.
-        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id];
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id, "Hash" => $token];
 
         $banner->startTransaction();
         $actual = $banner->update($params);
@@ -589,8 +599,10 @@ class BannerTest extends TestCase
         $title = "sssdvs";
         $subTitle = "');TRUNCATE TABLE banner##";
         $id = 43;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
         //array.
-        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id];
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id, "Hash" => $token];
 
         $banner->startTransaction();
         $actual = $banner->update($params);
@@ -607,8 +619,10 @@ class BannerTest extends TestCase
         $title = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
         $subTitle = "câcsdvds";
         $id = 43;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
         //array.
-        $params = ["BannerImage" => $image, "BannerTitle" => htmlentities($title), "BannerSubTitle" => $subTitle, "BannerId" => $id];
+        $params = ["BannerImage" => $image, "BannerTitle" => htmlentities($title), "BannerSubTitle" => $subTitle, "BannerId" => $id, "Hash" => $token];
 
         $banner->startTransaction();
         $actual = $banner->update($params);
@@ -625,8 +639,10 @@ class BannerTest extends TestCase
         $title = "vsdv";
         $subTitle = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
         $id = 43;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
         //array.
-        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => htmlentities($subTitle), "BannerId" => $id];
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => htmlentities($subTitle), "BannerId" => $id, "Hash" => $token];
 
         $banner->startTransaction();
         $actual = $banner->update($params);
@@ -644,8 +660,10 @@ class BannerTest extends TestCase
         $subTitle = "sdvs";
         $id = 43;
         $version =  0;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
         //array.
-        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => htmlentities($subTitle), "BannerId" => $id];
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id, "Hash" => $token];
 
 
         $banner->startTransaction();
@@ -669,8 +687,10 @@ class BannerTest extends TestCase
         $subTitle = "sdvs";
         $id = 43;
         $version =  3;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
         //array.
-        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => htmlentities($subTitle), "BannerId" => $id];
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id, "Hash" => $token];
         (string)$expected = "Khong the update";
         (string)$actual = "";
 
@@ -680,7 +700,46 @@ class BannerTest extends TestCase
             $actual = "Khong the update";
         }
         $this->assertEquals($expected, $actual);
-      
+    }
+    public function testUpdateCSRF()
+    {
+        $banner = new Banner(new DBPDO());
+        //data.
+        $image = "G:\Doan-NhomH\img\h4-slide.png";
+        $title = "vsdv";
+        $subTitle = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
+        $id = 43;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
+        //array.
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => htmlentities($subTitle), "BannerId" => $id, "Hash" => $token];
+
+        $banner->startTransaction();
+        $actual = $banner->update($params);
+        if ($actual) {
+            $this->assertTrue(true);
+        }
+        $banner->rollback();
+    }
+    public function testUpdateCSRFNG()
+    {
+        $banner = new Banner(new DBPDO());
+        //data.
+        $image = "G:\Doan-NhomH\img\h4-slide.png";
+        $title = "vsdv";
+        $subTitle = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
+        $id = 43;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = "0";
+        //array.
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => htmlentities($subTitle), "BannerId" => $id, "Hash" => $token];
+
+        $banner->startTransaction();
+        $actual = $banner->update($params);
+        if (!$actual) {
+            $this->assertTrue(true);
+        }
+        $banner->rollback();
     }
     public function testGetVersionOK()
     {

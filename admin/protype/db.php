@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 namespace SmartWeb\Models;
-
+use SmartWeb\Models\CSRFToken;
+require_once "CSRFToken.php";
 require_once "connect.php";
 
 //----------------------------------------------------------------------------------------------------------

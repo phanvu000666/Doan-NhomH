@@ -33,6 +33,7 @@
              <div class="modal-body" id="modal-body-id">
                  <form method="post" action="" id="fproduct" enctype="multipart/form-data">
                      <input type="text" name="BannerId" id="BannerId" hidden>
+                     <input type="text" name="Hash" id="Hash" hidden>
                      <p>
                          <label for="BannerTitle">
                              Title Banner
@@ -190,12 +191,14 @@
          $("#BannerImage").val("");
          $("#BannerTitle").val("");
          $("#BannerSubTitle").val("");
+         $("#Hash").val("");
      }
 
      function updateForm(values) {
          console.log(values);
          $("#BannerId").val(values.BannerId);
          $("#BannerTitle").val(values.BannerTitle);
+         $("#Hash").val(values.Hash);
          $("#BannerSubTitle").val(values.BannerSubTitle);
          $("#Version").val(values.Version);
          //chuyển ảnh sang base64

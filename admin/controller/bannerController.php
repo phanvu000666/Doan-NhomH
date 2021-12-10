@@ -128,7 +128,10 @@ class BannerController
     }
     public function update()
     {
+        
         if (!empty($_POST['BannerId']) && count($_POST) > 1) {
+            // var_dump($_POST);
+            // var_dump($_SESSION['Hash']);
             //list expected fields
             $expected = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             //set required fields

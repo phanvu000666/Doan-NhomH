@@ -2,6 +2,7 @@
 
 namespace SmartWeb\Models;
 
+use SmartWeb\Models\CSRFToken;
 
 
 class Banner
@@ -47,7 +48,9 @@ extends Product
     {
         $sql = "";
         $is_finished = false;
-        if (is_array($params) && count($params) >= 3) {
+        // var_dump($params);
+        if (is_array($params) && count($params) >= 3 && isset($_SESSION["Hash"]) && CSRFToken::CompareTokens($params["Hash"], $_SESSION["Hash"])) {
+            unset($params["Hash"]);
             if (empty($params['BannerImage'])) {
                 $sql = "UPDATE banner
             SET BannerTitle=:BannerTitle, BannerSubTitle=:BannerSubTitle
@@ -73,10 +76,10 @@ extends Product
     public function setVersion($id)
     {
         $is_finished = false;
-        if(is_int($id)){
+        if (is_int($id)) {
 
             $sql = "UPDATE banner SET Version = Version + 1 WHERE BannerId =:BannerId";
-            
+
             $param = ["BannerId" => $id];
             $is_finished =  $this->db->notSelect($sql, $param);
         }
@@ -84,12 +87,17 @@ extends Product
     }
     public function getBannerID($id)
     {
-        $sql = "SELECT * FROM banner 
+        if (is_int($id)) {
+
+            $sql = "SELECT * FROM banner 
         WHERE banner.BannerId=:BannerId";
 
-        $params['BannerId'] = $id;
-        $result = $this->db->select($sql, $params);
-        return $result;
+            $params['BannerId'] = $id;
+            $result = $this->db->select($sql, $params);
+            $result[0]["Hash"] = $_SESSION["Hash"] = CSRFToken::GenerateToken();
+        }
+
+        return $result ?? null;
     }
     public function startTransaction()
     {
