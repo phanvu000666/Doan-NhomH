@@ -13,13 +13,56 @@ use PHPUnit\Framework\TestCase;
 
 class BannerTest extends TestCase
 {
-    // public function testGetInstance(){
-    //     $banner = new Banner(new DBPDO());
-    //     // $exc = 14;
-    //     $act = $banner::getInstance();
-    //     var_dump($act);
-    //     // $this->assertEquals($exc, count($act));
-    // }
+    public function testInstance()
+    {
+        $ban1 = Banner::getInstance();
+        $ban2 =  Banner::getInstance();
+
+        $actual = false;
+        if ($ban1 === $ban2) {
+            $actual = true;
+        }
+        $expected = true;
+
+        $this->assertEquals($expected, $actual);
+    }
+    public function testInstanceisOb()
+    {
+        $ban = Banner::getInstance();
+        if (is_object($ban)) {
+            $this->assertTrue(True);
+        } else {
+            $this->assertTrue(false);
+        }
+    }
+    public function testInstanceNotNull()
+    {
+        $ban = Banner::getInstance();
+        $actual = $ban;
+        if (empty($actual)) {
+            $actual = false;
+        } else {
+            $actual = true;
+        }
+        $expected = true;
+        $this->assertEquals($expected, $actual);
+    }
+    public function testInstanceBannerModel()
+    {
+        $ban = Banner::getInstance();
+        $actual = get_class($ban);
+        $expected = Banner::class;
+        $this->assertEquals($expected, $actual);
+    }
+    public function testInstanceAndBannerModel()
+    {
+        $ban = new Banner(new DBPDO());
+
+        $ban2 = Banner::getInstance();
+        if ($ban !== $ban2) {
+            $this->assertTrue(true);
+        }
+    }
     public function testGetBannerListOK()
     {
         // var_dump($this);
@@ -97,28 +140,7 @@ class BannerTest extends TestCase
         }
         $banner->rollback();
     }
-    // public function testInsertImageIsInt()
-    // {
-    //     $banner = new Banner(new DBPDO());
-    //     //data.
-    //     $image = 123;
-    //     $title= "ádasda";
-    //     $subTitle= "ádad";
-    //     //array.
-    //     $params= ["BannerImage" => $image,"BannerTitle" => $title, "BannerSubTitle" =>$subTitle];
-    //     //permitted
-    //      $permitted = [
-    //         'image/gif',
-    //         'image/jpeg',
-    //         'image/pjeg',
-    //         'image/png',
-    //         'image/webp'
-    //     ];
-    //     $getImage= getImageSize($image);
-    //     if (!in_array($getImage["mime"], $permitted)) {
-    //         $this->assertTrue(true);
-    //     }
-    // }
+   
     public function testInsertImageOK()
     {
         $banner = new Banner(new DBPDO());
@@ -233,6 +255,24 @@ class BannerTest extends TestCase
         }
         $banner->rollback();
     }
+    public function testInsertSubTitleCSRF()
+    {
+        $banner = new Banner(new DBPDO());
+        //data.
+        $image = "G:\Doan-NhomH\img\h4-slide.png";
+        $title = "vsdv";
+        $subTitle = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
+        //array.
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => htmlentities($subTitle)];
+
+        $banner->startTransaction();
+        $actual = $banner->insert((array)$params);
+        if ($actual) {
+            $this->assertTrue(true);
+        }
+        $banner->rollback();
+    }
+
     public function testGetBannerIdOK()
     {
         $banner = new Banner(new DBPDO());
@@ -595,6 +635,53 @@ class BannerTest extends TestCase
         }
         $banner->rollback();
     }
+    public function testUpdateVersionIDDOROK()
+    {
+        $banner = new Banner(new DBPDO());
+        //data.
+        $image = "G:\Doan-NhomH\img\h4-slide.png";
+        $title = "vsdv";
+        $subTitle = "sdvs";
+        $id = 43;
+        $version =  0;
+        //array.
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => htmlentities($subTitle), "BannerId" => $id];
+
+
+        $banner->startTransaction();
+        $ver = $banner->getVersion($params['BannerId']);
+        // var_dump($ver['Version']);
+        if ($ver[0]['Version'] == $version) {
+            $actual = $banner->update($params);
+            $banner->setVersion($params['BannerId']);
+        }
+        if ($actual) {
+            $this->assertTrue(true);
+        }
+        $banner->rollback();
+    }
+    public function testUpdateVersionIDDORNG()
+    {
+        $banner = new Banner(new DBPDO());
+        //data.
+        $image = "G:\Doan-NhomH\img\h4-slide.png";
+        $title = "vsdv";
+        $subTitle = "sdvs";
+        $id = 43;
+        $version =  3;
+        //array.
+        $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => htmlentities($subTitle), "BannerId" => $id];
+        (string)$expected = "Khong the update";
+        (string)$actual = "";
+
+        $ver = $banner->getVersion($params['BannerId']);
+        // var_dump($ver['Version']);
+        if ($ver[0]['Version'] != $version) {
+            $actual = "Khong the update";
+        }
+        $this->assertEquals($expected, $actual);
+      
+    }
     public function testGetVersionOK()
     {
         $banner = new Banner(new DBPDO());
@@ -654,7 +741,7 @@ class BannerTest extends TestCase
     {
         $banner = new Banner(new DBPDO());
         $bannerId = 43;
-        $exc = 0;
+        $exc = 2;
         $actual = $banner->getVersion($bannerId);
         if ($exc != $actual[0]['Version']) {
             $this->assertTrue(true);
@@ -677,7 +764,7 @@ class BannerTest extends TestCase
         $params = "wcsdvs";
         $banner->startTransaction();
         $actual = $banner->setVersion($params);
-        if ($actual) {
+        if (!$actual) {
             $this->assertTrue(true);
         } else {
             $this->assertTrue(false);
@@ -697,17 +784,17 @@ class BannerTest extends TestCase
         }
         $banner->rollback();
     }
-    // public function testSetVersionIsObject()
-    // {
-    //     $banner = new Banner(new DBPDO());
-    //     $params = $banner;
-    //     $banner->startTransaction();
-    //     $actual = $banner->setVersion($params);
-    //     if (!$actual) {
-    //         $this->assertTrue(true);
-    //     }
-    //     $banner->rollback();
-    // }
+    public function testSetVersionIsObject()
+    {
+        $banner = new Banner(new DBPDO());
+        $params = $banner;
+        $banner->startTransaction();
+        $actual = $banner->setVersion($params);
+        if (!$actual) {
+            $this->assertTrue(true);
+        }
+        $banner->rollback();
+    }
     public function testSetVersionIsNull()
     {
         $banner = new Banner(new DBPDO());
@@ -715,7 +802,7 @@ class BannerTest extends TestCase
 
         $banner->startTransaction();
         $actual = $banner->setVersion($params);
-        if ($actual) {
+        if (!$actual) {
             $this->assertTrue(true);
         }
         $banner->rollback();
@@ -726,7 +813,7 @@ class BannerTest extends TestCase
         $params = "";
         $banner->startTransaction();
         $actual = $banner->setVersion($params);
-        if ($actual) {
+        if (!$actual) {
             $this->assertTrue(true);
         }
         $banner->rollback();

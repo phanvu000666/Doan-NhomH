@@ -28,6 +28,7 @@ class BannerRepository
         $is_finished = false;
         if (is_array($params)) {
 
+            $paramsbanner = array();
             //add banner.
             $paramsbanner['BannerImage'] = htmlentities($params['BannerImage']);
             $paramsbanner['BannerTitle'] = htmlentities($params['BannerTitle']);

@@ -84,6 +84,7 @@ class BannerController
     public function insert()
     {
         if (isset($_POST) && count($_POST) > 1 && isset($_POST['BannerId']) && $_POST['BannerId'] === "") {
+         
             //list expected fields
             $expected = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             //set required fields
@@ -99,8 +100,10 @@ class BannerController
                 $path = "{$root}{$ds}img{$ds}";
                 $file = new Upload($path);
                 $file->upload("BannerImage");
+                $_POST["BannerImage"] = $file->getNewName();
             }
-            var_dump($_POST);
+       
+            // var_dump($_POST);
             BannerRepository::insert($_POST);
         }
     }
@@ -132,8 +135,8 @@ class BannerController
             $required = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             // process Version
             $ver = $this->banner->getVersion($_POST['BannerId']);
-            var_dump($ver['Version']);
-            if ($ver['Version'] == $_POST['Version']) {
+            // var_dump($ver[0]['Version']);
+            if ($ver[0]['Version'] == $_POST['Version']) {
               //  echo  "<script>alert('tesst')</script>";
                 // $this->banner->setVersion($_POST['BannerId']);
                 //require processform.php

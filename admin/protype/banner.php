@@ -11,10 +11,10 @@ extends Product
 
     public static function getInstance()
     {
-        if (empty($banner)) {
-            self::$banner = new self(self::$db);
+        if (empty(static::$banner)) {
+            static::$banner = new self(new DBPDO());
         }
-        return self::$banner;
+        return static::$banner;
     }
 
     public function getBannerList()
@@ -72,10 +72,14 @@ extends Product
     }
     public function setVersion($id)
     {
-        $sql = "UPDATE banner SET Version = Version + 1 WHERE BannerId =:BannerId";
+        $is_finished = false;
+        if(is_int($id)){
 
-        $param = ["BannerId" => $id];
-        $is_finished =  $this->db->notSelect($sql, $param);
+            $sql = "UPDATE banner SET Version = Version + 1 WHERE BannerId =:BannerId";
+            
+            $param = ["BannerId" => $id];
+            $is_finished =  $this->db->notSelect($sql, $param);
+        }
         return $is_finished;
     }
     public function getBannerID($id)
