@@ -13,6 +13,13 @@ use PHPUnit\Framework\TestCase;
 
 class BannerTest extends TestCase
 {
+    // public function testGetInstance(){
+    //     $banner = new Banner(new DBPDO());
+    //     // $exc = 14;
+    //     $act = $banner::getInstance();
+    //     var_dump($act);
+    //     // $this->assertEquals($exc, count($act));
+    // }
     public function testGetBannerListOK()
     {
         // var_dump($this);
@@ -438,6 +445,18 @@ class BannerTest extends TestCase
         $subTitle = "ádad";
         $id = 43;
         $params = ["BannerImage" => $image, "BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id];
+        $banner->startTransaction();
+        $banner->update($params);
+        $this->assertEquals(14, count($banner->getBannerList()));
+        $banner->rollback();
+    }
+    public function testUpdateOKWithoutImg()
+    {
+        $banner = new Banner(new DBPDO());
+        $title = "ádasda";
+        $subTitle = "ádad";
+        $id = 43;
+        $params = ["BannerTitle" => $title, "BannerSubTitle" => $subTitle, "BannerId" => $id];
         $banner->startTransaction();
         $banner->update($params);
         $this->assertEquals(14, count($banner->getBannerList()));
