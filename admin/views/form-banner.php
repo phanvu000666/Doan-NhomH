@@ -118,7 +118,7 @@
                      setTimeout(function() {
                         //  clearForm();
                          // callGetContentTable();
-                        // location.reload();
+                        location.reload();
                      }, 500);
 
                  },
@@ -216,7 +216,7 @@
 
                      if (IsJsonString(reponse)) {
                          var obj = JSON.parse(reponse.toString());
-                         updateForm(obj);
+                         updateForm(obj[0]);
                      }
                  }, 500);
              },

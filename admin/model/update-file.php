@@ -22,7 +22,10 @@ class Upload
         'image/png',
         'image/webp'
     ];
-
+    public function getPermitted()
+    {
+        return $this->permitted;
+    }
     //contructor
     public function __construct($path)
     {

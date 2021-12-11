@@ -84,7 +84,7 @@ class BannerController
     public function insert()
     {
         if (isset($_POST) && count($_POST) > 1 && isset($_POST['BannerId']) && $_POST['BannerId'] === "") {
-         
+
             //list expected fields
             $expected = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             //set required fields
@@ -99,11 +99,17 @@ class BannerController
                 $root = $_SERVER['DOCUMENT_ROOT'];
                 $path = "{$root}{$ds}img{$ds}";
                 $file = new Upload($path);
+               // getImageSize($image);
                 $file->upload("BannerImage");
+                if ($file->getNewName() == '' || empty($file->getNewName()) ) {
+                    return false;
+                }
                 $_POST["BannerImage"] = $file->getNewName();
+            }else
+            {
+                return false;
             }
-       
-            // var_dump($_POST);
+
             BannerRepository::insert($_POST);
         }
     }
@@ -128,44 +134,43 @@ class BannerController
     }
     public function update()
     {
-        
+        // var_dump($_POST);
         if (!empty($_POST['BannerId']) && count($_POST) > 1) {
-            // var_dump($_POST);
-            // var_dump($_SESSION['Hash']);
             //list expected fields
             $expected = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             //set required fields
             $required = ['BannerId',  'BannerImage', 'BannerTitle', 'BannerSubTitle'];
             // process Version
             $ver = $this->banner->getVersion($_POST['BannerId']);
-            // var_dump($ver[0]['Version']);
             if ($ver[0]['Version'] == $_POST['Version']) {
-              //  echo  "<script>alert('tesst')</script>";
-                // $this->banner->setVersion($_POST['BannerId']);
                 //require processform.php
                 $ds = DIRECTORY_SEPARATOR;
                 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
                 require  "{$base_dir}include{$ds}processform.php";
-                if ($_FILES &&  !empty($_FILES['BannerImage'])) {
+                if ($_FILES &&  !empty($_FILES['BannerImage']) && !empty($_FILES['BannerImage']["name"])) {
                     $root = $_SERVER['DOCUMENT_ROOT'];
                     $path = "{$root}{$ds}img{$ds}";
                     $file = new Upload($path);
+                   // getImageSize($image);
                     $file->upload("BannerImage");
+                     if ($file->getNewName() == '' || empty($file->getNewName()) ) {
+                       return false;
+                    }
+                    $_POST["BannerImage"] = $file->getNewName();
                 }
                 $is_update  = BannerRepository::update($_POST);
-                if ($is_update==true) {
+                if ($is_update == true) {
                     $this->banner->setVersion($_POST['BannerId']);
                 }
-                // var_dump($_POST);
             }
-            
         }
     }
     public function send_data_from()
     {
         if (isset($_POST['BannerId']) && !empty($_POST['BannerId']) && count($_POST) == 1) {
             $id = decryptionID($_POST['BannerId']);
-            $banner = $this->banner->getBannerID($id)[0];
+            $id = (int) $id;
+            $banner = $this->banner->getBannerID($id);
             echo json_encode($banner);
             exit;
         }

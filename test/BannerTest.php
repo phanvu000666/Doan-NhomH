@@ -353,7 +353,7 @@ class BannerTest extends TestCase
     public function testDeleteOK()
     {
         $banner = new Banner(new DBPDO());
-        $bannerId = '43';
+        $bannerId = '10';
         $params = ["BannerId" => $bannerId];
         $expected = true;
         $banner->startTransaction();
@@ -485,7 +485,7 @@ class BannerTest extends TestCase
         $image = "âfasd";
         $title = "ádasda";
         $subTitle = "ádad";
-        $id = 43;
+        $id = 10;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
@@ -500,7 +500,7 @@ class BannerTest extends TestCase
         $banner = new Banner(new DBPDO());
         $title = "ádasda";
         $subTitle = "ádad";
-        $id = 43;
+        $id = 10;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
@@ -577,7 +577,7 @@ class BannerTest extends TestCase
         $image = "G:\Doan-NhomH\img\h4-slide.png";
         $title = "','');TRUNCATE TABLE banner##','";
         $subTitle = "ádad";
-        $id = 43;
+        $id = 10;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
@@ -598,7 +598,7 @@ class BannerTest extends TestCase
         $image = "G:\Doan-NhomH\img\h4-slide.png";
         $title = "sssdvs";
         $subTitle = "');TRUNCATE TABLE banner##";
-        $id = 43;
+        $id = 10;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
@@ -618,7 +618,7 @@ class BannerTest extends TestCase
         $image = "G:\Doan-NhomH\img\h4-slide.png";
         $title = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
         $subTitle = "câcsdvds";
-        $id = 43;
+        $id = 10;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
@@ -638,7 +638,7 @@ class BannerTest extends TestCase
         $image = "G:\Doan-NhomH\img\h4-slide.png";
         $title = "vsdv";
         $subTitle = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
-        $id = 43;
+        $id = 10;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
@@ -658,7 +658,7 @@ class BannerTest extends TestCase
         $image = "G:\Doan-NhomH\img\h4-slide.png";
         $title = "vsdv";
         $subTitle = "sdvs";
-        $id = 43;
+        $id = 10;
         $version =  0;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
@@ -685,7 +685,7 @@ class BannerTest extends TestCase
         $image = "G:\Doan-NhomH\img\h4-slide.png";
         $title = "vsdv";
         $subTitle = "sdvs";
-        $id = 43;
+        $id = 10;
         $version =  3;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
@@ -708,7 +708,7 @@ class BannerTest extends TestCase
         $image = "G:\Doan-NhomH\img\h4-slide.png";
         $title = "vsdv";
         $subTitle = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
-        $id = 43;
+        $id = 10;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
@@ -728,7 +728,7 @@ class BannerTest extends TestCase
         $image = "G:\Doan-NhomH\img\h4-slide.png";
         $title = "vsdv";
         $subTitle = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
-        $id = 43;
+        $id = 10;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = "0";
         //array.
@@ -799,7 +799,7 @@ class BannerTest extends TestCase
     public function testGetVersionDifId()
     {
         $banner = new Banner(new DBPDO());
-        $bannerId = 43;
+        $bannerId = 10;
         $exc = 2;
         $actual = $banner->getVersion($bannerId);
         if ($exc != $actual[0]['Version']) {

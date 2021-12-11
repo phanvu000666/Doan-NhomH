@@ -48,7 +48,6 @@ extends Product
     {
         $sql = "";
         $is_finished = false;
-        // var_dump($params);
         if (is_array($params) && count($params) >= 3 && isset($_SESSION["Hash"]) && CSRFToken::CompareTokens($params["Hash"], $_SESSION["Hash"])) {
             unset($params["Hash"]);
             if (empty($params['BannerImage'])) {
@@ -88,10 +87,8 @@ extends Product
     public function getBannerID($id)
     {
         if (is_int($id)) {
-
             $sql = "SELECT * FROM banner 
         WHERE banner.BannerId=:BannerId";
-
             $params['BannerId'] = $id;
             $result = $this->db->select($sql, $params);
             $result[0]["Hash"] = $_SESSION["Hash"] = CSRFToken::GenerateToken();
