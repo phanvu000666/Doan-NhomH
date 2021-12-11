@@ -1,10 +1,12 @@
 <?php
+session_start();
 
 use SmartWeb\Controller\ManufactureController;
 use SmartWeb\Controller\ProductController;
 use SmartWeb\Controller\CategoryController;
 use SmartWeb\Controller\UserController;
-use SmartWeb\Repository\ProductRepository;
+use SmartWeb\Controller\BannerController;
+use SmartWeb\Repository\BannerRepository;
 use SmartWeb\Models\ObjectAssembler;
 
 $ds = DIRECTORY_SEPARATOR;
@@ -13,21 +15,20 @@ $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 include("{$base_dir}admin{$ds}controller{$ds}productController.php");
 include_once "{$base_dir}controller{$ds}cateController.php";
 include_once "{$base_dir}controller{$ds}manuController.php";
+include_once "{$base_dir}controller{$ds}bannerController.php";
 include "{$base_dir}dj{$ds}dj.php";
 include "{$base_dir}utilities.php";
 //
 $conf = "{$base_dir}dj{$ds}object.xml";
-$phonecontrol = new ProductController($conf);
-$manucontrol = new ManufactureController($conf);
-$catecontrol = new CategoryController($conf);
+$bannerControl = new BannerController($conf);
+$bannerControl->insert();
+$bannerControl->update();
+$bannerControl->delete();
+$bannerControl->send_data_from();
 
-$phonecontrol->insert();
-$phonecontrol->update();
-$phonecontrol->delete();
-$phonecontrol->send_data_from();
 $result = "";
 if (isset($_POST['key']) && $_POST['key'] === "content") {
-    $result =  $phonecontrol->display_products();
+    $result =  $bannerControl->display_banners();
     exit($result);
 }
 include "header.php";
@@ -78,11 +79,11 @@ include "header.php";
                     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Pages manager</h6>
-                            <a class="collapse-item" href="../admin">Quản trị sản phẩm.</a>
+                            <a class="collapse-item" href="login.html">Quản trị sản phẩm.</a>
                             <a class="collapse-item" href="register.html">Quản trị đơn hàng.</a>
                             <a class="collapse-item" href="forgot-password.html">Quản tri danh mục.</a>
-                            <a class="collapse-item" href="../admin/category.php">Quản tri loại sản phẩm.</a>
-                            <a class="collapse-item" href="../admin/manufacture.php">Quản tri hãng sản xuất.</a>
+                            <a class="collapse-item" href="forgot-password.html">Quản tri loại sản phẩm.</a>
+                            <a class="collapse-item" href="forgot-password.html">Quản tri hãng sản xuất.</a>
                             <a class="collapse-item" href="forgot-password.html">Quản tri người dùng.</a>
                             <a class="collapse-item" href="slider.php">Quản tri sliders.</a>
                             <!-- <div class="collapse-divider"></div>
@@ -194,7 +195,7 @@ include "header.php";
                         </div>
 
                         <!-- Project Card Example -->
-                        <?php include "./manager/product/products.php" ?>
+                        <?php include "./manager/slider/display_banners.php" ?>
 
                     </div>
                     <!-- /.container-fluid -->
@@ -225,8 +226,8 @@ include "header.php";
         </a>
 
         <!-- Model bootstrap for edit product -->
-        <?php include "./views/edit-product.php" ?>
+        <?php include "./views/form-banner.php" ?>
 
         <?php
-        include "footer.php"
+        include "footer.php";
         ?>

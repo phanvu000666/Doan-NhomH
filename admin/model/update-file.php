@@ -111,12 +111,13 @@ class Upload
      */
     protected function checkFile($file)
     {
-        $accept = $this->getErrorLevel($file);
+        $accept = [];
+        $accept["error"] = $this->getErrorLevel($file);
         if (!empty($file['type'])) {
-            $accept = $this->checkType($file);
+            $accept["type"] = $this->checkType($file);
         }
-        $accept = $this->checkSize($file);
-        return $accept;
+        $accept["size"] = $this->checkSize($file);
+        return (!in_array(false, $accept));
     }
 
     /** 
