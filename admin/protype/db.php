@@ -3,7 +3,8 @@
 declare(strict_types=1);
 
 namespace SmartWeb\Models;
-
+use SmartWeb\Models\CSRFToken;
+require_once "CSRFToken.php";
 require_once "connect.php";
 
 //----------------------------------------------------------------------------------------------------------
@@ -24,6 +25,10 @@ abstract class DB implements IDB
         foreach ($values as $key => &$value) {
             $stmt->bindParam(":{$key}", $value);
         }
+    }
+    public function getConnect()
+    {
+        return static::$con;
     }
 }
 //mysqli

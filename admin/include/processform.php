@@ -1,9 +1,14 @@
 <?php
 //add image into global $_POST.
 
-if ($_POST && $_FILES) {
-    $_POST['ImageUrl'] = $_FILES['ImageUrl']['name'];
-}
+// if ($_POST && $_FILES) {
+//     if (isset($_FILES['ImageUrl'])) {
+//         $_POST['ImageUrl'] = $_FILES['ImageUrl']['name'];
+//     }
+//     if (isset($_FILES['BannerImage'])) {
+//         $_POST['BannerImage'] = $_FILES['BannerImage']['name'];
+//     }
+// }
 foreach ($_POST as $key => $value) {
     # value != array. strip whitespace from $value.
     if (!is_array($value)) {
@@ -22,4 +27,3 @@ foreach ($_POST as $key => $value) {
 
     $$key = $value;
 }
-
