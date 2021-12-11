@@ -51,33 +51,22 @@ class Category extends Product
         // var_dump($_POST);
         $is_finished = false;
         if (is_array($input) && isset($_SESSION["Hash"]) && CSRFToken::CompareTokens($input["Hash"], $_SESSION["Hash"])) {
-            if (
-                isset($input[$this->CategoryID]) &&
-                isset($input[$this->CategoryName]) &&
-                isset($input[$this->Position]) &&
-                isset($input[$this->Version])
-            ) {
+            
                 $data = [
                     $this->CategoryID => $input[$this->CategoryID],
                     $this->CategoryName => $input[$this->CategoryName],
                     $this->Position => $input[$this->Position],
-                    $this->Version => $input[$this->Version]
+                    
                 ];
 
                 $sql = "UPDATE $this->tbl_cate SET
                 $this->CategoryName = :$this->CategoryName,
-                $this->Position = :$this->Position,
-                $this->Version = :$this->Version
+                $this->Position = :$this->Position
+                
                 WHERE $this->CategoryID = :$this->CategoryID";
 
                 $is_finished =  $this->db->notSelect($sql, $data);
-            } else {
-                return [
-                    'success' => false,
-                    'message' => "Parameters is not accord!"
-                ];
-                die();
-            }
+            
         }
         return $is_finished;
     }
@@ -110,12 +99,6 @@ class Category extends Product
             :Version
             )";
                 $is_finished =  $this->db->notSelect($sql, $data);
-            } else {
-                return [
-                    'success' => false,
-                    'message' => "Parameters is not accord!"
-                ];
-                die();
             }
         }
         return $is_finished;

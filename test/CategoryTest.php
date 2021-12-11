@@ -69,7 +69,7 @@ class CategoryTest extends TestCase
         // var_dump($this);
         // $phone = new Phone();
         $category = new Category(new DBPDO());
-        $exc = 6;
+        $exc = 8;
         $act = $category->getCategory();
         $this->assertEquals($exc, count($act));
     }
@@ -83,7 +83,7 @@ class CategoryTest extends TestCase
         $params = ["CategoryName" => $name, "Position" => $position];
         $category->startTransaction();
         $category->insertOne($params);
-        $this->assertEquals(7, count($category->getCategory()));
+        $this->assertEquals(9, count($category->getCategory()));
         $category->rollback();
     }
     public function testInsertIsString()
@@ -292,7 +292,7 @@ class CategoryTest extends TestCase
     public function testDeleteOK()
     {
         $category = new Category(new DBPDO());
-        $categoryId = '10';
+        $categoryId = '9';
         $params = ["CategoryID" => $categoryId];
         $expected = true;
         $category->startTransaction();
@@ -423,14 +423,14 @@ class CategoryTest extends TestCase
         $category = new Category(new DBPDO());
         $name = "ádasda";
         $position = "ádad";
-        $id = 10;
+        $id = 9;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
         $params = ["CategoryName" => $name, "Position" => $position, "CategoryID" => $id, "Hash" => $token];
         $category->startTransaction();
         $category->updateOne($params);
-        $this->assertEquals(6, count($category->getCategory()));
+        $this->assertEquals(8, count($category->getCategory()));
         $category->rollback();
     }
     public function testUpdateIsString()
@@ -499,11 +499,11 @@ class CategoryTest extends TestCase
         //data.
         $name = "','');TRUNCATE TABLE Category##','";
         $position = "ádad";
-        $id = 10;
+        $id = 9;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
-        $params = ["CategoryName" => $name, "Position" => $position, "CategoryID" => $id, "Hash" => $token];
+        $params = ["CategoryName" => htmlentities($name), "Position" => $position, "CategoryID" => $id, "Hash" => $token];
 
         $category->startTransaction();
         $actual = $category->updateOne($params);
@@ -519,7 +519,7 @@ class CategoryTest extends TestCase
         //data.
         $name = "sssdvs";
         $position = "');TRUNCATE TABLE Category##";
-        $id = 10;
+        $id = 9;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
@@ -537,11 +537,11 @@ class CategoryTest extends TestCase
         //data.
         $name = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
         $position = "câcsdvds";
-        $id = 10;
+        $id = 9;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
-        $params = ["CategoryName" => $name, "Position" => $position, "CategoryID" => $id, "Hash" => $token];
+        $params = ["CategoryName" => htmlentities($name), "Position" => $position, "CategoryID" => $id, "Hash" => $token];
         $category->startTransaction();
         $actual = $category->updateOne($params);
         if ($actual) {
@@ -556,11 +556,11 @@ class CategoryTest extends TestCase
 
         $name = "vsdv";
         $position = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
-        $id = 10;
+        $id = 9;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
-        $params = ["CategoryName" => $name, "Position" => $position, "CategoryID" => $id, "Hash" => $token];
+        $params = ["CategoryName" => $name, "Position" => htmlentities($position), "CategoryID" => $id, "Hash" => $token];
         $category->startTransaction();
         $actual = $category->updateOne($params);
         if ($actual) {
@@ -574,7 +574,7 @@ class CategoryTest extends TestCase
         //data.
         $name = "vsdv";
         $position = "sdvs";
-        $id = 10;
+        $id = 9;
         $version =  0;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
@@ -583,9 +583,10 @@ class CategoryTest extends TestCase
 
         $category->startTransaction();
         $ver = $category->getVersion($params['CategoryID']);
-        // var_dump($ver['Version']);
+        // var_dump($ver[0]['Version']);
         if ($ver[0]['Version'] == $version) {
             $actual = $category->updateOne($params);
+            // var_dump($actual);
             $category->setVersion($params['CategoryID']);
         }
         if ($actual) {
@@ -599,7 +600,7 @@ class CategoryTest extends TestCase
         //data.
         $name = "vsdv";
         $position = "sdvs";
-        $id = 10;
+        $id = 9;
         $version =  3;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
@@ -621,7 +622,7 @@ class CategoryTest extends TestCase
         //data.
         $name = "vsdv";
         $position = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
-        $id = 10;
+        $id = 9;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = $token;
         //array.
@@ -639,7 +640,7 @@ class CategoryTest extends TestCase
         //data.
         $name = "vsdv";
         $position = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
-        $id = 10;
+        $id = 9;
         $token =  CSRFToken::GenerateToken();
         $_SESSION['Hash'] = "0";
         //array.
@@ -709,7 +710,7 @@ class CategoryTest extends TestCase
     public function testGetVersionDifId()
     {
         $category = new Category(new DBPDO());
-        $categoryId = 10;
+        $categoryId = 9;
         $exc = 2;
         $actual = $category->getVersion($categoryId);
         if ($exc != $actual[0]['Version']) {
