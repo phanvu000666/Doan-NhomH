@@ -1,23 +1,5 @@
 <?php
 
-function clean($data)
-{
-  $data = trim($data);
-  $data = stripslashes($data);
-
-  return $data;
-}
-
-function showPrompt()
-{
-  echo "<div class='alert alert-success'>" . $_SESSION['prompt'] . "</div>";
-}
-
-function showError()
-{
-  echo "<div class='alert alert-danger'>" . $_SESSION['errprompt'] . "</div>";
-}
-
 
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
@@ -71,43 +53,77 @@ $error = " ";
     </div>
 
 
-    <div class="profile-box box-left">
+    <div class="content row">
 
-      <?php
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
 
-      if (isset($_SESSION['prompt'])) {
-        showPrompt();
-      }
+        <div class="content-text">
+          <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
+        </div>
+        <hr>
+        <div class="content-profile">
+          <form method="post">
+
+            <div class="form-group row">
+              <?php
+              $query = "SELECT * FROM users WHERE UserId = " . $_SESSION['id'] . "";;
+              $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
+              if ($result = mysqli_query($con, $query)) {
+
+                $row = mysqli_fetch_assoc($result);
+                // echo "<div class='info' name='info'> <span>".$row['UserName']."</span></div>";
+              } else {
+
+                die("Error with the query in the database");
+              }
+              ?>
+              <input type="hidden" name="id" value="<?php echo $row['UserID'] ?>">
+              <label class="col-md-3" for="username">Tên đăng nhập: </label>
+              <input class="form-control col-md-3" name="username" placeholder="UserName" value='<?php if (!empty($row['UserName'])) echo $row['UserName']; ?>' readonly>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3" for="username">Fullname: </label>
+              <input class="form-control col-md-3" name="fullname" placeholder="Fullname" value='<?php if (!empty($row['FullName'])) echo $row['FullName']; ?>' readonly>
+            </div>
+            <div class="form-group row">
+              <label class="col-md-3" for="username">Email: </label>
+              <input class="form-control col-md-3" name="email" placeholder="Email" value='<?php if (!empty($row['Email'])) echo $row['Email']; ?>' readonly>
+            </div>
+            <?php
 
 
-      $query = "SELECT * FROM users WHERE username = '" . $_SESSION['username'] . "'";;
-      $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
-      if ($result = mysqli_query($con, $query)) {
+            // $query = "SELECT * FROM users WHERE username = '" . $_SESSION['username'] . "'";;
+            // $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
+            // if ($result = mysqli_query($con, $query)) {
 
-        $row = mysqli_fetch_assoc($result);
+            //   $row = mysqli_fetch_assoc($result);
 
-        echo "<div class='info'><strong>Username:</strong> <span>" . $row['UserName'] . "</span></div>";
-        echo "<div class='info'><strong>Full Name:</strong> <span>" . $row['FullName'] . "</span></div>";
-        echo "<div class='info'><strong>Email:</strong> <span>" . $row['Email'] . "</span></div>";
+            //   echo "<div class='info'><strong>Username:</strong> <span>" . $row['UserName'] . "</span></div>";
+            //   echo "<div class='info'><strong>Full Name:</strong> <span>" . $row['FullName'] . "</span></div>";
+            //   echo "<div class='info'><strong>Email:</strong> <span>" . $row['Email'] . "</span></div>";
 
-        //   $query_date = "SELECT DATE_FORMAT(date_joined, '%m/%d/%Y') FROM students WHERE id = '".$_SESSION['userid']."'";
-        //   $result = mysqli_query($conn, $query_date);
+            //   //   $query_date = "SELECT DATE_FORMAT(date_joined, '%m/%d/%Y') FROM students WHERE id = '".$_SESSION['userid']."'";
+            //   //   $result = mysqli_query($conn, $query_date);
 
-        //   $row = mysqli_fetch_row($result);
+            //   //   $row = mysqli_fetch_row($result);
 
-        //   echo "<div class='info'><strong>Date Joined:</strong> <span>".$row[0]."</span></div>";
+            //   //   echo "<div class='info'><strong>Date Joined:</strong> <span>".$row[0]."</span></div>";
 
-      } else {
+            // } else {
 
-        die("Error with the query in the database");
-      }
+            //   die("Error with the query in the database");
+            // }
 
-      ?>
-
-      <div class="options">
-        <a class="btn btn-primary" href="editprofile.php">Edit Profile</a>
-        <a class="btn btn-success" href="changepassword.php">Change Password</a>
+            ?><div class="options">
+              <a class="btn btn-primary" href="editprofile.php">Edit Profile</a>
+              <a class="btn btn-success" href="changepassword.php">Change Password</a>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
       </div>
+
+
 
 
     </div>
