@@ -2,7 +2,6 @@
 
 require_once 'Controller/FactoryPattern.php';
 $factory = new FactoryPattern();
-$Auth = $factory->make('auth');
 $profile = $factory->make('profile');
 
 $error = " ";
@@ -18,10 +17,9 @@ if (!empty($_POST['submit'])) {
     $id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
-    $username = $_POST['info'];
 
     if ($name != $user[0]['name'] || $email != $user[0]['email']) {
-        $profile->updateUsers($name, $email, $username);
+        $profile->updateUsers($name, $email, $id);
         echo '<script>alert("Cập nhật thành công!");window.location.href="../profile.php"</script>';
     }
     else {
