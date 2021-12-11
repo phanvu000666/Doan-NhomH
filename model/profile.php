@@ -2,9 +2,6 @@
 
 namespace SmartWeb;
 
-require_once 'db.php';
-require_once 'model.php';
-
 class Profile extends Model
 {
     private static Profile $_instance;
@@ -18,7 +15,7 @@ class Profile extends Model
 
     public function findUserById($id)
     {
-        return static::$_instance->db->select("SELECT * FROM users where UserID = $id");
+        return static::$_instance->db->notselect("SELECT * FROM users where UserID = $id");
     }
 
     public function updateUsers($fullname, $email, $id)

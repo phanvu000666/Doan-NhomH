@@ -47,7 +47,7 @@ class DBMYSQL extends DB
     public function notSelect($sql, $param = null)
     {
         $stmt = static::$con->prepare($sql);
-        return $stmt->execute();
+        return $stmt;
     }
     public function select($sql,  $param = null)
     {
