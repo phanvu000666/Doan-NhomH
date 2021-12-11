@@ -220,9 +220,12 @@ window.addEventListener('DOMContentLoaded', () => {
         formBodyUserModelInfo.removeChild(formBodyUserModelInfo.firstChild);
       }
       formBodyUserModelInfo.innerHTML = result.data;
+    } else {
+      alert(result?.message);
+      location.href = '/admin/user-management-page';
     }
   }
-
+  
   const update_user = document.querySelectorAll('.update_user');
   update_user.forEach(async (element) => {
     element.addEventListener('click', ({ target }) => {

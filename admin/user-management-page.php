@@ -1,6 +1,7 @@
 <?php
 
 use SmartWeb\Controller\UserController;
+use SmartWeb\Models\CSRFToken;
 
 $ds = DIRECTORY_SEPARATOR;
 $base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
@@ -26,7 +27,7 @@ if (isset($data)) {
         if (isset($data['UserID'])) {
             $id = $data['UserID'];
         } // dành cho trường hợp lấy update hoặc lấy để add.
-        
+
         echo json_encode($usercontrol->getFormUserInfo($id));
     } else if ($action == 'add') {
         unset($data['action']);
@@ -45,11 +46,9 @@ if (isset($data)) {
 
 if (isset($_POST['UserID'])) {
     $userID = $_POST['UserID'];
-
-    if ($usercontrol->deleteUserByID($userID) !== null) {
-        echo "User deleted";
-    } else {
-        echo "User not deleted";
+    $deletedata = $usercontrol->deleteUserByID($userID);
+    if ($deletedata[0] === null) {
+        echo "<script>alert('".$deletedata[1]."');location.href='/admin/user-management-page'</script>";
     }
 }
 

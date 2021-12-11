@@ -2,10 +2,14 @@
 
 namespace SmartWeb\Models;
 
+$ds = DIRECTORY_SEPARATOR;
+$base_dir = realpath(dirname(__FILE__)  . $ds . '..') . $ds;
 include_once("{$base_dir}include{$ds}function.php");
-class User
+
+class User extends Product
 {
 
+    // columns of table users.
     private $table_users = 'users';
     private $col_users_id = 'UserID';
     private $col_users_groupid = "GroupID";
@@ -14,18 +18,24 @@ class User
     private $col_users_password = "PassWord";
     private $col_users_email = "Email";
     private $col_users_version = "Version";
-
-
+    // columns of table groups.
     private $table_groups = 'groups';
     private $col_groups_id = 'GroupID';
     private $col_groups_name = 'GroupName';
 
+    // private model "User".
+    private static $user;
 
-    #[InjectConstructor(DB::class)]
-    public function __construct(protected DB $db)
+    // return the instance of "User".
+    public static function getInstance()
     {
-        $this->db =  $db;
+        if (self::$user !== null) {
+            return self::$user;
+        }
+        self::$user = new self(new DBPDO());
+        return self::$user;
     }
+
 
     /**
      * @param {Array} $input
@@ -34,13 +44,15 @@ class User
     public function updateUser($input)
     {
 
+        //  ============================================================ //
+
         // Kiểm tra giá trị truyền vào ($input).
         if (!is_array($input)) {
             return "Parameter is not array";
         }
 
         if (count($input) == 0) {
-            return "Input empty";
+            return "Parameter empty";
         }
 
         // bắt lỗi số lượng giá trị trong mảng. ok
@@ -59,6 +71,67 @@ class User
         ) {
             return "Key value is not match";
         }
+
+
+        // kiểm tra từng dữ liệu từ $input.
+        if (!is_numeric($input[$this->col_users_version])) {
+            return "Version is not numeric";
+        }
+        if (!is_numeric($input[$this->col_users_id])) {
+            return "UserID is not numeric";
+        }
+        if (!is_string($input[$this->col_users_fullname])) {
+            return "FullName is not string";
+        }
+        if (!is_string($input[$this->col_users_username])) {
+            return "UserName is not string";
+        }
+        if (!is_string($input[$this->col_users_password])) {
+            return "PassWord is not string";
+        }
+        if (!is_string($input[$this->col_users_email])) {
+            return "Email is not string";
+        }
+
+        // kiểm tra độ dài giá trị nhập vào.
+        if (strlen($input[$this->col_users_fullname]) < 6 || strlen($input[$this->col_users_fullname]) > 120) {
+            return "FullName must be between 6 and 120";
+        }
+        if (strlen($input[$this->col_users_username]) < 6 || strlen($input[$this->col_users_username]) > 120) {
+            return "UserName must be between 6 and 120";
+        }
+        if (strlen($input[$this->col_users_password]) < 6 || strlen($input[$this->col_users_password]) > 120) {
+            return "PassWord must be between 6 and 120";
+        }
+        if (strlen($input[$this->col_users_email]) < 6 || strlen($input[$this->col_users_email]) > 120) {
+            return "Email must be between 6 and 120";
+        }
+
+        // xác nhận email phù hợp.
+        if (!filter_var($input[$this->col_users_email], FILTER_VALIDATE_EMAIL)) {
+            return "Email is not valid";
+        }
+
+
+        // kiểm tra id nhập vào là số nguyên dương.
+        $checka = filter_var($input[$this->col_users_id], FILTER_VALIDATE_INT);
+        if (!($checka !== FALSE)) {
+            return "UserID must integer value";
+        }
+
+        // kiểm tra version nhập vào là số nguyên dương.
+        $checkb = filter_var($input[$this->col_users_version], FILTER_VALIDATE_INT);
+        if (!($checkb !== FALSE)) {
+            return "Version must integer value";
+        }
+
+        if (intval($input[$this->col_users_id]) < 1) {
+            return "UserID must greater than 0";
+        }
+        if (intval($input[$this->col_users_version]) < 1) {
+            return "Version must greater than 0";
+        }
+
         // lấy từ giá trị truyền vào ($input).
         $GroupID = null;
         $UserID = decryptionID($input[$this->col_users_id]);
@@ -68,48 +141,9 @@ class User
         $PassWord = $input[$this->col_users_password];
         $Email = $input[$this->col_users_email];
         $Version = $input[$this->col_users_version];
+        
 
-
-
-        // kiểm tra từng dữ liệu từ $input.
-        if (!is_numeric($Version)) {
-            return "Version is not numeric";
-        }
-        if (!is_numeric($UserID)) {
-            return "UserID is not numeric";
-        }
-        if (!is_string($FullName)) {
-            return "FullName is not string";
-        }
-        if (!is_string($UserName)) {
-            return "UserName is not string";
-        }
-        if (!is_string($PassWord)) {
-            return "PassWord is not string";
-        }
-        if (!is_string($Email)) {
-            return "Email is not string";
-        }
-
-        // kiểm tra độ dài giá trị nhập vào.
-        if (strlen($FullName) < 6 || strlen($FullName) > 120) {
-            return "FullName must be between 6 and 120";
-        }
-        if (strlen($UserName) < 6 || strlen($UserName) > 120) {
-            return "UserName must be between 6 and 120";
-        }
-        if (strlen($PassWord) < 6 || strlen($PassWord) > 120) {
-            return "PassWord must be between 6 and 120";
-        }
-        if (strlen($Email) < 6 || strlen($Email) > 120) {
-            return "Email must be between 6 and 120";
-        }
-
-        // xác nhận email phù hợp.
-        if (!filter_var($Email, FILTER_VALIDATE_EMAIL)) {
-            return "Email is not valid";
-        }
-
+        // lấy từ giá trị trong bảng users.
         $sql = "SELECT * FROM `$this->table_users` WHERE `$this->col_users_id` = $UserID;";
         $user_data_by_userid = $this->db->select($sql);
 
@@ -117,6 +151,7 @@ class User
         if (count($user_data_by_userid) <= 0) {
             return "UserID is not exist";
         }
+
         $current_version = $user_data_by_userid[0][$this->col_users_version];
         $Version = decryptionID($Version);
 
@@ -126,13 +161,16 @@ class User
 
         // kiểm tra email trùng với email cũ thì bỏ qua kiểm tra tồn tại Email và UserName.
         if ($user_data_by_userid[0][$this->col_users_email] !== $Email) {
+
             $sql = "SELECT * FROM `$this->table_users` WHERE `$this->col_users_email` = '$Email';";
             $user_data_by_email = $this->db->select($sql);
             if (count($user_data_by_email) > 0) {
                 return "Email is exist";
             }
         }
+       
         if ($user_data_by_userid[0][$this->col_users_username] !== $UserName) {
+
             $sql = "SELECT * FROM `$this->table_users` WHERE `$this->col_users_username` = '$UserName';";
             $user_data_by_username = $this->db->select($sql);
             if (count($user_data_by_username) > 0) {
@@ -180,10 +218,7 @@ class User
             if ($GroupID == null) {
                 return "Group not found";
             }
-        } else {
-            // nếu không phải là một mảng.
-            return "Group Name is not accord";
-        }
+        } 
 
         // tạo câu truy vấn.
         $sql =
@@ -198,13 +233,13 @@ class User
 
         // tạo data chỉnh một người dùng.
         $data = [];
-        $data[$this->col_users_id] = $UserID;
-        $data[$this->col_users_groupid] = $GroupID;
-        $data[$this->col_users_fullname] = $FullName;
-        $data[$this->col_users_username] = $UserName;
-        $data[$this->col_users_password] = md5($PassWord);
-        $data[$this->col_users_email] = $Email;
-        $data[$this->col_users_version] = $Version + 1;
+        $data[$this->col_users_id] = htmlspecialchars($UserID);
+        $data[$this->col_users_groupid] = htmlspecialchars($GroupID);
+        $data[$this->col_users_fullname] = htmlspecialchars($FullName);
+        $data[$this->col_users_username] = htmlspecialchars($UserName);
+        $data[$this->col_users_password] =  md5($PassWord);
+        $data[$this->col_users_email] = htmlspecialchars($Email);
+        $data[$this->col_users_version] = htmlspecialchars($Version + 1);
 
         $result =  $this->db->notSelect($sql, $data);
 
@@ -217,6 +252,7 @@ class User
      */
     public function addUser($input)
     {
+        //  ============================================================ //
 
         // Kiểm tra giá trị truyền vào ($input).
         if (!is_array($input)) {
@@ -224,7 +260,7 @@ class User
         }
 
         if (count($input) == 0) {
-            return "Input empty";
+            return "Parameter empty";
         }
 
         // bắt lỗi số lượng giá trị trong mảng. ok
@@ -347,12 +383,12 @@ class User
 
         // tạo data thêm một người dùng.
         $data = [];
-        $data[$this->col_users_groupid] = $GroupID;
-        $data[$this->col_users_fullname] = $FullName;
-        $data[$this->col_users_username] = $UserName;
+        $data[$this->col_users_groupid] = htmlspecialchars($GroupID);
+        $data[$this->col_users_fullname] = htmlspecialchars($FullName);
+        $data[$this->col_users_username] = htmlspecialchars($UserName);
         $data[$this->col_users_password] = md5($PassWord);
-        $data[$this->col_users_email] = $Email;
-        $data[$this->col_users_version] = $Version;
+        $data[$this->col_users_email] = htmlspecialchars($Email);
+        $data[$this->col_users_version] = htmlspecialchars($Version);
 
         $result =  $this->db->notSelect($sql, $data);
 
@@ -372,7 +408,6 @@ class User
         if (!is_array($data)) {
             $data = [];
         }
-
         $result =
             <<< Gryphon
             <thead>
@@ -459,7 +494,7 @@ class User
                     <div class="alert" role="alert" id="alertWarningUserModelInfo"></div>
                 Gryphon;
 
-            return $result;
+            return [$result];
         }
 
         // kiểm tra số lượng phần tử trong mảng ($input).
@@ -482,15 +517,29 @@ class User
             return "ID is not number";
         }
 
+        // kiểm tra id nhập vào là số nguyên dương.
+        $check = filter_var($input[$this->col_users_id], FILTER_VALIDATE_INT);
+        if (!($check !== FALSE)) {
+            return "Id must integer value";
+        }
+
         // giải mã id.
         $id = decryptionID($input[$this->col_users_id]);
+
+        if (!is_numeric($id)) {
+            return "Wrong ID";
+        }
+
+
+
+
         $sql = "SELECT * FROM `$this->table_users` JOIN `$this->table_groups`
         ON `$this->table_groups`.`$this->col_groups_id` = `$this->table_users`.`$this->col_groups_id`
         WHERE `$this->col_users_id` = $id;";
         $data = $this->db->select($sql);
 
         if (count($data) === 0) {
-            return null;
+            return "User not found";
         }
 
         $GroupID = $data[0][$this->col_users_groupid];
@@ -527,25 +576,30 @@ class User
      * @todo: Xóa một người dùng.
      * @return string
      */
-    public function deleteUser($id)
+    public function deleteUser($id = null)
     {
 
+
         if (!is_numeric($id)) {
-            return "Id must be numeric";
+            return [null, "Id must be numeric"];
         }
 
         // kiểm tra id nhập vào là số nguyên dương.
         $check = filter_var($id, FILTER_VALIDATE_INT);
         if (!($check !== FALSE)) {
-            return "Id must integer value";
+            return [null, "Id must integer value"];
         }
 
         // kiểm tra id nhập vào là số nguyên dương.
         if ($id < 0) {
-            return "Id value is negative";
+            return [null, "Id value is negative"];
         }
 
         $id = decryptionID($id);
+
+        if (!is_numeric($id)) {
+            return [null, "Wrong ID"];
+        }
 
         // giải mã id.
         $sql = "SELECT * FROM `$this->table_users` JOIN `$this->table_groups`
@@ -554,13 +608,14 @@ class User
         $data = $this->db->select($sql);
 
         if (count($data) === 0) {
-            return null;
+            return [null, "User not found"];
         }
+
         $sql = "DELETE FROM `$this->table_users` WHERE `$this->col_users_id` = :$this->col_users_id";
 
         $result =  $this->db->notSelect($sql, [$this->col_users_id => $id]);
 
-        return $result;
+        return [$result];
     }
 
     /**
@@ -569,14 +624,25 @@ class User
      */
     public function getGroups($selected = 0)
     {
+
+        if (!is_numeric($selected)) {
+            return "Selected must be numeric";
+        }
+
         $sql = "SELECT * FROM `$this->table_groups`;";
         $data = $this->db->select($sql);
+
+        if (count($data) === 0) {
+            return "No group data";
+        }
 
         $result =
             <<< Gryphon
             <label for="SelectGroupName">Group name</label>
             <select name="GroupName" id="SelectGroupName" class="form-control">    
             Gryphon;
+
+
         if (count($data) > 0) {
             for ($i = 0; $i < count($data); $i++) {
                 $encode_group_id = encodeID($data[$i]['GroupID']);
@@ -594,12 +660,22 @@ class User
                 }
             }
         }
-
         $result .=
             <<< Gryphon
             </select>
             Gryphon;
 
+
         return $result;
+    }
+
+    public function startTransaction()
+    {
+        $this->db->getConnect()->beginTransaction();
+    }
+
+    public function rollBack()
+    {
+        $this->db->getConnect()->rollback();
     }
 }

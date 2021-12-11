@@ -19,6 +19,7 @@ class UserController
         $this->user = $assembler->getComponent(User::class);
     }
 
+
     public function updateUser($user)
     {
         $data = $this->user->updateUser($user);
@@ -84,15 +85,10 @@ class UserController
     public function deleteUserByID($id)
     {
         $data = $this->user->deleteUser($id);
-        if ($data === true) {
+        if ($data[0] !== null) {
             return header("Location: /admin/user-management-page");
-        } else if ($data === null) {
-            return [
-                'success' => false,
-                'message' => 'Error deleting user'
-            ];
-        }
-        return null;
+        } 
+        return $data;
     }
 
     public function getFormUserInfo($id)
