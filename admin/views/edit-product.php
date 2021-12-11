@@ -32,6 +32,7 @@
                 <form action="" id="fproduct" enctype="multipart/form-data">
                     <input type="text" name="ProductID" id="ProductID" hidden>
                     <input type="text" name="Version" id="Version" hidden>
+                    <input type="text" name="Hash" id="Hash" hidden>
                     <p>
                         <label for="ProductName">
                             Name product
@@ -211,6 +212,7 @@
         $("#CategoryID").val(values.CategoryID);
         $("#ManufacturerID").val(values.ManufacturerID);
         $("#Version").val(values.Version);
+        $("#Hash").val(values.Hash);
     }
 
     function editProduct(ProductID) {

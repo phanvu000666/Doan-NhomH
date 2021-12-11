@@ -61,10 +61,10 @@ class ProductRepository
         }
 
         //delte product.
-        $params['ProductID'] = $ProductID;
-        self::$product->delete($params);
+        
+        self::$product->delete((int)$ProductID);
         //delete property.
-        self::$property->delete($params);
+        self::$property->delete((int)$ProductID);
     }
 
     public static function update($params)
@@ -82,12 +82,13 @@ class ProductRepository
         $is_finished = false;
         if (is_array($params)) {
 
-
+            var_dump($params);
             //add product.
             $paramsproduct['ProductName'] = htmlentities($params['ProductName']);
             $paramsproduct['ManufacturerID']  = (int) htmlentities($params['ManufacturerID']);
             $paramsproduct['CategoryID'] = (int)htmlentities($params['CategoryID']);
             $paramsproduct['ProductID'] = (int)htmlentities($params['ProductID']);
+            $paramsproduct['Hash'] = htmlentities($params['Hash']);
 
             $is_finished =  static::$product->update($paramsproduct);
             if ($is_finished) {

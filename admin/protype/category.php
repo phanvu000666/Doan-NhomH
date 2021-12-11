@@ -1,7 +1,6 @@
 <?php
 
 namespace SmartWeb\Models;
-
 class Category extends Product
 {
     private static Category $phone;

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 use SmartWeb\Controller\ManufactureController;
 use SmartWeb\Controller\ProductController;
 use SmartWeb\Controller\CategoryController;
