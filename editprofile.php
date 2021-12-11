@@ -70,9 +70,6 @@ if (!empty($_POST['submit'])) {
       <div class="col-md-3"></div>
       <div class="col-md-6">
 
-        <div class="content-text">
-          <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
-        </div>
         <hr>
         <div class="content-profile">
           <form method="post">
