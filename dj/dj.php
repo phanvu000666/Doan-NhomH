@@ -9,6 +9,7 @@ include("{$base_dir}model{$ds}phone.php");
 include("{$base_dir}model{$ds}properties.php");
 include("{$base_dir}model{$ds}category.php");
 include("{$base_dir}model{$ds}manufacture.php");
+include("{$base_dir}model{$ds}profile.php");
 
 class ObjectAssembler
 {

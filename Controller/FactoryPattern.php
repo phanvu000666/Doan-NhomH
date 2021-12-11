@@ -6,11 +6,13 @@ require "./model/manufacture.php";
 require "./model/category.php";
 require "./model/banner.php";
 require "Component.php";
+require "./model/profile.php";
 
 use SmartWeb\Phone;
 use SmartWeb\Manufacture;
 use SmartWeb\Category;
 use SmartWeb\Banner;
+use SmartWeb\Profile;
 
 class FactoryPattern
 {
@@ -28,6 +30,8 @@ class FactoryPattern
             return Banner::getInstance();
         } else if ($model == 'order') {
             return Order::getInstance();
+        } else if ($model == 'profile') {
+            return Profile::getInstance();
         } else {
             return null;
         }

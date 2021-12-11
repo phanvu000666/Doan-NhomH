@@ -1,70 +1,18 @@
 <?php 
 
-function clean($data) {
-  $data = trim($data);
-  $data = stripslashes($data);
+require_once 'Controller/FactoryPattern.php';
+$factory = new FactoryPattern();
+$Auth = $factory->make('auth');
+$profile = $factory->make('profile');
 
-  return $data;
+$error = " ";
+
+$user = null;
+$_id = null;
+if (!empty($_GET['id'])) {
+    $_id = $_GET['id'];
+    $user = $profile->findUserById($_id);
 }
-
-function showPrompt() {
-  echo "<div class='alert alert-success'>".$_SESSION['prompt']."</div>";
-}
-
-function showError() {
-  echo "<div class='alert alert-danger'>".$_SESSION['errprompt']."</div>";
-}
-
-  require_once 'Controller/FactoryPattern.php';
-  $factory = new FactoryPattern();
-  $Auth = $factory->make('auth');
-  
-  $error = " ";
-
-  $con = new mysqli(SEVERNAME, USERNAME, PASSWORD, DATABASE, PORT);
-  if(isset($_POST['update'])) {
-
-    $oldpass = clean($_POST['oldpass']);
-    $newpass = clean($_POST['newpass']);
-    $confirmpass = clean($_POST['confirmpass']);
-
-    $query = "SELECT password FROM users WHERE password = '$oldpass'";
-    $result = mysqli_query($con, $query);
-
-    if(mysqli_num_rows($result) > 0) {
-
-      if($newpass == $confirmpass) {
-
-        $query = "UPDATE users SET password = '$newpass' WHERE userid='".$_SESSION['id']."'";
-
-        if($result = mysqli_query($con, $query)) {
-
-          $_SESSION['prompt'] = "Password updated.";
-          $_SESSION['password'] = $newpass;
-          header("location:profile.php");
-          exit;
-
-        } else {
-
-          die("Error with the query");
-
-        }
-
-      } else {
-
-        $_SESSION['errprompt'] = "The new passwords you entered doesn't match.";;
-
-      }
-
-    } else {
-
-      $_SESSION['errprompt'] = "You've entered a wrong old password.";
-
-    }
-
-  }
-
-  // if(isset($_SESSION['username'], $_SESSION['password'])) {
 
 ?>
 <!DOCTYPE html>
@@ -107,41 +55,57 @@ function showError() {
 </div>
     
 
-    <div class="edit-form box-left clearfix">
+<div class="content row">
 
-      <?php 
-        if(isset($_SESSION['errprompt'])) {
-          showError();
-        }
-      ?>
-
-      <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
-
-
-        <div class="form-group">
-          <label for="oldpass">Old Password</label>
-          <input type="password" class="form-control" name="oldpass" placeholder="Old Password" required>
+<div class="col-md-3"></div>
+<div class="col-md-6">
+    <?php if ($user || !isset($_id)) { ?>
+        <div class="content-text">
+            <p>Quản lý thông tin hồ sơ để bảo mật tài khoản</p>
         </div>
-
-
-        <div class="form-group">
-          <label for="newpass">New Password</label>
-          <input type="password" class="form-control" name="newpass" placeholder="New Password" required>
+        <hr>
+        <div class="content-profile">
+            <form method="post">
+                <input type="hidden" name="id" value="<?php echo $_id ?>">
+                
+                <div class="form-group row">
+                    
+                    <div id="popup1" class="overlay">
+                        <div class="popup">
+                            <h3>Đổi mật khẩu</h3>
+                            <a href="#" class="close">&times;</a>
+                            <div class="ct-txt">
+                                <div class="form-group">
+                                    <label class="passOld" for="passwordOld">Password cũ: </label>
+                                    <input type="password" name="passwordOld" placeholder="Password cũ">
+                                </div>
+                                <div class="form-group">
+                                    <label class="passNew" for="">Password mới: </label>
+                                    <input type="password" name="passwordNew1" placeholder="Password mới">
+                                </div>
+                                <div class="form-group">
+                                    <label class="passNew2" for="">Xác nhận password: </label>
+                                    <input type="password" name="passwordNew2" placeholder="Xác nhận password">
+                                </div>
+                                <input type="submit" name= "doiMatKhau" value="Thay đổi" class="btn btn-primary change" >
+                                <input type="button" value="Quay lại" class="btn btn-primary logout" onclick="document.location='profile.php'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </form>
         </div>
-
-        <div class="form-group">
-          <label for="confirmpass">Confirm Password</label>
-          <input type="password" class="form-control" name="confirmpass" placeholder="Confirm Password" required>
+    <?php } else { ?>
+        <div class="alert">
+            <script>
+                alert('User not found!');
+            </script>
         </div>
-
-        <div class="form-footer">
-          <a href="profile.php">Go back</a>
-          <input class="btn btn-primary" type="submit" name="update" value="Update Password">
-        </div>
-        
-
-      </form>
-    </div>
+    <?php } ?>
+</div>
+<div class="col-md-3"></div>
+</div>
 
   </section>
 
@@ -159,6 +123,6 @@ function showError() {
   // }
 
   // unset($_SESSION['errprompt']);
-  mysqli_close($con);
+  // mysqli_close($con);
   include_once("view/footer.php");
 ?>
