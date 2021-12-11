@@ -1,17 +1,18 @@
 <?php
 
 namespace SmartWeb\Models;
-
+use SmartWeb\Models\DBPDO;
+use SmartWeb\Models\CSRFToken;
 class Manufacture extends Product
 {
     private static Manufacture $manu;
 
     public static function getInstance()
     {
-        if (empty($manu)) {
-            self::$manu = new self(self::$db);
+        if (empty(static::$manu)) {
+            static::$manu = new self(new DBPDO());
         }
-        return self::$manu;
+        return static::$manu;
     }
 
     public function getManu()
@@ -38,10 +39,18 @@ class Manufacture extends Product
 
     public function insert(array $param)
     {
-        $sql = "INSERT INTO manufacturers(ManufacturerName) 
-        VALUES(:ManufacturerName)";
+        // $sql = "INSERT INTO manufacturers(ManufacturerName) 
+        // VALUES(:ManufacturerName)";
 
-        $is_finished =  $this->db->notSelect($sql, $param);
+        // $is_finished =  $this->db->notSelect($sql, $param);
+        // return $is_finished;
+        
+        $is_finished = false;
+        if (is_array($param) && count($param) == 1) {
+            $sql = "INSERT INTO manufacturers(ManufacturerName) 
+            VALUES(:ManufacturerName)";
+            $is_finished =  $this->db->notSelect($sql, $param);
+        }
         return $is_finished;
     }
 
@@ -86,5 +95,14 @@ class Manufacture extends Product
         $params = ['ManufacturerID' => $param];
         $is_finished =  $this->db->notSelect($sql, $params);
         return $is_finished;
+    }
+    public function startTransaction()
+    {
+        $this->db->getConnect()->beginTransaction();
+    }
+
+    public function rollBack()
+    {
+        $this->db->getConnect()->rollback();
     }
 }
