@@ -1,7 +1,8 @@
 <?php
 
 namespace SmartWeb\Models;
-
+use SmartWeb\Models\CSRFToken;
+include "CSRFToken.php";
 class Category extends Product
 {
     private static Category $phone;
@@ -29,12 +30,13 @@ class Category extends Product
 
     public function getOne($id)
     {
-        $is_finished = false;
+       
         if (is_int($id)) {
             $sql = "SELECT * FROM $this->tbl_cate WHERE $this->CategoryID = $id";
             $is_finished =  $this->db->select($sql);
+            $is_finished[0]["Hash"] = $_SESSION["Hash"] = CSRFToken::GenerateToken(); 
         }
-        return $is_finished;
+        return $is_finished ?? null;
     }
 
     public function deleteOne($id)
@@ -46,6 +48,7 @@ class Category extends Product
 
     public function updateOne($input)
     {
+        // var_dump($_POST);
         $is_finished = false;
         if (is_array($input) && isset($_SESSION["Hash"]) && CSRFToken::CompareTokens($input["Hash"], $_SESSION["Hash"])) {
             if (
@@ -82,7 +85,8 @@ class Category extends Product
     public function insertOne($input)
     {
         $is_finished = false;
-        if (is_array($input) && count($input) === 2) {
+        
+        if (is_array($input) && count($input) >= 2) {
 
             if (
                 isset($input[$this->CategoryName]) &&

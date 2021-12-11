@@ -113,7 +113,7 @@ class CategoryTest extends TestCase
         $category = new Category(new DBPDO());
         $params = $category;
         $category->startTransaction();
-        $actual = $category->insertOne((array)$params);
+        $actual = $category->insertOne($params);
         if (!$actual) {
             $this->assertTrue(true);
         }
