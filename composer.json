@@ -3,6 +3,7 @@
         "classmap": [
             "admin/protype/",
             "model/"
+
         ]
     },
     "require-dev":{

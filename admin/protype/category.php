@@ -1,8 +1,10 @@
 <?php
 
 namespace SmartWeb\Models;
+
 use SmartWeb\Models\CSRFToken;
-include "CSRFToken.php";
+
+
 class Category extends Product
 {
     private static Category $phone;

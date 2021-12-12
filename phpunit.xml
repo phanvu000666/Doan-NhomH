@@ -9,6 +9,12 @@ cacheResult ="false"
 <testsuite name="SqlWsContractImport">
 <file>./test/CategoryTest.php</file>
 <file>./tests/testProfile.php</file>
+<file>
+				./Tests/propertiesTest.php
+			</file>
+			<file>
+				./Tests/phoneTest.php
+			</file>
 <!-- <file>./Tests/UserModelTests.php</file> -->
 <!-- <file>./Tests/UserModelTest.php</file> -->
 <!-- <file>./Tests/LaiSuatTest.php</file>

@@ -44,8 +44,8 @@ class ProductController
         </thead> <!-- End Cart Table Head -->
         <tbody>
         Gryphon;
-        foreach ($result as $key => $value) {
 
+        foreach ($result as $key => $value) {
             $encode = encodeID($value['ProductID']);
             $body_table .= <<< Gryphon
             <tr class="single-product" data-prid={$encode}>
@@ -89,7 +89,7 @@ class ProductController
 
     public function delete()
     {
-        if (isset($_GET) && !empty($_GET['ProductID'])) {
+        if (isset($_GET) && isset($_GET["ProductID"]) && !empty($_GET['ProductID'])) {
             #check current page.
             $currentPage = 'index.php';
             if ($currentPage !== htmlentities(basename($_SERVER['PHP_SELF']))) {
@@ -128,7 +128,13 @@ class ProductController
                 $root = $_SERVER['DOCUMENT_ROOT'];
                 $path = "{$root}{$ds}pictures{$ds}Upload{$ds}";
                 $file = new Upload($path);
-                $file->upload("ImageUrl");
+                $file->upload("ImageUrl", 10000000);
+                if ($file->getNewName() == '' || empty($file->getNewName())) {
+                    return false;
+                }
+                $_POST["ImageUrl"] = $file->getNewName();
+            } else {
+                return false;
             }
             ProductRepository::insert($_POST);
         }
@@ -138,6 +144,7 @@ class ProductController
     {
         if (isset($_POST['ProductID']) && !empty($_POST['ProductID']) && count($_POST) == 1) {
             $id = decryptionID($_POST['ProductID']);
+            $id = (int) $id;
             $product = $this->phone->getProductID($id)[0];
             echo json_encode($product);
             exit;
@@ -157,17 +164,19 @@ class ProductController
             require  "{$base_dir}include{$ds}processform.php";
 
             $product = ProductRepository::getProduct();
-            $version  = $product->getVersion($_POST['ProductID']);
+            $version  = $product->getVersion((int)$_POST['ProductID']);
 
-            if ($version['Version'] === $_POST['Version']) {
-                var_dump("hien tai o day");
-                if ($_FILES &&  !empty($_FILES['ImageUrl'])) {
+            if ($version['Version'] === $_POST['Version'] ) {
+                if ($_FILES &&  !empty($_FILES['ImageUrl'])  && !empty($_FILES['ImageUrl']['name'])) {
                     $root = $_SERVER['DOCUMENT_ROOT'];
                     $path = "{$root}{$ds}pictures{$ds}Upload{$ds}";
                     $file = new Upload($path);
                     $file->upload("ImageUrl");
+                    if ($file->getNewName() == '' || empty($file->getNewName())) {
+                        return false;
+                    }
+                    $_POST["ImageUrl"] = $file->getNewName();
                 }
-
                 $is_update  = ProductRepository::update($_POST);
             }
         }
