@@ -139,51 +139,51 @@ class ManufacturerTest extends TestCase
         }
         $manu->rollback();
     }
-// // OK! Rủi ro!
-    // public function testInsertManuNameSQLInjection()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     //data.
-    //     $manu_name = "ROG 5";
-    //     //array.
-    //     $params = ["ManufacturerName" => $manu_name];
-    //     $manu->startTransaction();
-    //     $actual = $manu->insert((array)$params);
-    //     if ($actual) {
-    //         $this->assertTrue(false);
-    //     }
-    //     $manu->rollback();
-    // }
-    // public function testInsertManuNameXSS()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     //data.
-    //     $manu_name = "ROG 5";
-    //     //array.
-    //     $params = ["ManufacturerName" => $manu_name];
+// OK! Rủi ro!
+    public function testInsertManuNameSQLInjection()
+    {
+        $manu = new Manufacture(new DBPDO());
+        //data.
+        $manu_name = "ROG 5";
+        //array.
+        $params = ["ManufacturerName" => $manu_name];
+        $manu->startTransaction();
+        $actual = $manu->insert((array)$params);
+        if ($actual) {
+            $this->assertTrue(false);
+        }
+        $manu->rollback();
+    }
+    public function testInsertManuNameXSS()
+    {
+        $manu = new Manufacture(new DBPDO());
+        //data.
+        $manu_name = "ROG 5";
+        //array.
+        $params = ["ManufacturerName" => $manu_name];
 
-    //     $manu->startTransaction();
-    //     $actual = $manu->insert((array)$params);
-    //     if ($actual) {
-    //         $this->assertTrue(true);
-    //     }
-    //     $manu->rollback();
-    // }
-    // public function testInsertManuNameCSRF()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     //data.
-    //     $manu_name = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
-    //     //array.
-    //     $params = ["ManufacturerName" => htmlentities($manu_name)];
+        $manu->startTransaction();
+        $actual = $manu->insert((array)$params);
+        if ($actual) {
+            $this->assertTrue(true);
+        }
+        $manu->rollback();
+    }
+    public function testInsertManuNameCSRF()
+    {
+        $manu = new Manufacture(new DBPDO());
+        //data.
+        $manu_name = "<a href=\"https://www.youtube.com/watch?v=eg91DX0f4z4\">NHấn vào đây để nhận được tiền từ từ thiện</a>";
+        //array.
+        $params = ["ManufacturerName" => htmlentities($manu_name)];
 
-    //     $manu->startTransaction();
-    //     $actual = $manu->insert((array)$params);
-    //     if ($actual) {
-    //         $this->assertTrue(true);
-    //     }
-    //     $manu->rollback();
-    // }
+        $manu->startTransaction();
+        $actual = $manu->insert((array)$params);
+        if ($actual) {
+            $this->assertTrue(true);
+        }
+        $manu->rollback();
+    }
 
     public function testGetManufacturerIdOK()
     {
@@ -260,18 +260,18 @@ class ManufacturerTest extends TestCase
         }
     }
 // rollback() chưa trả về giá trị cũ.
-    // public function testDeleteManuOK()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     $manu_id = '14';
-    //     $params = ["ManufacturerID" => $manu_id];
-    //     $expected = true;
-    //     $manu->startTransaction();
-    //     $actual = $manu->delete($params);
-    //     // var_dump($actual);
-    //     $this->assertEquals($expected, $actual);
-    //     $manu->rollback();
-    // }
+    public function testDeleteManuOK()
+    {
+        $manu = new Manufacture(new DBPDO());
+        $manu_id = '14';
+        $params = ["ManufacturerID" => $manu_id];
+        $expected = true;
+        $manu->startTransaction();
+        $actual = $manu->delete($params);
+        // var_dump($actual);
+        $this->assertEquals($expected, $actual);
+        $manu->rollback();
+    }
     public function testDeleteManuNG()
     {
         $manu = new Manufacture(new DBPDO());
@@ -504,54 +504,54 @@ class ManufacturerTest extends TestCase
         }
         $manu->rollback();
     }
-//Lỗi
-    // public function testUpdateVersionIDDOROK()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     //data.
-    //     $manu_name = "CC";
-    //     $manu_id = 17;
-    //     $version = 2;
-    //     $token =  CSRFToken::GenerateToken();
-    //     $_SESSION['Hash'] = $token;
-    //     //array.
-    //     $params = ["ManufacturerName" => $manu_name,"Version" => $version,"ManufacturerID" => $manu_id, "Hash" => $token];
+// Lỗi
+    public function testUpdateVersionIDDOROK()
+    {
+        $manu = new Manufacture(new DBPDO());
+        //data.
+        $manu_name = "CC";
+        $manu_id = 17;
+        $version = 2;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
+        //array.
+        $params = ["ManufacturerName" => $manu_name,"Version" => $version,"ManufacturerID" => $manu_id, "Hash" => $token];
 
-    //     $manu->startTransaction();
-    //     $ver = $manu->getVersion($params['ManufacturerID']);
-    //     // var_dump($ver['Version']);
-    //     if ($ver[0]['Version'] == $version) {
-    //         $actual = $manu->update($params);
-    //         $manu->setVersion($params['ManufacturerID']);
-    //     }
-    //     if ($actual) {
-    //         $this->assertTrue(true);
-    //     }
-    //     $manu->rollback();
-    // }
-//Rủi ro
-    // public function testUpdateVersionIDDORNG()
-    // {
-    //    $manu = new Manufacture(new DBPDO());
-    //     //data.
-    //     $manu_name = "CC";
-    //     $manu_id = 17;
-    //     $version = 3;
-    //     $token =  CSRFToken::GenerateToken();
-    //     $_SESSION['Hash'] = $token;
-    //     //array.
-    //     $params = ["ManufacturerName" => $manu_name,"Version" => $version,"ManufacturerID" => $manu_id, "Hash" => $token];
-    //     (string)$expected = "Khong the update";
-    //     (string)$actual = "";
+        $manu->startTransaction();
+        $ver = $manu->getVersion($params['ManufacturerID']);
+        // var_dump($ver['Version']);
+        if ($ver[0]['Version'] == $version) {
+            $actual = $manu->update($params);
+            $manu->setVersion($params['ManufacturerID']);
+        }
+        if ($actual) {
+            $this->assertTrue(true);
+        }
+        $manu->rollback();
+    }
+// Rủi ro
+    public function testUpdateVersionIDDORNG()
+    {
+       $manu = new Manufacture(new DBPDO());
+        //data.
+        $manu_name = "CC";
+        $manu_id = 17;
+        $version = 3;
+        $token =  CSRFToken::GenerateToken();
+        $_SESSION['Hash'] = $token;
+        //array.
+        $params = ["ManufacturerName" => $manu_name,"Version" => $version,"ManufacturerID" => $manu_id, "Hash" => $token];
+        (string)$expected = "Khong the update";
+        (string)$actual = "";
 
-    //     $ver = $manu->getVersion($params['ManufacturerID']);
-    //     // var_dump($ver['Version']);
-    //     if ($ver[0]['Version'] != $version) {
-    //         $actual = "Khong the update";
-    //         $this->assertEquals($expected, $actual);
-    //     }
+        $ver = $manu->getVersion($params['ManufacturerID']);
+        // var_dump($ver['Version']);
+        if ($ver[0]['Version'] != $version) {
+            $actual = "Khong the update";
+            $this->assertEquals($expected, $actual);
+        }
        
-    // }
+    }
     public function testUpdateCSRF()
     {
         $manu = new Manufacture(new DBPDO());
@@ -599,17 +599,17 @@ class ManufacturerTest extends TestCase
         // var_dump($actual['Version']);
         $this->assertEquals($excVer, $actual[0]['Version']);
     }
-//Rủi ro
-    // public function testGetVersionIsString()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     $manu_id = "14";
-    //     $excVer = 0;
-    //     $actual = $manu->getVersion($manu_id);
-    //     if (empty($actual)) {
-    //         $this->assertTrue(true);
-    //     }
-    // }
+// Rủi ro
+    public function testGetVersionIsString()
+    {
+        $manu = new Manufacture(new DBPDO());
+        $manu_id = "14";
+        $excVer = 0;
+        $actual = $manu->getVersion($manu_id);
+        if (empty($actual)) {
+            $this->assertTrue(true);
+        }
+    }
     public function testGetVersionIsInt()
     {
         $manu = new Manufacture(new DBPDO());
@@ -657,76 +657,76 @@ class ManufacturerTest extends TestCase
             $this->assertTrue(true);
         }
     }
-//Lỗi hàm SetVersion();
-    // public function testSetVersionOK()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     $id = 11;
-    //     $exc = 11;
-    //     $manu->startTransaction();
-    //     $update = $manu->setVersion($id);
-    //     $act = $manu->getVersion($id);
-    //     $this->assertEquals($exc, $act[0]['Version']);
-    //     $manu->rollback();
-    // }
-    // public function testSetVersionIsString()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     $params = "wcsdvs";
-    //     $manu->startTransaction();
-    //     $actual = $manu->setVersion($params);
-    //     if (!$actual) {
-    //         $this->assertTrue(true);
-    //     } else {
-    //         $this->assertTrue(false);
-    //     }
-    //     $manu->rollback();
-    // }
-    // public function testSetVersionIsInt()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     $params = 123;
-    //     $banner->startTransaction();
-    //     $actual = $banner->setVersion($params);
-    //     if ($actual) {
-    //         $this->assertTrue(true);
-    //     } else {
-    //         $this->assertTrue(false);
-    //     }
-    //     $banner->rollback();
-    // }
-    // public function testSetVersionIsObject()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     $params = $banner;
-    //     $banner->startTransaction();
-    //     $actual = $banner->setVersion($params);
-    //     if (!$actual) {
-    //         $this->assertTrue(true);
-    //     }
-    //     $banner->rollback();
-    // }
-    // public function testSetVersionIsNull()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     $params = NULL;
+// Lỗi hàm SetVersion();
+    public function testSetVersionOK()
+    {
+        $manu = new Manufacture(new DBPDO());
+        $id = 11;
+        $exc = 11;
+        $manu->startTransaction();
+        $update = $manu->setVersion($id);
+        $act = $manu->getVersion($id);
+        $this->assertEquals($exc, $act[0]['Version']);
+        $manu->rollback();
+    }
+    public function testSetVersionIsString()
+    {
+        $manu = new Manufacture(new DBPDO());
+        $params = "wcsdvs";
+        $manu->startTransaction();
+        $actual = $manu->setVersion($params);
+        if (!$actual) {
+            $this->assertTrue(true);
+        } else {
+            $this->assertTrue(false);
+        }
+        $manu->rollback();
+    }
+    public function testSetVersionIsInt()
+    {
+        $manu = new Manufacture(new DBPDO());
+        $params = 123;
+        $banner->startTransaction();
+        $actual = $banner->setVersion($params);
+        if ($actual) {
+            $this->assertTrue(true);
+        } else {
+            $this->assertTrue(false);
+        }
+        $banner->rollback();
+    }
+    public function testSetVersionIsObject()
+    {
+        $manu = new Manufacture(new DBPDO());
+        $params = $banner;
+        $banner->startTransaction();
+        $actual = $banner->setVersion($params);
+        if (!$actual) {
+            $this->assertTrue(true);
+        }
+        $banner->rollback();
+    }
+    public function testSetVersionIsNull()
+    {
+        $manu = new Manufacture(new DBPDO());
+        $params = NULL;
 
-    //     $banner->startTransaction();
-    //     $actual = $banner->setVersion($params);
-    //     if (!$actual) {
-    //         $this->assertTrue(true);
-    //     }
-    //     $banner->rollback();
-    // }
-    // public function testSetVersionIsEmpty()
-    // {
-    //     $manu = new Manufacture(new DBPDO());
-    //     $params = "";
-    //     $banner->startTransaction();
-    //     $actual = $banner->setVersion($params);
-    //     if (!$actual) {
-    //         $this->assertTrue(true);
-    //     }
-    //     $banner->rollback();
-    // }
+        $banner->startTransaction();
+        $actual = $banner->setVersion($params);
+        if (!$actual) {
+            $this->assertTrue(true);
+        }
+        $banner->rollback();
+    }
+    public function testSetVersionIsEmpty()
+    {
+        $manu = new Manufacture(new DBPDO());
+        $params = "";
+        $banner->startTransaction();
+        $actual = $banner->setVersion($params);
+        if (!$actual) {
+            $this->assertTrue(true);
+        }
+        $banner->rollback();
+    }
 }
