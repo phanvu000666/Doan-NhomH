@@ -21,13 +21,14 @@ $phonecontrol = new ProductController($conf);
 $manucontrol = new ManufactureController($conf);
 $catecontrol = new CategoryController($conf);
 
-$phonecontrol->insert();
-$phonecontrol->update();
-$phonecontrol->delete();
-$phonecontrol->send_data_from();
+$manucontrol->insert();
+$manucontrol->send_data_from();
+$manucontrol->update();
+$manucontrol->delete();
+
 $result = "";
 if (isset($_POST['key']) && $_POST['key'] === "content") {
-    $result =  $phonecontrol->display_products();
+    $result =  $manucontrol->display_manus();
     exit($result);
 }
 include "header.php";
@@ -71,11 +72,13 @@ include "header.php";
 
                 <!-- Nav Item - Pages Collapse Menu -->
                 <li class="nav-item">
-                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+                        aria-expanded="true" aria-controls="collapsePages">
                         <i class="fas fa-fw fa-folder"></i>
                         <span>Pages</span>
                     </a>
-                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div id="collapsePages" class="collapse" aria-labelledby="headingPages"
+                        data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Pages manager</h6>
                             <a class="collapse-item" href="../admin">Quản trị sản phẩm.</a>
@@ -84,7 +87,7 @@ include "header.php";
                             <a class="collapse-item" href="../admin/category.php">Quản tri loại sản phẩm.</a>
                             <a class="collapse-item" href="../admin/manufacture.php">Quản tri hãng sản xuất.</a>
                             <a class="collapse-item" href="forgot-password.html">Quản tri người dùng.</a>
-                            <a class="collapse-item" href="slider.php">Quản tri sliders.</a>
+                            <a class="collapse-item" href="forgot-password.html">Quản tri sliders.</a>
                             <!-- <div class="collapse-divider"></div>
                             <h6 class="collapse-header">Other Pages:</h6>
                             <a class="collapse-item" href="404.html">404 Page</a>
@@ -115,9 +118,11 @@ include "header.php";
                         </button>
 
                         <!-- Topbar Search -->
-                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <form
+                            class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                             <div class="input-group">
-                                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                <input type="text" class="form-control bg-light border-0 small"
+                                    placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" type="button">
                                         <i class="fas fa-search fa-sm"></i>
@@ -131,14 +136,18 @@ include "header.php";
 
                             <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                             <li class="nav-item dropdown no-arrow d-sm-none">
-                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-search fa-fw"></i>
                                 </a>
                                 <!-- Dropdown - Messages -->
-                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+                                    aria-labelledby="searchDropdown">
                                     <form class="form-inline mr-auto w-100 navbar-search">
                                         <div class="input-group">
-                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <input type="text" class="form-control bg-light border-0 small"
+                                                placeholder="Search for..." aria-label="Search"
+                                                aria-describedby="basic-addon2">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary" type="button">
                                                     <i class="fas fa-search fa-sm"></i>
@@ -152,12 +161,14 @@ include "header.php";
 
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
-                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
                                     <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
                                 </a>
                                 <!-- Dropdown - User Information -->
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                    aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="#">
                                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Profile
@@ -183,18 +194,37 @@ include "header.php";
                     </nav>
                     <!-- End of Topbar -->
 
-
                     <!-- Begin Page Content -->
                     <div class="container-fluid">
 
                         <!-- Page Heading -->
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                    class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                         </div>
 
                         <!-- Project Card Example -->
-                        <?php include "./manager/product/products.php" ?>
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3 d-flex justify-content-between align-items-center">
+                                <h6 class="m-0 font-weight-bold text-primary">MANUFACTURE</h6>
+                                <a href="#add-new-manufacture" class="btn btn-primary btn-icon-split ms-auto
+                                    d-flex justify-content-between align-items-center">
+                                    <svg width="20" height="20" fill="currentColor" class="bi bi-plus-circle ml-1"
+                                        viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                        <path
+                                            d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                                    </svg>
+                                    <span class="text" data-toggle="modal" data-target="#editManuModal" id="add-manu-btn">Thêm mới</span>
+                                </a>
+                            </div>
+                            <table id="project-table">
+                                <?= $manucontrol->display_manus(); ?>
+                            </table>
+
+                        </div>
 
                     </div>
                     <!-- /.container-fluid -->
@@ -225,7 +255,7 @@ include "header.php";
         </a>
 
         <!-- Model bootstrap for edit product -->
-        <?php include "./views/edit-product.php" ?>
+        <?php include "./views/edit-manufacture.php"; ?>
 
         <?php
         include "footer.php"

@@ -8,6 +8,7 @@ cacheResult ="false"
 <testsuites>
 <testsuite name="SqlWsContractImport">
 <file>./test/CategoryTest.php</file>
+<file>./tests/testProfile.php</file>
 <!-- <file>./Tests/UserModelTests.php</file> -->
 <!-- <file>./Tests/UserModelTest.php</file> -->
 <!-- <file>./Tests/LaiSuatTest.php</file>
@@ -23,7 +24,11 @@ cacheResult ="false"
 
 </whitelist>
 </filter>
-
+<filter>
+<whitelist processUncoveredFilesFromWhitelist="true">
+<directory suffix=".php">./model</directory>
+</whitelist>
+</filter>
 <php>
 <server name="APP_ENV" value="testing"/>
 <server name="BCRYPT_ROUNDS" value="4"/>

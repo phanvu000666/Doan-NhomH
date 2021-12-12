@@ -1,7 +1,8 @@
 {
     "autoload":{
         "classmap": [
-            "admin/protype/"
+            "admin/protype/",
+            "model/"
         ]
     },
     "require-dev":{
