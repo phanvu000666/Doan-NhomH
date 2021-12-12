@@ -28,9 +28,9 @@ class Manufacture extends Product
         $result = $this->db->select($sql, $params);
         return $result;
     }
-
     public function insert(array $param)
     {   
+        $is_finished = false;
         if (is_array($param) && count($param) == 1) {
             $sql = "INSERT INTO manufacturers(ManufacturerName) 
             VALUES(:ManufacturerName)";
@@ -40,7 +40,8 @@ class Manufacture extends Product
     }
 
     public function delete($params)
-    {
+    { 
+        
         $is_finished = !empty($params['ManufacturerID']);
         $sql = "DELETE FROM manufacturers WHERE ManufacturerID = :ManufacturerID";
         $is_finished =  $this->db->notSelect($sql, $params);
@@ -49,6 +50,8 @@ class Manufacture extends Product
 
     public function update($params)
     {
+        // $sql = "";
+        // $is_finished = false;
         // var_dump($params);die();
         // array(3) { ["ManufacturerID"]=> string(2) "13" ["ManufacturerName"]=> string(4) "Dell" ["Version"]=> string(1) "0" }
                 // tang version neu so sanh thanh cong.
@@ -72,13 +75,16 @@ class Manufacture extends Product
         
     }
 
-    private function setVersion($param)
+    private function setVersion($id)
     {
-        $sql = "UPDATE manufacturers 
-        SET Version = Version + 1
-        WHERE ManufacturerID =:ManufacturerID";
-        $params = ['ManufacturerID' => $param];
-        $is_finished =  $this->db->notSelect($sql, $params);
+        $is_finished = false;
+        if (is_int($id)) {
+
+            $sql = "UPDATE manufacturers SET Version = Version + 1 WHERE ManufacturerID =:ManufacturerID";
+
+            $param = ["ManufacturerID" => $id];
+            $is_finished =  $this->db->notSelect($sql, $param);
+        }
         return $is_finished;
     }
     public function startTransaction()
