@@ -96,6 +96,7 @@ class CategoryController
         ) {
             // lay id va delete.
             $id = decryptionID($_POST['id']);
+            $id = (int) $id;
             $result = $this->cate->getOne($id);
 
             // neu delete thanh cong tra ve json bao thanh cong.
@@ -150,15 +151,21 @@ class CategoryController
     public function update()
     {
         $result = false;
+        // var_dump($_POST);
         // kiem tra thuoc kieu update.
         if (
             isset($_POST['CategoryID']) &&
             isset($_POST['action']) &&
             $_POST['action'] === "update"
         ) {
+            $ver = $this->cate->getVersion($_POST['CategoryID']);
+            if ($ver[0]['Version'] == $_POST['Version']) {
             // lay id va update.
             $result = $this->cate->updateOne($_POST);
-
+                if ($result == true) {
+                    $this->cate->setVersion($_POST['CategoryID']);
+                }
+            }
             // neu update thanh cong tra ve json bao thanh cong.
             if ($result) {
                 echo json_encode(array(
@@ -179,6 +186,7 @@ class CategoryController
     public function insert()
     {
         $result = false;
+       
         // kiem tra thuoc kieu insert.
         if (
             isset($_POST['CategoryName']) &&
@@ -186,6 +194,7 @@ class CategoryController
             isset($_POST['action']) &&
             $_POST['action'] === "add"
         ) {
+            var_dump($_POST);
             // lay id va insert.
             $result = $this->cate->insertOne($_POST);
 
@@ -195,6 +204,7 @@ class CategoryController
                     'success' => true,
                     'message' => "Insert successfully!"
                 ));
+                
                 die;
             } else {
                 // neu insert khong thanh cong tra ve json bao loi.

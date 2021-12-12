@@ -13,6 +13,7 @@
                 <form action="" id="formCateInfo" enctype="multipart/form-data">
                     <input type="text" name="CategoryID" id="CategoryID" hidden>
                     <input type="text" name="Version" id="Version" hidden>
+                    <input type="text" name="Hash" id="Hash" hidden>
                     <p>
                         <label for="ProductName">
                             Name category
@@ -110,12 +111,16 @@
                             const InputCategoryName = document.querySelector('#CategoryName');
                             const InputPosition = document.querySelector('#Position');
                             const InputVersion = document.querySelector('#Version');
+                            const InputHash = document.querySelector('#Hash');
 
                             // gan du lieu tu database len form.
                             InputCategoryID.value = data.CategoryID;
                             InputCategoryName.value = data.CategoryName;
                             InputPosition.value = data.Position;
                             InputVersion.value = data.Version;
+                            InputHash.value = data.Hash;
+
+                            
                         }
                     },
                     error: function(e) {
@@ -132,9 +137,11 @@
             const InputCategoryName = document.querySelector('#CategoryName');
             const InputPosition = document.querySelector('#Position');
             const InputVersion = document.querySelector('#Version');
+            const InputHash = document.querySelector('#Hash');
 
             formData.set("CategoryName", InputCategoryName.value);
             formData.set("Position", InputPosition.value);
+           
 
             // category id va version rỗng thi thuc hien cong viec them.
             // category id va version không rỗng thi thuc hien cong viec chinh sua.
@@ -143,12 +150,13 @@
             } else {
                 formData.set("Version", InputVersion.value);
                 formData.set("CategoryID", InputCategoryID.value);
+                formData.set("Hash", InputHash.value);
                 formData.set("action", "update");
             }
 
             // xu ly ajax gui yeu cau xoa category
 
-            
+
             $.ajax({
                 url: "category",
                 contentType: false,
@@ -156,16 +164,18 @@
                 type: 'post',
                 data: formData,
                 success: function(reponse) {
-                    const {
-                        success,
-                        message
-                    } = JSON.parse(reponse);
-
-                    if (success) {
+                    console.log(reponse);
+                    // const {
+                    //     success,
+                    //     message
+                    // } = JSON.parse(reponse);
+                    // console.log(reponse);
+                    // if (success) {
+                    //     console.log(reponse);
                         location.reload();
-                    } else {
-                        console.log(message);
-                    }
+                    // } else {
+                    //     console.log(message);
+                    // }
                 },
                 error: function(e) {
                     alert("that bai");
@@ -175,29 +185,18 @@
         });
 
         // thuc hien tao moi lai form nhap lieu
-        addmanubutton.addEventListener('click', () => {
-            while (formcateinfo.firstChild) {
-                formcateinfo.removeChild(formcateinfo.firstChild);
-            }
-            formcateinfo.innerHTML = `
-                <input type="text" name="CategoryID" id="CategoryID" hidden>
-                <input type="text" name="Version" id="Version" hidden>
-                <p>
-                    <label for="ProductName">
-                        Name category
-                    </label>
-                    <input type="text" name="CategoryName" id="CategoryName">
-                </p>
-                <p>
-                    <label for="Price">
-                        Position category
-                    </label>
-                    <input type="number" name="Position" id="Position" min="0">
-                </p>
-            `;
+        addmanubutton.addEventListener('click', function(event) {
+            event.preventDefault();
+            clearForm();
         });
 
-
+        function clearForm() {
+            $("#CategoryID").val("");
+            $("#Version").val("");
+            $("#CategoryName").val("");
+            $("#Position").val("");
+            $("#Hash").val("");
+        }
         // ket thuc
     });
 </script>

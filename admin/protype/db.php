@@ -25,7 +25,12 @@ abstract class DB implements IDB
             $stmt->bindParam(":{$key}", $value);
         }
     }
+    public function getConnect()
+    {
+        return static::$con;
+    }
 }
+
 //mysqli
 class DBMYSQL extends DB
 {
